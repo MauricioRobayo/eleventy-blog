@@ -79,8 +79,6 @@ ul {
   margin: 4rem 0;
 }
 #projects > ul > li > img {
-  position: sticky;
-  position: --webkit-sticky;
   top: 0;
   grid-area: img;
   width: 100%;
