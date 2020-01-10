@@ -6,24 +6,22 @@ html {
 }
 
 body {
-  font-family: "IBM Plex Mono", monospace;
+  font-family: "IBM Plex Sans", sans-serif;
   color: var(--main-color);
 }
 header {
   padding: 4rem 0;
   text-align: center;
+  font-family: "IBM Plex Mono", monospace;
 }
 nav {
   text-transform: uppercase;
   font-size: 0.85rem;
-}
-nav a {
-  text-decoration: none;
-  color: var(--main-color);
-  transition: all 0.5s;
-}
-nav a:hover {
-  color: var(--main-lighter-color);
+  position: sticky;
+  position: --webkit-sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
 }
 h1 {
   text-transform: uppercase;
@@ -33,9 +31,11 @@ h1 {
 }
 h2 {
   margin: 4rem 0;
+  font-family: "IBM Plex Mono", monospace;
 }
 h3 {
   margin: 0;
+  font-family: "IBM Plex Mono", monospace;
 }
 main,
 footer {
@@ -49,13 +49,13 @@ footer {
   text-align: center;
   color: var(--main-light-color);
 }
-footer a {
-  color: var(--main-light-color);
-  text-decoration: underline;
+a {
+  color: var(--main-color);
+  text-decoration: none;
   transition: all 0.5s;
 }
-footer a:hover {
-  color: var(--main-lighter-color);
+a:hover {
+  color: var(--main-light-color);
 }
 
 ul {
@@ -72,6 +72,9 @@ ul {
   grid-template-areas: "img title" "img description" "img links";
 }
 #projects > ul > li > img {
+  position: sticky;
+  position: --webkit-sticky;
+  top: 0;
   grid-area: img;
   max-width: 100%;
 }
