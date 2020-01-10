@@ -1,0 +1,11 @@
+body {
+  font-family: "IBM Plex Mono", monospace;
+}
+h1 {
+  height: 100vh;
+  text-align: center;
+  line-height: 100vh;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.5rem;
+}
