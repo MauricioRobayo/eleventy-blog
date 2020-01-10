@@ -1,6 +1,8 @@
 html {
   --main-color: hsl(0, 0%, 27%);
-  --main-light-color: hsl(0, 0%, 17%);
+  --main-light-color: hsl(0, 0%, 47%);
+  --main-lighter-color: hsl(0, 0%, 67%);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -11,11 +13,29 @@ header {
   padding: 4rem 0;
   text-align: center;
 }
+nav {
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+nav a {
+  text-decoration: none;
+  color: var(--main-color);
+  transition: all 0.5s;
+}
+nav a:hover {
+  color: var(--main-lighter-color);
+}
 h1 {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 0.5rem;
   padding-bottom: 4rem;
+}
+h2 {
+  margin: 4rem 0;
+}
+h3 {
+  margin: 0;
 }
 main,
 footer {
@@ -31,5 +51,43 @@ footer {
 }
 footer a {
   color: var(--main-light-color);
-  text-decoration: none;
+  text-decoration: underline;
+  transition: all 0.5s;
+}
+footer a:hover {
+  color: var(--main-lighter-color);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#projects ul li {
+  margin: 1rem 0;
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-template-columns: 25% 1fr;
+  grid-template-areas: "img title" "img description" "img links";
+}
+#projects > ul > li > img {
+  grid-area: img;
+  max-width: 100%;
+}
+#projects > ul > li > h3 {
+  grid-area: title;
+}
+#projects > ul > li > p {
+  grid-area: description;
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+}
+#projects > ul > li > ul {
+  grid-area: links;
+  display: flex;
+}
+#projects > ul > li > ul > li {
+  margin: 0 0.5rem 0 0;
+  font-size: 0.85rem;
 }
