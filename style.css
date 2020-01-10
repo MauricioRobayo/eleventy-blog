@@ -1,11 +1,35 @@
+html {
+  --main-color: hsl(0, 0%, 27%);
+  --main-light-color: hsl(0, 0%, 17%);
+}
+
 body {
   font-family: "IBM Plex Mono", monospace;
+  color: var(--main-color);
+}
+header {
+  padding: 4rem 0;
+  text-align: center;
 }
 h1 {
-  height: 100vh;
-  text-align: center;
-  line-height: 100vh;
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 0.5rem;
+  padding-bottom: 4rem;
+}
+main,
+footer {
+  max-width: 490px;
+  padding: 2rem;
+  margin: 0 auto;
+}
+footer {
+  padding-top: 2rem;
+  font-size: 0.75rem;
+  text-align: center;
+  color: var(--main-light-color);
+}
+footer a {
+  color: var(--main-light-color);
+  text-decoration: none;
 }
