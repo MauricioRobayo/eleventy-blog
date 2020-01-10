@@ -4,10 +4,10 @@ html {
   --main-lighter-color: hsl(0, 0%, 67%);
   scroll-behavior: smooth;
 }
-
 body {
   font-family: "IBM Plex Sans", sans-serif;
   color: var(--main-color);
+  font-size: 16px;
 }
 header {
   padding-top: 4rem;
@@ -77,17 +77,13 @@ ul {
 
 #projects ul li {
   margin: 4rem 0;
-  display: grid;
-  grid-column-gap: 1rem;
-  grid-template-columns: 25% 1fr;
-  grid-template-areas: "img title" "img description" "img links";
 }
 #projects > ul > li > img {
   position: sticky;
   position: --webkit-sticky;
   top: 0;
   grid-area: img;
-  max-width: 100%;
+  width: 100%;
 }
 #projects > ul > li > h3 {
   grid-area: title;
@@ -104,4 +100,15 @@ ul {
 #projects > ul > li > ul > li {
   margin: 0 0.25rem 0 0;
   font-size: 0.85rem;
+}
+@media only screen and (min-width: 490px) {
+  body {
+    font-size: 18px;
+  }
+  #projects ul li {
+    display: grid;
+    grid-column-gap: 0.5rem;
+    grid-template-columns: 35% 1fr;
+    grid-template-areas: "img title" "img description" "img links";
+  }
 }
