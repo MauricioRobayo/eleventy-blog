@@ -47,6 +47,10 @@ h2 {
 h3 {
   font-family: "IBM Plex Mono", monospace;
 }
+h3 a {
+  color: var(--main-color);
+  text-decoration: none;
+}
 section {
   padding-top: 1rem;
 }
