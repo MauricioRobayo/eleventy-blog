@@ -81,14 +81,21 @@ ul {
 #projects ul li {
   margin: 4rem 0;
 }
-#projects > ul > li > img {
+#projects > ul > li > a {
+  grid-area: img;
+}
+#projects > ul > li > a:hover img {
+  background-color: var(--main-lighter-color);
+}
+
+#projects > ul > li img {
   box-sizing: border-box;
   top: 0;
-  grid-area: img;
   width: 100%;
   border-radius: 4px;
   border: 1px solid var(--main-lighter-color);
   padding: 4px;
+  transition: all 0.5s;
 }
 #projects > ul > li > h3 {
   grid-area: title;
