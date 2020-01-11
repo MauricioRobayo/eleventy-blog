@@ -70,7 +70,9 @@ a {
 a:hover {
   color: var(--link-color);
 }
-
+p {
+  line-height: 1.75;
+}
 ul {
   list-style: none;
   padding: 0;
