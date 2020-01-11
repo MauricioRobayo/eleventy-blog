@@ -45,7 +45,6 @@ h2 {
   text-align: center;
 }
 h3 {
-  margin: 0;
   font-family: "IBM Plex Mono", monospace;
 }
 section {
@@ -126,6 +125,9 @@ ul {
 @media only screen and (min-width: 490px) {
   body {
     font-size: 18px;
+  }
+  h3 {
+    margin: 0;
   }
   #projects ul li {
     display: grid;
