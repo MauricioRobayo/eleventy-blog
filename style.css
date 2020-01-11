@@ -112,11 +112,14 @@ ul {
   font-size: 0.85rem;
   font-weight: bold;
 }
-#contact > h3 {
+#contact > p {
   margin-bottom: 2rem;
 }
-#contact > h3:nth-child(4) {
+#contact > p:nth-child(5) {
   margin-top: 4rem;
+}
+#contact > div {
+  margin-bottom: 4rem;
 }
 @media only screen and (min-width: 490px) {
   body {
