@@ -82,9 +82,13 @@ ul {
   margin: 4rem 0;
 }
 #projects > ul > li > img {
+  box-sizing: border-box;
   top: 0;
   grid-area: img;
   width: 100%;
+  border-radius: 4px;
+  border: 1px solid var(--main-lighter-color);
+  padding: 4px;
 }
 #projects > ul > li > h3 {
   grid-area: title;
@@ -122,7 +126,7 @@ ul {
 #contact > div {
   margin-bottom: 4rem;
 }
-@media only screen and (min-width: 490px) {
+@media only screen and (min-width: 560px) {
   body {
     font-size: 18px;
   }
@@ -132,7 +136,7 @@ ul {
   #projects ul li {
     display: grid;
     grid-column-gap: 1rem;
-    grid-template-columns: 35% 1fr;
+    grid-template-columns: 45% 1fr;
     grid-template-areas: "img title" "img description" "img links";
   }
 }
