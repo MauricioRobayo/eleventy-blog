@@ -27,7 +27,24 @@ nav {
   z-index: 1;
   padding: 1.5rem 0;
 }
-nav > a {
+nav a,
+h1 a,
+h2 a,
+h3 a,
+h4 a {
+  color: var(--link-lighter-color);
+  transition: all 0.5s;
+  text-decoration: none;
+}
+nav a:hover,
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover {
+  color: var(--link-light-color);
+  text-decoration: none;
+}
+nav a {
   margin: 0 0.5rem;
 }
 h1 {
@@ -35,9 +52,6 @@ h1 {
   font-weight: bold;
   letter-spacing: 0.5rem;
   padding-bottom: 2.5rem;
-}
-h1 a {
-  text-decoration: none;
 }
 h2 {
   margin: 4rem 0;
@@ -67,11 +81,13 @@ footer {
   color: var(--main-light-color);
 }
 a {
-  color: var(--link-light-color);
+  text-decoration: none;
+  /* color: var(--link-light-color); */
   transition: all 0.5s;
 }
 a:hover {
-  color: var(--link-color);
+  text-decoration: underline;
+  /* color: var(--link-color); */
 }
 p {
   line-height: 1.75;
@@ -90,6 +106,7 @@ ul {
 }
 #projects > ul > li > a:hover img {
   background-color: var(--main-lighter-color);
+  opacity: 0.75;
 }
 
 #projects > ul > li img {
