@@ -4,6 +4,7 @@ html {
   --main-lighter-color: hsl(0, 0%, 67%);
   --link-color: var(--main-color);
   --link-light-color: var(--main-light-color);
+  --content-width: 490px;
   scroll-behavior: smooth;
 }
 body {
@@ -15,6 +16,18 @@ header {
   padding-top: 4rem;
   text-align: center;
   font-family: "IBM Plex Mono", monospace;
+}
+header ul {
+  border-top: 1px solid var(--main-lighter-color);
+  max-width: var(--content-width);
+  display: flex;
+  justify-content: center;
+  margin: 0.25rem auto 2.5rem;
+  padding-top: 0.5rem;
+  font-size: 0.85rem;
+}
+header ul li {
+  margin: 0 0.25rem;
 }
 nav {
   text-align: center;
@@ -51,7 +64,7 @@ h1 {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 0.5rem;
-  padding-bottom: 2.5rem;
+  margin-bottom: 0.25rem;
 }
 h2 {
   margin: 4rem 0;
@@ -70,7 +83,7 @@ section {
 }
 main,
 footer {
-  max-width: 490px;
+  max-width: var(--content-width);
   padding: 2rem;
   margin: 0 auto;
 }
