@@ -27,6 +27,7 @@ header ul {
   z-index: 0;
   transition: transform 0.5s;
 }
+h1:hover + ul,
 header ul:hover {
   transform: translateY(0);
 }
