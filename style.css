@@ -106,10 +106,11 @@ ul {
 }
 #projects > ul > li > a:hover img {
   background-color: var(--main-lighter-color);
-  opacity: 0.75;
+  opacity: 1;
 }
 
 #projects > ul > li img {
+  opacity: 0.85;
   box-sizing: border-box;
   top: 0;
   width: 100%;
