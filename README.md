@@ -15,8 +15,8 @@ Source code for my [portfolio page](https://www.mauriciorobayo.com).
 
 ## Contribute
 
-Do not hesitate to improve this page by creating a Pull Request or opening an issue.
+Do not hesitate to create a Pull Request or to open an issue.
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE).
