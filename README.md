@@ -6,7 +6,7 @@ Source code for my [portfolio page](https://www.mauriciorobayo.com).
 
 ## Build With
 
-- Plain oldschool HTML and CSS.
+- Plain old-school HTML and CSS.
 - Hosted on GitHub pages.
 
 ## Live Site
