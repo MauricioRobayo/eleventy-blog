@@ -105,12 +105,10 @@ footer {
 }
 a {
   text-decoration: none;
-  /* color: var(--link-light-color); */
   transition: all 0.5s;
 }
 a:hover {
   text-decoration: underline;
-  /* color: var(--link-color); */
 }
 p {
   line-height: 1.75;
