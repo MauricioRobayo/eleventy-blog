@@ -125,12 +125,12 @@ ul {
 #projects > ul > li > a {
   grid-area: img;
 }
-#projects > ul > li > a:hover img {
+#projects > ul > li > a:hover > img {
   background-color: var(--main-lighter-color);
   opacity: 1;
 }
 
-#projects > ul > li img {
+#projects > ul > li > a > img {
   opacity: 0.85;
   box-sizing: border-box;
   top: 0;
