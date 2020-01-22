@@ -118,19 +118,33 @@ ul {
   padding: 0;
   margin: 0;
 }
-
-#projects ul li {
+.project {
   margin: 4rem 0;
 }
-#projects > ul > li > a {
+.project a {
   grid-area: img;
 }
-#projects > ul > li > a:hover > img {
+.project a:hover > .repo-img {
   background-color: var(--main-lighter-color);
   opacity: 1;
 }
-
-#projects > ul > li > a > img {
+.project h3 {
+  grid-area: title;
+}
+.project p {
+  grid-area: description;
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
+}
+.project ul {
+  grid-area: links;
+  display: flex;
+}
+.project ul > li {
+  margin: 0 0.25rem 0 0;
+  font-size: 0.85rem;
+}
+.project-img {
   opacity: 0.85;
   box-sizing: border-box;
   top: 0;
@@ -139,22 +153,6 @@ ul {
   border: 1px solid var(--main-lighter-color);
   padding: 4px;
   transition: all 0.5s;
-}
-#projects > ul > li > h3 {
-  grid-area: title;
-}
-#projects > ul > li > p {
-  grid-area: description;
-  font-size: 0.85rem;
-  margin: 0.5rem 0;
-}
-#projects > ul > li > ul {
-  grid-area: links;
-  display: flex;
-}
-#projects > ul > li > ul > li {
-  margin: 0 0.25rem 0 0;
-  font-size: 0.85rem;
 }
 #contact {
   text-align: center;
