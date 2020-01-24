@@ -21,18 +21,51 @@ header ul {
   display: none;
   max-width: var(--content-width);
   justify-content: center;
-  margin: 0.25rem auto 2.5rem;
+  margin: 1rem auto 2.5rem;
   font-size: 0.85rem;
-  transform: translateY(-12px);
   z-index: 0;
-  transition: transform 0.5s;
 }
-header:hover > ul {
-  transform: translateY(0);
+@keyframes hide {
+  75% {
+    transform: translateY(6px);
+  }
+  100% {
+    transform: translateY(-24px);
+  }
+}
+header ul {
+  transition: all 0.5s;
 }
 header ul li {
-  margin: 0 0.25rem;
+  margin: 0 1rem;
 }
+header:hover > ul {
+  transform: translateY(24px);
+}
+.icon {
+  width: 1rem;
+  fill: var(--main-color);
+}
+.icon.email {
+  animation: hide 0.5s forwards ease-out;
+  animation-delay: 1s;
+}
+.icon.github {
+  animation: hide 0.5s forwards ease-out;
+  animation-delay: 1.25s;
+}
+.icon.linkedin {
+  animation: hide 0.5s forwards ease-out;
+  animation-delay: 1.5s;
+}
+.icon.twitter {
+  animation: hide 0.5s forwards ease-out;
+  animation-delay: 1.75s;
+}
+.icon:hover {
+  fill: var(--main-lighter-color);
+}
+
 nav {
   text-align: center;
   text-transform: uppercase;
@@ -50,7 +83,6 @@ h2 a,
 h3 a,
 h4 a {
   color: var(--link-lighter-color);
-  transition: all 0.5s;
   text-decoration: none;
 }
 nav a:hover,
