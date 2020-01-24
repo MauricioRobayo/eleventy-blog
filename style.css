@@ -13,12 +13,12 @@ body {
   font-size: 16px;
 }
 header {
-  padding-top: 4rem;
+  padding: 4rem 2rem 0;
   text-align: center;
   font-family: "IBM Plex Mono", monospace;
 }
 header ul {
-  display: none;
+  display: flex;
   max-width: var(--content-width);
   justify-content: center;
   margin: 1rem auto 2.5rem;
@@ -99,14 +99,16 @@ nav a {
 h1 {
   max-width: var(--content-width);
   text-transform: uppercase;
+  text-align: center;
   font-weight: bold;
   letter-spacing: 0.5rem;
+  padding-left: 0.5rem;
   margin: 2rem auto 0.25rem;
   background-color: white;
   position: relative;
+  box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.5);
   z-index: 1;
-  border-bottom: none;
-  box-shadow: none;
 }
 h2 {
   margin: 4rem 0;
@@ -207,15 +209,8 @@ ul {
   margin-bottom: 4rem;
 }
 @media only screen and (min-width: 560px) {
-  header ul {
-    display: flex;
-  }
   body {
     font-size: 18px;
-  }
-  h1 {
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.5);
   }
   h3 {
     margin: 0;
