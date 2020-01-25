@@ -149,23 +149,15 @@ ul {
 .project {
   margin: 4rem 0;
 }
-.project a {
-  grid-area: img;
-}
 .project a:hover > .repo-img {
   background-color: var(--main-lighter-color);
   opacity: 1;
 }
-.project h3 {
-  grid-area: title;
-}
 .project p {
-  grid-area: description;
   font-size: 0.85rem;
   margin: 0.5rem 0;
 }
 .project ul {
-  grid-area: links;
   display: flex;
 }
 .project ul > li {
