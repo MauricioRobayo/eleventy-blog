@@ -149,13 +149,12 @@ ul {
 .project {
   margin: 4rem 0;
 }
-.project a:hover > .repo-img {
-  background-color: var(--main-lighter-color);
-  opacity: 1;
+.project h3 {
+  margin-bottom: 0.5rem;
 }
 .project p {
   font-size: 0.85rem;
-  margin: 0.5rem 0;
+  margin: 0;
 }
 .project ul {
   display: flex;
@@ -170,9 +169,9 @@ ul {
   top: 0;
   width: 100%;
   border-radius: 4px;
-  border: 1px solid var(--main-lighter-color);
-  padding: 4px;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.15);
   transition: all 0.5s;
+  margin: 0.5rem 0;
 }
 #contact {
   text-align: center;
