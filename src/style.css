@@ -176,8 +176,6 @@ ul {
   top: 0;
   width: 100%;
   transition: all 0.5s;
-  border-top: 0.5px solid var(--main-lighter-color);
-  border-bottom: 0.5px solid var(--main-lighter-color);
   margin: 0.5rem 0;
 }
 #contact {
