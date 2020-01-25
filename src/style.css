@@ -38,12 +38,12 @@ header ul li {
 }
 .icon {
   width: 1rem;
-  fill: var(--main-color);
+  fill: var(--main-light-color);
   transform: translateY(-24px);
   animation: appear 0.25s ease-in forwards;
 }
 .icon:hover {
-  fill: var(--link-light-color);
+  fill: var(--main-lighter-color);
 }
 .icon.email {
   animation-delay: 0.2s;
