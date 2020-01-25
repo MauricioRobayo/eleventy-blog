@@ -1,9 +1,10 @@
 html {
-  --main-color: hsl(0, 0%, 27%);
-  --main-light-color: hsl(0, 0%, 47%);
-  --main-lighter-color: hsl(0, 0%, 67%);
+  --main-color: hsl(0, 0%, 25%);
+  --main-color-light: hsl(0, 0%, 45%);
+  --main-color-lighter: hsl(0, 0%, 65%);
+  --main-light: hsl(0, 0%, 85%);
   --link-color: var(--main-color);
-  --link-light-color: var(--main-light-color);
+  --link-light-color: var(--main-color-light);
   --content-width: 490px;
   scroll-behavior: smooth;
 }
@@ -39,7 +40,7 @@ header ul li {
 .icon {
   width: 1rem;
   height: 1rem;
-  fill: var(--main-light-color);
+  fill: var(--main-color-light);
   transform: translateY(-24px);
   animation: appear 0.25s ease-in forwards;
   transition: all 0.5s;
@@ -127,7 +128,7 @@ footer {
   padding-top: 2rem;
   font-size: 0.75rem;
   text-align: center;
-  color: var(--main-light-color);
+  color: var(--main-color-light);
 }
 a {
   text-decoration: none;
@@ -148,18 +149,31 @@ ul {
   max-width: calc(var(--content-width) * 2);
 }
 .project {
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.15);
   margin: 4rem 0;
-  padding: 1rem 0;
-  border-radius: 2px;
+  border-radius: 4px;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.15);
 }
-.project h3,
-.project ul,
-.project p {
-  padding: 0 1rem;
+
+.project-header,
+.project-footer {
+  padding: 1rem;
+}
+.project-header {
+  text-align: center;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.project-header ul {
+  justify-content: center;
 }
 .project h3 {
   margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+}
+.project-footer {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 .project p {
   font-size: 0.85rem;
@@ -178,7 +192,7 @@ ul {
   top: 0;
   width: 100%;
   transition: all 0.5s;
-  margin: 0.5rem 0;
+  display: block;
 }
 #contact {
   text-align: center;
