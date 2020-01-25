@@ -38,6 +38,7 @@ header ul li {
 }
 .icon {
   width: 1rem;
+  height: 1rem;
   fill: var(--main-light-color);
   transform: translateY(-24px);
   animation: appear 0.25s ease-in forwards;
