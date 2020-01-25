@@ -147,10 +147,17 @@ ul {
   max-width: calc(var(--content-width) * 2);
 }
 .project {
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.15);
   margin: 4rem 0;
+  padding: 1rem 0;
+}
+.project h3,
+.project ul,
+.project p {
+  padding: 0 1rem;
 }
 .project h3 {
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem;
 }
 .project p {
   font-size: 0.85rem;
@@ -168,9 +175,9 @@ ul {
   box-sizing: border-box;
   top: 0;
   width: 100%;
-  border-radius: 4px;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.15);
   transition: all 0.5s;
+  border-top: 0.5px solid var(--main-lighter-color);
+  border-bottom: 0.5px solid var(--main-lighter-color);
   margin: 0.5rem 0;
 }
 #contact {
