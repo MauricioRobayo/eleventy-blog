@@ -42,6 +42,9 @@ header ul li {
   transform: translateY(-24px);
   animation: appear 0.25s ease-in forwards;
 }
+.icon:hover {
+  fill: var(--link-light-color);
+}
 .icon.email {
   animation-delay: 0.2s;
 }
