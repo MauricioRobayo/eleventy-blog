@@ -46,7 +46,7 @@ header ul li {
   transition: all 0.5s;
 }
 .icon:hover {
-  fill: var(--main-lighter-color);
+  fill: var(--main-color-lighter);
 }
 .icon.email {
   animation-delay: 0.2s;
@@ -100,7 +100,7 @@ h1 {
   margin: 2rem auto 0.25rem;
   background-color: white;
   position: relative;
-  border-bottom: 1px solid var(--main-lighter-color);
+  border-bottom: 1px solid var(--main-color-lighter);
   z-index: 1;
 }
 h2 {
