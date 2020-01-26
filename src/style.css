@@ -181,6 +181,7 @@ ul {
 }
 .project ul {
   display: flex;
+  flex-wrap: wrap;
 }
 .project ul > li {
   margin: 0 0.25rem 0 0;
