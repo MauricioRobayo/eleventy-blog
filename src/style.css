@@ -3,8 +3,10 @@ html {
   --main-color-light: hsl(0, 0%, 45%);
   --main-color-lighter: hsl(0, 0%, 65%);
   --main-light: hsl(0, 0%, 85%);
+  --main-lighter: hsl(0, 0%, 95%);
   --link-color: var(--main-color);
   --link-light-color: var(--main-color-light);
+  --sucess: green;
   --content-width: 490px;
   scroll-behavior: smooth;
 }
@@ -40,24 +42,27 @@ header ul li {
 .icon {
   width: 1rem;
   height: 1rem;
+}
+header .icon {
   fill: var(--main-color-light);
   transform: translateY(-24px);
   animation: appear 0.25s ease-in forwards;
   transition: all 0.5s;
 }
-.icon:hover {
+
+header .icon:hover {
   fill: var(--main-color-lighter);
 }
-.icon.email {
+header .icon.email {
   animation-delay: 0.2s;
 }
-.icon.github {
+header .icon.github {
   animation-delay: 0.4s;
 }
-.icon.linkedin {
+header .icon.linkedin {
   animation-delay: 0.6s;
 }
-.icon.twitter {
+header .icon.twitter {
   animation-delay: 0.8s;
 }
 nav {
@@ -167,64 +172,59 @@ ul {
   justify-content: center;
 }
 .project h3 {
-  margin: 0 0 0.5rem;
+  margin: 0;
   font-size: 1.15rem;
   text-transform: uppercase;
-}
-.project-body {
-  display: grid;
-  overflow: hidden;
-  transition: all 0.5s;
-}
-.project-body:hover > .project-secondary-badges > li {
-  transform: translateX(0);
-}
-.project-secondary-badges > li:nth-of-type(2) {
-  transition-delay: 0.2s;
-}
-.project-secondary-badges > li:nth-of-type(3) {
-  transition-delay: 0.4s;
-}
-.project-secondary-badges > li:nth-of-type(4) {
-  transition-delay: 0.6s;
-}
-.project-body:hover > .project-img {
-  opacity: 0.5;
-}
-.project-secondary-badges {
-  grid-area: 1 / 1;
-  z-index: 1;
-  align-self: end;
-  padding: 1rem;
-}
-.project-secondary-badges > li {
-  transform: translateX(-220px);
-  transition: all 0.5s;
 }
 .project-footer {
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 }
-.project p {
+.project-footer p {
   font-size: 0.85rem;
   margin: 0;
 }
-.project-main-badges {
-  display: flex;
-  flex-wrap: wrap;
+.project-main-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1px;
+  font-size: 0.75rem;
 }
-.project ul > li {
-  margin: 0 0.25rem 0 0;
-  font-size: 0.85rem;
+.project-main-links > li {
+  background-color: var(--sucess);
+  opacity: 0.75;
+  text-transform: lowercase;
+  padding: 0.25rem 0;
+  transition: all 0.5s;
+  font-family: "IBM Plex Mono", monospace;
+  overflow: hidden;
+}
+.project-main-links > li .icon {
+  fill: white;
+  margin-right: 0.25rem;
+  transition: all 0.5s;
+  height: 14px;
+  width: 14px;
+}
+.project-main-links a::after {
+  content: "↗";
+  margin-left: 0.25rem;
+}
+.project-main-links a {
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.project-main-links > li:hover {
+  opacity: 1;
 }
 .project-img {
-  grid-area: 1 / 1;
   box-sizing: border-box;
-  top: 0;
   width: 100%;
-  transition: all 0.5s;
   display: block;
-  z-index: 0;
 }
 #contact {
   text-align: center;
