@@ -6,7 +6,7 @@ html {
   --main-lighter: hsl(0, 0%, 95%);
   --link-color: var(--main-color);
   --link-light-color: var(--main-color-light);
-  --sucess: green;
+  --success: green;
   --content-width: 490px;
   scroll-behavior: smooth;
 }
@@ -195,7 +195,7 @@ ul {
   font-size: 0.75rem;
 }
 .project-main-links > li {
-  background-color: var(--sucess);
+  background-color: var(--success);
   opacity: 0.75;
   text-transform: lowercase;
   padding: 0.5rem 0;
