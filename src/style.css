@@ -153,8 +153,12 @@ ul {
 #projects {
   max-width: calc(var(--content-width) * 2);
 }
+#projects-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-gap: 2rem;
+}
 .project {
-  margin: 4rem 0;
   border-radius: 4px;
   box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.15);
 }
@@ -249,13 +253,5 @@ ul {
 @media only screen and (min-width: 560px) {
   body {
     font-size: 18px;
-  }
-  #projects-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    grid-gap: 2rem;
-  }
-  .project {
-    margin: 0;
   }
 }
