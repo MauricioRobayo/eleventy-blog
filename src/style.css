@@ -198,7 +198,7 @@ ul {
   background-color: var(--sucess);
   opacity: 0.75;
   text-transform: lowercase;
-  padding: 0.25rem 0;
+  padding: 0.5rem 0;
   transition: all 0.5s;
   font-family: "IBM Plex Mono", monospace;
   overflow: hidden;
