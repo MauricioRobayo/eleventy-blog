@@ -189,14 +189,13 @@ ul {
 }
 .project-main-links {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-auto-flow: column;
   grid-column-gap: 1px;
   font-size: 0.75rem;
 }
 .project-main-links > li {
   background-color: var(--main-lighter);
   text-transform: lowercase;
-  padding: 0.5rem 0;
   transition: all 0.5s;
   font-family: "IBM Plex Mono", monospace;
   overflow: hidden;
@@ -212,13 +211,14 @@ ul {
   content: "↗";
   margin-left: 0.25rem;
 }
-.project-main-links a {
+.project-main-links li a {
   color: var(--main-color-lighter);
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  padding: 0.5rem 0;
 }
 .project-main-links > li:hover {
   background-color: var(--main-color-light);
