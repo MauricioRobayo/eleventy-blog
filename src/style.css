@@ -6,7 +6,6 @@ html {
   --main-lighter: hsl(0, 0%, 95%);
   --link-color: var(--main-color);
   --link-light-color: var(--main-color-light);
-  --success: green;
   --content-width: 490px;
   scroll-behavior: smooth;
 }
@@ -195,8 +194,7 @@ ul {
   font-size: 0.75rem;
 }
 .project-main-links > li {
-  background-color: var(--success);
-  opacity: 0.75;
+  background-color: var(--main-lighter);
   text-transform: lowercase;
   padding: 0.5rem 0;
   transition: all 0.5s;
@@ -204,7 +202,7 @@ ul {
   overflow: hidden;
 }
 .project-main-links > li .icon {
-  fill: white;
+  fill: var(--main-color-lighter);
   margin-right: 0.25rem;
   transition: all 0.5s;
   height: 14px;
@@ -215,7 +213,7 @@ ul {
   margin-left: 0.25rem;
 }
 .project-main-links a {
-  color: white;
+  color: var(--main-color-lighter);
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -223,7 +221,13 @@ ul {
   text-decoration: none;
 }
 .project-main-links > li:hover {
-  opacity: 1;
+  background-color: var(--main-color-light);
+}
+.project-main-links > li:hover svg {
+  fill: white;
+}
+.project-main-links > li:hover a {
+  color: white;
 }
 .project-img {
   box-sizing: border-box;
