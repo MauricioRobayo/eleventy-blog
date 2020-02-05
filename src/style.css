@@ -4,6 +4,7 @@ html {
   --main-color-lighter: hsl(0, 0%, 65%);
   --main-light: hsl(0, 0%, 85%);
   --main-lighter: hsl(0, 0%, 95%);
+  --color-success: forestgreen;
   --link-color: var(--main-color);
   --link-light-color: var(--main-color-light);
   --content-width: 490px;
@@ -221,7 +222,7 @@ ul {
   padding: 0.5rem 0;
 }
 .project-main-links > li:hover {
-  background-color: var(--main-color-light);
+  background-color: var(--color-success);
 }
 .project-main-links > li:hover svg {
   fill: white;
