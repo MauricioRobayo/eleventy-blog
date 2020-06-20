@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import About from "./components/About";
 import Projects from "./components/Projects";
+import Contact from "./components/Contact"
 import { Portfolio } from "./types";
 
 interface State {
@@ -40,8 +41,9 @@ class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <Header basics={basics} isLoading={isLoading}></Header>
-        <About {...basics}></About>
+        {!isLoading && <About {...basics}></About>}
         {projects && <Projects projects={projects}></Projects>}
+        {! isLoading && <Contact {...basics}></Contact>}
       </div>
     );
   }

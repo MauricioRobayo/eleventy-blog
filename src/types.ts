@@ -5,9 +5,10 @@ export interface Portfolio {
 
 export interface Basics {
   name: string;
-  website: string;
+  website?: string;
   profiles?: Profile[];
   summary?: string;
+  email?: string;
 }
 
 export interface Profile {
