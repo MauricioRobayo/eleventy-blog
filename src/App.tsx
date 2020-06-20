@@ -2,14 +2,11 @@ import React from "react";
 import "./App.css";
 import Header from "./components/Header";
 import About from "./components/About";
-import { Basics } from "./types";
-
-interface Portfolio {
-  basics: Basics;
-}
+import Projects from "./components/Projects";
+import { Portfolio } from "./types";
 
 interface State {
-  profile: Portfolio;
+  portfolio: Portfolio;
   isLoading: Boolean;
 }
 
@@ -18,7 +15,7 @@ class App extends React.Component<{}, State> {
     super(props);
     this.state = {
       isLoading: true,
-      profile: {
+      portfolio: {
         basics: {
           name: "Mauricio Robayo",
           website: "https://www.mauriciorobayo.com",
@@ -33,17 +30,18 @@ class App extends React.Component<{}, State> {
       .then((json) =>
         this.setState({
           isLoading: false,
-          profile: json,
+          portfolio: json,
         })
       );
   }
 
   render() {
-    const { profile: basics, isLoading } = this.state;
+    const { portfolio: {basics, projects }, isLoading } = this.state;
     return (
       <div className="App">
-        <Header {...basics} isLoading={isLoading}></Header>
-        <About {...basics} isLoading={isLoading}></About>
+        <Header basics={basics} isLoading={isLoading}></Header>
+        <About {...basics}></About>
+        {projects && <Projects projects={projects}></Projects>}
       </div>
     );
   }
