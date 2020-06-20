@@ -7,9 +7,12 @@ interface Props {
 }
 
 const Projects: FunctionComponent<Props> = ({projects }: Props) => (
+  <section>
+  <h2>Projects</h2>
   <ul>
     {projects.map((project) => <ProjectCard {...project}></ProjectCard>)}
   </ul>
+  </section>
 )
 
 export default Projects;
