@@ -37,16 +37,16 @@ class App extends React.Component<{}, State> {
   }
 
   render() {
-    const { portfolio: {basics, projects }, isLoading } = this.state;
+    const { portfolio: {basics: { name, website, email, summary, headline, profiles }, projects }, isLoading } = this.state;
     if (isLoading) {
-      return <Header basics={basics} isLoading></Header>
+      return <Header website={website} name={name} profiles={profiles} isLoading></Header>
     }
     return (
       <div className="App">
-        <Header basics={basics}></Header>
-        <About {...basics}></About>
+        <Header website={website} name={name} profiles={profiles}></Header>
+        <About summary={summary} headline={headline}></About>
         <Projects projects={projects}></Projects>
-        <Contact {...basics}></Contact>
+        <Contact email={email} profiles={profiles}></Contact>
       </div>
     );
   }
