@@ -3,7 +3,7 @@
 }
 
 .title {
-  margin: calc(2rem + 2vh) 1rem;
-  padding: 0 2rem 1rem;
+  margin: calc(2rem + 5vh) 1rem 1rem;
+  padding: 0 2rem 0.5rem;
   border-bottom: 1px solid white;
 }

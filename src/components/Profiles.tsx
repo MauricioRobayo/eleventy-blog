@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Profile } from "../types";
 import ProfileItem from "./ProfileItem";
+import styles from './Profiles.module.css'
 
 interface Props {
   profiles: Profile[] | undefined;
@@ -13,7 +14,7 @@ const Profiles: FunctionComponent<Props> = ({ profiles }: Props) => {
     return null;
   }
   return (
-    <ul>
+    <ul className={styles.profiles}>
       {profiles
         ?.filter((profile: Profile) => displayedProfiles.includes(profile.network.toLowerCase())
         )
