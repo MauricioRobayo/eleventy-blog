@@ -1,0 +1,9 @@
+.header {
+  text-transform: uppercase;
+}
+
+.title {
+  margin: calc(2rem + 2vh) 1rem;
+  padding: 0 2rem 1rem;
+  border-bottom: 1px solid white;
+}
