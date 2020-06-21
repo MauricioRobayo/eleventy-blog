@@ -17,8 +17,8 @@ const Profiles: FunctionComponent<Props> = ({ profiles }: Props) => {
       {profiles
         ?.filter((profile: Profile) => displayedProfiles.includes(profile.network.toLowerCase())
         )
-        .map((profile: Profile) => (
-          <ProfileItem {...profile}></ProfileItem>
+        .map(({network, url, username}: Profile) => (
+          <ProfileItem key={network} username={username} network={network} url={url}></ProfileItem>
         ))}
     </ul>
   );
