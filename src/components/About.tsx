@@ -1,10 +1,15 @@
 import React, { FunctionComponent } from 'react';
-import { Basics } from '../types'
+import { Basics } from '../types';
 
-const About: FunctionComponent<Basics> = ({ summary }: Basics) => (
-  <section>
-    {summary?.split('\n').map(line => <p>{line}</p>)}
-  </section>
-)
+const About: FunctionComponent<Basics> = ({ headline, summary }: Basics) => {
+  if (!headline || !summary) {
+    return null;
+  }
+  return (
+    <section>
+      {summary?.split('\n').map((line: string) => <p>{line}</p>)}
+    </section>
+  );
+}
 
 export default About;
