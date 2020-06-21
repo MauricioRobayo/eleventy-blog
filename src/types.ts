@@ -14,8 +14,8 @@ export interface Basics {
 
 export interface Profile {
   network: string;
-  username: string;
   url: string;
+  username: string;
 }
 
 export interface Project {

@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import styles from "./App.module.css";
 import Header from "./components/Header";
 import About from "./components/About";
 import Projects from "./components/Projects";
@@ -39,10 +39,12 @@ class App extends React.Component<{}, State> {
   render() {
     const { portfolio: {basics: { name, website, email, summary, headline, profiles }, projects }, isLoading } = this.state;
     if (isLoading) {
-      return <Header website={website} name={name} profiles={profiles} isLoading></Header>
+      return (<div className={styles.loading}>
+       <Header website={website} name={name} isLoading></Header>
+      </div>)
     }
     return (
-      <div className="App">
+      <div className={styles.loaded}>
         <Header website={website} name={name} profiles={profiles}></Header>
         <About summary={summary} headline={headline}></About>
         <Projects projects={projects}></Projects>
