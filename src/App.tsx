@@ -38,12 +38,15 @@ class App extends React.Component<{}, State> {
 
   render() {
     const { portfolio: {basics, projects }, isLoading } = this.state;
+    if (isLoading) {
+      return <Header basics={basics} isLoading></Header>
+    }
     return (
       <div className="App">
-        <Header basics={basics} isLoading={isLoading}></Header>
-        {!isLoading && <About {...basics}></About>}
-        {projects && <Projects projects={projects}></Projects>}
-        {! isLoading && <Contact {...basics}></Contact>}
+        <Header basics={basics}></Header>
+        <About {...basics}></About>
+        <Projects projects={projects}></Projects>
+        <Contact {...basics}></Contact>
       </div>
     );
   }

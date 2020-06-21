@@ -8,16 +8,20 @@ interface Props {
 
 const displayedProfiles: string[] = ["github", "linkedin", "twitter"];
 
-const Profiles: FunctionComponent<Props> = ({ profiles }: Props) => (
-  <ul>
-    {profiles
-      ?.filter((profile: Profile) =>
-        displayedProfiles.includes(profile.network.toLowerCase())
-      )
-      .map((profile: Profile) => (
-        <ProfileItem {...profile}></ProfileItem>
-      ))}
-  </ul>
-);
+const Profiles: FunctionComponent<Props> = ({ profiles }: Props) => {
+  if (!profiles) {
+    return null;
+  }
+  return (
+    <ul>
+      {profiles
+        ?.filter((profile: Profile) => displayedProfiles.includes(profile.network.toLowerCase())
+        )
+        .map((profile: Profile) => (
+          <ProfileItem {...profile}></ProfileItem>
+        ))}
+    </ul>
+  );
+};
 
 export default Profiles;
