@@ -4,10 +4,10 @@ import { Basics } from  '../types';
 
 interface Props {
   basics: Basics;
-  isLoading: Boolean;
+  isLoading?: Boolean;
 }
 
-const Header: FunctionComponent<Props> = ({ basics: {website, name, profiles}, isLoading }: Props) => (
+const Header: FunctionComponent<Props> = ({ basics: {website, name, profiles}, isLoading = false }: Props) => (
   <header className={`App-header ${isLoading ? 'loading' : ''}`}>
     <h1><a href={website}>{name}</a></h1>
     <Profile profiles={profiles}></Profile>
