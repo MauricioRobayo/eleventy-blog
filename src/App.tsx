@@ -14,7 +14,7 @@ interface State {
 
 const pages = [
   {
-    name: "Home",
+    name: "About",
   },
   {
     name: "Projects",
