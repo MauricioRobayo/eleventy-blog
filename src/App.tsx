@@ -4,7 +4,8 @@ import Header from "./components/Header";
 import Menu from "./components/Menu"
 import About from "./components/About";
 import Projects from "./components/Projects";
-import Contact from "./components/Contact"
+import Contact from "./components/Contact";
+import Footer from "./components/footer";
 import { Portfolio } from "./types";
 
 interface State {
@@ -67,6 +68,7 @@ class App extends React.Component<{}, State> {
         <About summary={summary} headline={headline}></About>
         <Projects projects={projects}></Projects>
         <Contact email={email} profiles={profiles}></Contact>
+        <Footer></Footer>
       </div>
     );
   }
