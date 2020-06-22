@@ -3,8 +3,8 @@
 }
 
 .title {
-  margin: calc(2rem + 5vh) 1rem 1rem;
-  padding: 0 2rem 0.5rem 2.5rem;
+  margin: calc(2rem + 5vh) 0 1rem;
+  padding: 0 0 0.5rem 0.5rem;
   border-bottom: 1px solid white;
   font-weight: 700;
   letter-spacing: .5rem;
