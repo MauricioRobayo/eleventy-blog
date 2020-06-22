@@ -1,0 +1,16 @@
+.menu {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: .85rem;
+  position: sticky;
+  position: --webkit-sticky;
+  top: 0;
+  padding: 1.5rem 0;
+}
+.menu a {
+  color: white;
+  margin: 0 .5rem;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  text-decoration: none;
+}

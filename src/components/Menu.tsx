@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import styles from './Menu.module.css';
 
 interface Props {
   pages: Page[];
@@ -11,7 +12,7 @@ interface Page {
 
 
 const Menu: FunctionComponent<Props> = ({ pages }: Props) => (
-  <nav>
+  <nav className={styles.menu}>
     {pages.map(({name, url = ''}) => {
       if (url) {
         return <a href={url}>{name}</a>;
