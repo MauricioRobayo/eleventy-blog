@@ -13,9 +13,7 @@ const Projects: FunctionComponent<Props> = ({ projects }: Props) => {
   return (
     <section id="projects">
       <h2>Projects</h2>
-      <ul>
-        {projects.map((project: Project) => <ProjectCard key={project.name} {...project}></ProjectCard>)}
-      </ul>
+      {projects.map((project: Project) => <ProjectCard key={project.name} {...project}></ProjectCard>)}
     </section>
   );
 }
