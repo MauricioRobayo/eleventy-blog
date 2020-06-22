@@ -27,3 +27,9 @@ export interface Project {
   primaryLanguage: string;
   languages: string[];
 }
+
+export interface Page {
+  name: string;
+  selected: boolean;
+  url: string;
+}

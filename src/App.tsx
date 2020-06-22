@@ -6,28 +6,13 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/footer";
-import { Portfolio } from "./types";
+import { Portfolio, Page } from "./types";
 
 interface State {
   portfolio: Portfolio;
   isLoading: Boolean;
+  pages: Page[];
 }
-
-const pages = [
-  {
-    name: "About",
-  },
-  {
-    name: "Projects",
-  },
-  {
-    name: "Contact",
-  },
-  {
-    name: "Blog",
-    url: "https://blog.mauriciorobayo.com",
-  }
-]
 
 class App extends React.Component<{}, State> {
   constructor(props: {}) {
@@ -40,6 +25,28 @@ class App extends React.Component<{}, State> {
           website: "https://www.mauriciorobayo.com",
         },
       },
+      pages: [
+        {
+          name: "About",
+          selected: true,
+          url: "",
+        },
+        {
+          name: "Projects",
+          selected: false,
+          url: "",
+        },
+        {
+          name: "Contact",
+          selected: false,
+          url: "",
+        },
+        {
+          name: "Blog",
+          selected: false,
+          url: "https://blog.mauriciorobayo.com",
+        }
+      ]
     };
   }
 
@@ -64,7 +71,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className={styles.loaded}>
         <Header website={website} name={name} profiles={profiles}></Header>
-        <Menu pages={pages}></Menu>
+        <Menu pages={this.state.pages}></Menu>
         <About summary={summary} headline={headline}></About>
         <Projects projects={projects}></Projects>
         <Contact email={email} profiles={profiles}></Contact>
