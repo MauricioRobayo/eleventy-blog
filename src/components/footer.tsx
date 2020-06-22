@@ -3,11 +3,11 @@ import styles from "./Footer.module.css";
 
 const Footer: FunctionComponent = () => (
   <footer className={styles.footer}>
-    <p>
-      <a href="https://github.com/MauricioRobayo/mauriciorobayo.github.io">Source code.</a>
-    </p>
     <p> 
-      All rights reserved. © {new Date().getFullYear()} <a href="https://www.mauriciorobayo.com">Mauricio Robayo</a>
+      ©{new Date().getFullYear()} Mauricio Robayo
+    </p>
+    <p>
+      <a href="https://github.com/MauricioRobayo/mauriciorobayo.github.io">Source code</a>
     </p>
   </footer>
 );
