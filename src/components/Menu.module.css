@@ -3,9 +3,10 @@
   text-transform: uppercase;
   font-size: .85rem;
   position: sticky;
-  position: --webkit-sticky;
   top: 0;
   padding: 1.5rem 0;
+  background-color: #282c34;
+  width: 100%;
 }
 .menu a {
   margin: 0 .5rem;
