@@ -11,3 +11,8 @@ body {
 h2 {
   padding: 2rem 0;
 }
+
+a {
+  color: white;
+  text-underline-position: under;
+}
