@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./App.module.css";
 import Header from "./components/Header";
+import Menu from "./components/Menu"
 import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact"
@@ -10,6 +11,22 @@ interface State {
   portfolio: Portfolio;
   isLoading: Boolean;
 }
+
+const pages = [
+  {
+    name: "Home",
+  },
+  {
+    name: "Projects",
+  },
+  {
+    name: "Contact",
+  },
+  {
+    name: "Blog",
+    url: "https://blog.mauriciorobayo.com",
+  }
+]
 
 class App extends React.Component<{}, State> {
   constructor(props: {}) {
@@ -46,6 +63,7 @@ class App extends React.Component<{}, State> {
     return (
       <div className={styles.loaded}>
         <Header website={website} name={name} profiles={profiles}></Header>
+        <Menu pages={pages}></Menu>
         <About summary={summary} headline={headline}></About>
         <Projects projects={projects}></Projects>
         <Contact email={email} profiles={profiles}></Contact>
