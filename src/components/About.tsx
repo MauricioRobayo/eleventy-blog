@@ -6,7 +6,7 @@ const About: FunctionComponent<Basics> = ({ headline, summary }: Basics) => {
     return null;
   }
   return (
-    <section>
+    <section id="about">
       {summary?.split('\n').map((line: string, index: number) => <p key={index}>{line}</p>)}
     </section>
   );

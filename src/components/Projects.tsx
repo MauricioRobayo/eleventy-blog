@@ -11,7 +11,7 @@ const Projects: FunctionComponent<Props> = ({ projects }: Props) => {
     return null
   }
   return (
-    <section>
+    <section id="projects">
       <h2>Projects</h2>
       <ul>
         {projects.map((project: Project) => <ProjectCard key={project.name} {...project}></ProjectCard>)}
