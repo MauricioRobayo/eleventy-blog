@@ -7,7 +7,7 @@ const Contact: FunctionComponent<Basics> = ({profiles, email}: Basics) => {
     return null; 
   }
   return (
-    <section>
+    <section id="contact">
       <h2>Contact</h2>
       <p>Looking forward to hearing from you!</p>
       <p>I'm open to new challenges and opportunities.</p>
