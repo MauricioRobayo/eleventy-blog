@@ -1,0 +1,6 @@
+.footer {
+  grid-row-end: 3;
+  margin-top: 4rem;
+  font-size: 0.8rem;
+  color: whitesmoke;
+}

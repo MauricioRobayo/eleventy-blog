@@ -13,7 +13,8 @@ body {
 }
 
 h2 {
-  padding: 2rem 0;
+  margin-bottom: 4rem;
+  padding: 0;
 }
 
 a {
@@ -22,5 +23,6 @@ a {
 }
 
 section {
+  margin: 2rem 0;
   scroll-margin-top: 4rem;
 }
