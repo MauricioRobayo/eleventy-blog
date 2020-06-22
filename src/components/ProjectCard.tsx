@@ -1,30 +1,16 @@
 import React, { FunctionComponent } from 'react';
 import { Project } from '../types';
+import styles from './ProjectCard.module.css';
 
-const ProjectCard: FunctionComponent<Project> = ({displayName, summary, languages, githubUrl, website}: Project) => (
-  <article>
-    <h2>
-      {displayName.toUpperCase()}
-    </h2>
+const ProjectCard: FunctionComponent<Project> = ({name, summary, githubUrl, website}: Project) => (
+  <article className={styles.projectCard}>
+    <h3>
+      {name.replace(/-/g, ' ')}
+    </h3>
     <p>
       {summary}
     </p>
-    <aside>
-      <ul>
-        {languages.map((language) => <li key={language}>{language}</li> )}
-      </ul>
-      <a href={githubUrl}>
-        <svg>
-          <use href="#logo-github"></use>
-        </svg>
-      </a>
-      {website && <a href={website}>
-        <svg>
-          <use href="#logo-www"></use>
-        </svg>
-        </a>}
-    </aside>
-  </article>
+    </article>
 )
 
 export default ProjectCard;
