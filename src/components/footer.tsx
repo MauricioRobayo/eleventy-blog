@@ -1,13 +1,13 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent } from "react";
 import styles from "./Footer.module.css";
 
 const Footer: FunctionComponent = () => (
   <footer className={styles.footer}>
-    <p> 
-      ©{new Date().getFullYear()} Mauricio Robayo
-    </p>
+    <p>©{new Date().getFullYear()} Mauricio Robayo</p>
     <p>
-      <a href="https://github.com/MauricioRobayo/mauriciorobayo.github.io">Source code</a>
+      <a href="https://github.com/MauricioRobayo/mauriciorobayo.github.io">
+        Source code
+      </a>
     </p>
   </footer>
 );
