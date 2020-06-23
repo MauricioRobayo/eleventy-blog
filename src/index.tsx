@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import WebFont from 'webfontloader';
+
+WebFont.load({
+  google: {
+    families: ['IBM Plex Mono:400,700', 'IBM Plex Sans:400,700']
+  }
+});
 
 ReactDOM.render(
   <React.StrictMode>
