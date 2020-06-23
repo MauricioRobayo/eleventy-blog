@@ -1,16 +1,22 @@
-import React, { FunctionComponent } from "react";
-import { Profile } from "../types";
-import styles from "./ProfileItem.module.css";
+import React, { FunctionComponent } from 'react';
+import { Profile } from '../types';
+import styles from './ProfileItem.module.css';
+import { GitHub, Twitter, LinkedIn } from './icons';
 
-const ProfileItem: FunctionComponent<Profile> = ({ network, url }: Profile) => (
-  <li className={styles.profileItem}>
-    <a href={url} aria-label={`Contact ${network}`}>
-      <svg className={styles.icon}>
-        {" "}
-        <use href={`#logo-${network.toLowerCase()}`}></use>{" "}
-      </svg>
-    </a>
-  </li>
-);
+const icons: Record<string, any> = {
+  github: <GitHub className={styles.icon} />,
+  twitter: <Twitter className={styles.icon} />,
+  linkedin: <LinkedIn className={styles.icon} />,
+};
+
+const ProfileItem: FunctionComponent<Profile> = ({ network, url }: Profile) => {
+  return (
+    <li className={styles.profileItem}>
+      <a href={url} aria-label={`Contact ${network}`}>
+        {icons[network.toLowerCase()]}
+      </a>
+    </li>
+  );
+};
 
 export default ProfileItem;
