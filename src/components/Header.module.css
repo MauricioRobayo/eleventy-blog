@@ -10,3 +10,7 @@
   font-weight: 700;
   letter-spacing: .5rem;
 }
+
+.loading {
+  border: none;
+}

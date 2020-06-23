@@ -9,7 +9,7 @@ interface Props extends Basics {
 
 const Header: FunctionComponent<Props> = ({ name, profiles, isLoading = false }: Props) => (
   <header className={styles.header}>
-    <h1 className={styles.title}>{name}</h1>
+    <h1 className={`${styles.title} ${isLoading ? styles.loading : ''}`}>{name}</h1>
     <Profile profiles={profiles}></Profile>
   </header>
 )
