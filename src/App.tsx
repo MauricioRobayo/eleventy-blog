@@ -6,6 +6,12 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/footer";
+import {
+  HashRouter,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { Portfolio, Page } from "./types";
 
 interface State {
@@ -48,6 +54,7 @@ class App extends React.Component<{}, State> {
         }
       ]
     };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -61,22 +68,46 @@ class App extends React.Component<{}, State> {
       );
   }
 
+  handleClick(pageName: string): void {
+    this.setState((state) =>
+    ({ pages: state.pages.map((page) => ({
+      ...page,
+      selected: page.name === pageName,
+    })) }))
+  }
+
   render() {
     const { portfolio: {basics: { name, website, email, summary, headline, profiles }, projects }, isLoading } = this.state;
+
     if (isLoading) {
-      return (<div className={styles.loading}>
-       <Header website={website} name={name} isLoading></Header>
-      </div>)
+      return (
+        <div className={styles.loading}>
+          <Header website={website} name={name} isLoading></Header>
+        </div>
+      )
     }
     return (
-      <div className={styles.loaded}>
-        <Header website={website} name={name} profiles={profiles}></Header>
-        <Menu pages={this.state.pages}></Menu>
-        <About summary={summary} headline={headline}></About>
-        <Projects projects={projects}></Projects>
-        <Contact email={email} profiles={profiles}></Contact>
-        <Footer></Footer>
-      </div>
+      <HashRouter>
+        <div className={styles.loaded}>
+          <Header website={website} name={name} profiles={profiles}></Header>
+          <Menu pages={this.state.pages} onClick={this.handleClick}></Menu>
+          <Switch>
+            <Route path="/about">
+              <About summary={summary} headline={headline}></About>
+            </Route>
+            <Route path="/projects">
+              <Projects projects={projects}></Projects>
+            </Route>
+            <Route path="/contact">
+              <Contact email={email} profiles={profiles}></Contact>          
+            </Route>
+            <Route path="/">
+              <Redirect to='/about' />
+            </Route>
+          </Switch>
+          <Footer></Footer>
+        </div>
+      </HashRouter>
     );
   }
 }
