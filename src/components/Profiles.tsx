@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Profile } from "../types";
 import ProfileItem from "./ProfileItem";
-import styles from './Profiles.module.css'
+import styles from "./Profiles.module.css";
 
 interface Props {
   profiles: Profile[] | undefined;
@@ -16,10 +16,16 @@ const Profiles: FunctionComponent<Props> = ({ profiles }: Props) => {
   return (
     <ul className={styles.profiles}>
       {profiles
-        ?.filter((profile: Profile) => displayedProfiles.includes(profile.network.toLowerCase())
+        ?.filter((profile: Profile) =>
+          displayedProfiles.includes(profile.network.toLowerCase())
         )
-        .map(({network, url, username}: Profile) => (
-          <ProfileItem key={network} username={username} network={network} url={url}></ProfileItem>
+        .map(({ network, url, username }: Profile) => (
+          <ProfileItem
+            key={network}
+            username={username}
+            network={network}
+            url={url}
+          ></ProfileItem>
         ))}
     </ul>
   );
