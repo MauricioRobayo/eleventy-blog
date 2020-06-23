@@ -1,8 +1,13 @@
 name: Build and Deploy
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
 jobs:
   lint:
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,7 +26,6 @@ jobs:
       - run: npm ci
       - run: npm run lint
   build:
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -62,4 +66,4 @@ jobs:
           publish_dir: ./build
           publish_branch: master
       - name: Semantic Release
-        run: npx semantic release
+        run: npx semantic
