@@ -48,8 +48,7 @@
     "eslint-config-prettier": "^6.11.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
-    "prettier": "^2.0.5",
-    "semantic-release": "^17.1.0"
+    "prettier": "^2.0.5"
   },
   "husky": {
     "hooks": {
@@ -73,13 +72,19 @@
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      ["@semantic-release/npm", {
-        "npmPublish": false,
-        "tarballDir": "build"
-      }],
-      ["@semantic-release/github", {
-        "assets": "build/*.tgz"
-      }]
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false,
+          "tarballDir": "build"
+        }
+      ],
+      [
+        "@semantic-release/github",
+        {
+          "assets": "build/*.tgz"
+        }
+      ]
     ]
   }
 }
