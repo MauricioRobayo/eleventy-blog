@@ -4,13 +4,28 @@
 }
 
 .title {
-  margin: calc(2rem + 5vh) 0 1rem;
-  padding: 0 0 0.5rem 0.5rem;
-  border-bottom: 1px solid white;
+  margin: calc(2rem + 5vh) 0 0.5rem;
+  padding-left: 0.5rem;
   font-weight: 700;
   letter-spacing: 0.5rem;
 }
 
-.loading {
+.loadingBox {
+  border-bottom: 2px solid white;
+  animation: grow 1s ease-in-out;
+  margin-bottom: 1rem;
+}
+
+.loadingBox.loading {
   border: none;
+  margin: 0;
+}
+
+@keyframes grow {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }
