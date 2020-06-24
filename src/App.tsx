@@ -1,13 +1,13 @@
-import React from "react";
-import styles from "./App.module.css";
-import Header from "./components/Header";
-import Menu from "./components/Menu";
-import About from "./components/About";
-import Projects from "./components/Projects";
-import Contact from "./components/Contact";
-import Footer from "./components/footer";
-import { HashRouter, Switch, Route, Redirect } from "react-router-dom";
-import { Portfolio, Page } from "./types";
+import React from 'react';
+import styles from './App.module.css';
+import Header from './components/Header';
+import Menu from './components/Menu';
+import About from './components/About';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import Footer from './components/footer';
+import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Portfolio, Page } from './types';
 
 interface State {
   portfolio: Portfolio;
@@ -22,30 +22,29 @@ class App extends React.Component<{}, State> {
       isLoading: true,
       portfolio: {
         basics: {
-          name: "Mauricio Robayo",
-          website: "https://www.mauriciorobayo.com",
+          name: 'Mauricio Robayo',
         },
       },
       pages: [
         {
-          name: "About",
+          name: 'About',
           selected: true,
-          url: "",
+          url: '',
         },
         {
-          name: "Projects",
+          name: 'Projects',
           selected: false,
-          url: "",
+          url: '',
         },
         {
-          name: "Contact",
+          name: 'Contact',
           selected: false,
-          url: "",
+          url: '',
         },
         {
-          name: "Blog",
+          name: 'Blog',
           selected: false,
-          url: "https://blog.mauriciorobayo.com",
+          url: 'https://blog.mauriciorobayo.com',
         },
       ],
     };
@@ -53,7 +52,7 @@ class App extends React.Component<{}, State> {
   }
 
   componentDidMount() {
-    fetch("https://gitconnected.com/v1/portfolio/mauriciorobayo")
+    fetch('https://gitconnected.com/v1/portfolio/mauriciorobayo')
       .then((response) => response.json())
       .then((json) =>
         this.setState({
