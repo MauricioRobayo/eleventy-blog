@@ -6,18 +6,24 @@ import { ExternalLink } from './icons';
 
 interface Props {
   pages: Page[];
+  activePage: Page;
   onClick: Function;
 }
 
-const Menu: FunctionComponent<Props> = ({ pages, onClick }: Props) => (
+const Menu: FunctionComponent<Props> = ({
+  pages,
+  onClick,
+  activePage,
+}: Props) => (
   <nav className={styles.menu}>
-    {pages.map(({ name, url, selected }) => {
+    {pages.map((page) => {
+      const { url, name } = page;
       if (url) {
         return (
           <a
             key={name}
             href="https://blog.mauriciorobayo.com"
-            className={selected ? styles.selected : ''}
+            className={page === activePage ? styles.selected : ''}
           >
             {name}
             <ExternalLink className={styles.icon} />
@@ -29,7 +35,7 @@ const Menu: FunctionComponent<Props> = ({ pages, onClick }: Props) => (
           onClick={() => onClick(name)}
           key={name}
           to={`/${name.toLowerCase()}`}
-          className={selected ? styles.selected : ''}
+          className={page === activePage ? styles.selected : ''}
         >
           {name}
         </Link>

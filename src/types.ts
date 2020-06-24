@@ -29,7 +29,8 @@ export interface Project {
 }
 
 export interface Page {
-  name: string;
-  selected: boolean;
+  name: PageName;
   url: string;
 }
+
+export type PageName = 'About' | 'Projects' | 'Contact' | 'Blog';

@@ -7,13 +7,32 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/footer';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { Portfolio, Page } from './types';
+import { Portfolio, Page, PageName } from './types';
 
 interface State {
   portfolio: Portfolio;
   isLoading: Boolean;
-  pages: Page[];
+  activePage: Page;
 }
+
+const pages: Page[] = [
+  {
+    name: 'About',
+    url: '',
+  },
+  {
+    name: 'Projects',
+    url: '',
+  },
+  {
+    name: 'Contact',
+    url: '',
+  },
+  {
+    name: 'Blog',
+    url: 'https://blog.mauriciorobayo.com',
+  },
+];
 
 class App extends React.Component<{}, State> {
   constructor(props: {}) {
@@ -25,28 +44,7 @@ class App extends React.Component<{}, State> {
           name: 'Mauricio Robayo',
         },
       },
-      pages: [
-        {
-          name: 'About',
-          selected: true,
-          url: '',
-        },
-        {
-          name: 'Projects',
-          selected: false,
-          url: '',
-        },
-        {
-          name: 'Contact',
-          selected: false,
-          url: '',
-        },
-        {
-          name: 'Blog',
-          selected: false,
-          url: 'https://blog.mauriciorobayo.com',
-        },
-      ],
+      activePage: pages[0],
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -62,13 +60,10 @@ class App extends React.Component<{}, State> {
       );
   }
 
-  handleClick(pageName: string): void {
-    this.setState((state) => ({
-      pages: state.pages.map((page) => ({
-        ...page,
-        selected: page.name === pageName,
-      })),
-    }));
+  handleClick(pageName: PageName): void {
+    this.setState({
+      activePage: pages.find(({ name }) => name === pageName) as Page,
+    });
   }
 
   render() {
@@ -91,7 +86,11 @@ class App extends React.Component<{}, State> {
       <HashRouter>
         <div className={styles.loaded}>
           <Header website={website} name={name} profiles={profiles}></Header>
-          <Menu pages={this.state.pages} onClick={this.handleClick}></Menu>
+          <Menu
+            pages={pages}
+            activePage={this.state.activePage}
+            onClick={this.handleClick}
+          ></Menu>
           <Switch>
             <Route path="/about">
               <About summary={summary} headline={headline}></About>
