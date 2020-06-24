@@ -16,3 +16,9 @@
   text-decoration: none;
   font-weight: bold;
 }
+.icon {
+  width: 0.5rem;
+  height: 0.5rem;
+  fill: white;
+  margin-left: 0.15rem;
+}
