@@ -1,7 +1,8 @@
-import React, { FunctionComponent } from "react";
-import styles from "./Menu.module.css";
-import { Page } from "../types";
-import { Link } from "react-router-dom";
+import React, { FunctionComponent } from 'react';
+import styles from './Menu.module.css';
+import { Page } from '../types';
+import { Link } from 'react-router-dom';
+import { ExternalLink } from './icons';
 
 interface Props {
   pages: Page[];
@@ -16,9 +17,10 @@ const Menu: FunctionComponent<Props> = ({ pages, onClick }: Props) => (
           <a
             key={name}
             href="https://blog.mauriciorobayo.com"
-            className={selected ? styles.selected : ""}
+            className={selected ? styles.selected : ''}
           >
             {name}
+            <ExternalLink className={styles.icon} />
           </a>
         );
       }
@@ -27,7 +29,7 @@ const Menu: FunctionComponent<Props> = ({ pages, onClick }: Props) => (
           onClick={() => onClick(name)}
           key={name}
           to={`/${name.toLowerCase()}`}
-          className={selected ? styles.selected : ""}
+          className={selected ? styles.selected : ''}
         >
           {name}
         </Link>
