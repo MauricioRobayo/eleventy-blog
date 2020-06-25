@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import styles from './Menu.module.css';
 import { Page } from '../types';
 import { Link } from 'react-router-dom';
-import { ExternalLink } from './icons';
 
 interface Props {
   pages: Page[];
@@ -26,7 +25,6 @@ const Menu: FunctionComponent<Props> = ({
             className={page === activePage ? styles.selected : ''}
           >
             {name}
-            <ExternalLink className={styles.icon} />
           </a>
         );
       }
