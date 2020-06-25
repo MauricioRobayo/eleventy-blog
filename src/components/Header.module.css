@@ -14,8 +14,8 @@
 
 .title.loading {
   margin: 0;
-  padding: 0;
 }
+
 .title {
   margin: calc(2rem + 5vh) 0 0.5rem;
   padding-left: 0.5rem;
