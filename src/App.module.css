@@ -4,13 +4,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: appear 2s ease-in-out;
-  transition: opacity 2s;
   opacity: 1;
   min-height: 100vh;
 }
 
 .loading {
   composes: loaded;
-  opacity: 0.25;
+  animation: loading 2s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.05;
+  }
 }
