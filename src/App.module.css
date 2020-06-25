@@ -5,28 +5,12 @@
   justify-content: center;
   align-items: center;
   animation: appear 2s ease-in-out;
+  transition: opacity 2s;
+  opacity: 1;
+  min-height: 100vh;
 }
 
 .loading {
   composes: loaded;
-  animation: breath 4s ease-in-out infinite;
-}
-
-@keyframes appear {
-  0% {
-    opacity: 0.25;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes breath {
-  0%,
-  100% {
-    opacity: 0.25;
-  }
-  50% {
-    opacity: 0.75;
-  }
+  opacity: 0.25;
 }

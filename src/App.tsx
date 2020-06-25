@@ -75,37 +75,39 @@ class App extends React.Component<{}, State> {
       isLoading,
     } = this.state;
 
-    if (isLoading) {
-      return (
-        <div className={styles.loading}>
-          <Header website={website} name={name} isLoading></Header>
-        </div>
-      );
-    }
     return (
       <HashRouter>
-        <div className={styles.loaded}>
-          <Header website={website} name={name} profiles={profiles}></Header>
-          <Menu
-            pages={pages}
-            activePage={this.state.activePage}
-            onClick={this.handleClick}
-          ></Menu>
-          <Switch>
-            <Route path="/about">
-              <About summary={summary} headline={headline}></About>
-            </Route>
-            <Route path="/projects">
-              <Projects projects={projects}></Projects>
-            </Route>
-            <Route path="/contact">
-              <Contact email={email} profiles={profiles}></Contact>
-            </Route>
-            <Route path="/">
-              <Redirect to="/about" />
-            </Route>
-          </Switch>
-          <Footer></Footer>
+        <div className={`${isLoading ? styles.loading : styles.loaded}`}>
+          <Header
+            website={website}
+            name={name}
+            profiles={profiles}
+            isLoading={isLoading}
+          ></Header>
+          {!isLoading && (
+            <>
+              <Menu
+                pages={pages}
+                activePage={this.state.activePage}
+                onClick={this.handleClick}
+              ></Menu>
+              <Switch>
+                <Route path="/about">
+                  <About summary={summary} headline={headline}></About>
+                </Route>
+                <Route path="/projects">
+                  <Projects projects={projects}></Projects>
+                </Route>
+                <Route path="/contact">
+                  <Contact email={email} profiles={profiles}></Contact>
+                </Route>
+                <Route path="/">
+                  <Redirect to="/about" />
+                </Route>
+              </Switch>
+              <Footer></Footer>
+            </>
+          )}
         </div>
       </HashRouter>
     );
