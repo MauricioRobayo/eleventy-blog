@@ -3,9 +3,8 @@
   padding-bottom: 1rem;
   margin-bottom: 2rem;
 }
-.projectCard h3 {
+.projectCard h2 {
   margin: 0;
   padding: 0;
-  text-transform: capitalize;
-  font-family: "IBM Plex Mono";
+  text-transform: lowercase;
 }
