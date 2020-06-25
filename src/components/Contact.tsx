@@ -1,6 +1,5 @@
-import React, { FunctionComponent } from "react";
-import Profiles from "./Profiles";
-import { Basics } from "../types";
+import React, { FunctionComponent } from 'react';
+import { Basics } from '../types';
 
 const Contact: FunctionComponent<Basics> = ({ profiles, email }: Basics) => {
   if (!profiles || !email) {
@@ -14,7 +13,6 @@ const Contact: FunctionComponent<Basics> = ({ profiles, email }: Basics) => {
       <p>
         <a href={`mailto:${email}`}>{email}</a>
       </p>
-      <Profiles profiles={profiles}></Profiles>
     </section>
   );
 };
