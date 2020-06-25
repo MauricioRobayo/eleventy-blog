@@ -1,8 +1,21 @@
+.header.loading {
+  min-height: 100vh;
+}
 .header {
   text-transform: uppercase;
   margin-bottom: 2rem;
+  transition: all 2s;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  min-height: calc(2rem + 5vh);
+  transition: min-height 2s;
 }
 
+.title.loading {
+  margin: 0;
+  padding: 0;
+}
 .title {
   margin: calc(2rem + 5vh) 0 0.5rem;
   padding-left: 0.5rem;
@@ -10,15 +23,15 @@
   letter-spacing: 0.5rem;
 }
 
-.loadingBox {
-  border-bottom: 2px solid white;
-  animation: grow 1s ease-in-out;
-  margin-bottom: 1rem;
-}
-
 .loadingBox.loading {
   border: none;
   margin: 0;
+}
+
+.loadingBox {
+  border-bottom: 0.15rem solid white;
+  animation: grow 2s ease-in-out;
+  margin-bottom: 1rem;
 }
 
 @keyframes grow {
