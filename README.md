@@ -1,4 +1,4 @@
-# Mauricio Robayo Portfolio
+# Portfolio
 
 My personal portfolio site built with:
 
