@@ -10,15 +10,23 @@
 
 .loading {
   composes: loaded;
-  animation: loading 2s ease-in-out infinite;
+  animation: appear 1s linear, loading 2s linear infinite 1s;
 }
 
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.85;
+  }
+}
 @keyframes loading {
   0%,
   100% {
-    opacity: 0.45;
+    opacity: 0.85;
   }
   50% {
-    opacity: 0.05;
+    opacity: 0.45;
   }
 }
