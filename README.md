@@ -1,3 +1,16 @@
+# Mauricio Robayo Portfolio
+
+My personal portfolio site built with:
+
+- TypeScript
+- React
+- localStorage
+- [gitconnected](https://gitconnected.com/)
+
+Visit it at [www.mauriciorobayo.com](https://www.mauriciorobayo.com).
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
