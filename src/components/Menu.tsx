@@ -22,7 +22,7 @@ const Menu: FunctionComponent<Props> = ({
           <a
             key={name}
             href="https://blog.mauriciorobayo.com"
-            className={page === activePage ? styles.selected : ''}
+            className={page.name === activePage.name ? styles.selected : ''}
           >
             {name}
           </a>
@@ -33,7 +33,7 @@ const Menu: FunctionComponent<Props> = ({
           onClick={() => onClick(name)}
           key={name}
           to={`/${name.toLowerCase()}`}
-          className={page === activePage ? styles.selected : ''}
+          className={page.name === activePage.name ? styles.selected : ''}
         >
           {name}
         </Link>
