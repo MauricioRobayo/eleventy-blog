@@ -7,10 +7,11 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/footer';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { Portfolio, Page, PageName } from './types';
+import { Portfolio as PortfolioType, Page, PageName } from './types';
+import Portfolio from './portfolio';
 
 interface State {
-  portfolio: Portfolio;
+  portfolio: PortfolioType;
   isLoading: Boolean;
   activePage: Page;
 }
@@ -50,14 +51,13 @@ class App extends React.Component<{}, State> {
   }
 
   componentDidMount() {
-    fetch('https://gitconnected.com/v1/portfolio/mauriciorobayo')
-      .then((response) => response.json())
-      .then((json) =>
-        this.setState({
-          isLoading: false,
-          portfolio: json,
-        })
-      );
+    const portfolio = new Portfolio(60);
+    portfolio.getPortfolio().then((portfolio) =>
+      this.setState({
+        isLoading: false,
+        portfolio,
+      })
+    );
   }
 
   handleClick(pageName: PageName): void {
