@@ -2,9 +2,9 @@
 
 My personal portfolio site built with:
 
-- TypeScript
-- React
-- localStorage
+- [TypeScript](https://www.typescriptlang.org/)
+- [React](https://reactjs.org/)
+- [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
 - [gitconnected](https://gitconnected.com/)
 
 Visit it at [www.mauriciorobayo.com](https://www.mauriciorobayo.com).
