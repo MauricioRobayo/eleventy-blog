@@ -8,7 +8,7 @@ import Contact from './components/Contact';
 import Footer from './components/footer';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Portfolio as PortfolioType, Page, PageName } from './types';
-import Portfolio from './portfolio';
+import Portfolio from './utils/portfolio';
 
 const App: FunctionComponent = () => {
   const pages: Page[] = [
