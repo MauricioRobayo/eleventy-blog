@@ -41,14 +41,17 @@ class Portfolio {
     }
 
     const response = await fetch(this.url);
-    const portfolio = await response.json();
+    if (response.ok) {
+      const portfolio = await response.json();
 
-    this.setCache({
-      portfolio,
-      expiration: Date.now() + this.cacheDurationInMilliseconds,
-    });
+      this.setCache({
+        portfolio,
+        expiration: Date.now() + this.cacheDurationInMilliseconds,
+      });
 
-    return portfolio;
+      return portfolio;
+    }
+    throw new Error(response.statusText);
   }
 }
 
