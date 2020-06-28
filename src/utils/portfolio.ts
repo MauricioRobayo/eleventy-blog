@@ -1,4 +1,4 @@
-import { Portfolio as PortfolioType } from './types';
+import { Portfolio as PortfolioType } from '../types';
 
 interface Cache {
   portfolio: PortfolioType;
