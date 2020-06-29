@@ -1,4 +1,4 @@
-export interface Portfolio {
+export interface PortfolioData {
   basics: Basics;
   projects?: Project[];
 }
