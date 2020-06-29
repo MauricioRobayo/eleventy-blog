@@ -1,7 +1,7 @@
-import { Portfolio as PortfolioType } from '../types';
+import { PortfolioData } from '../types';
 
 interface Cache {
-  portfolio: PortfolioType;
+  portfolio: PortfolioData;
   expiration: number;
 }
 
@@ -30,10 +30,12 @@ class Portfolio {
   }
 
   setCache(data: Cache) {
+    console.log(data);
     localStorage.setItem('portfolio', JSON.stringify(data));
+    console.log('setCache');
   }
 
-  async getPortfolio(): Promise<PortfolioType> {
+  async getPortfolio(): Promise<PortfolioData> {
     const cache = this.getCache();
 
     if (cache) {

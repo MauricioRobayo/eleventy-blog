@@ -7,7 +7,7 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/footer';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { Portfolio as PortfolioType, Page, PageName } from './types';
+import { PortfolioData, Page, PageName } from './types';
 import Portfolio from './utils/portfolio';
 
 const App: FunctionComponent = () => {
@@ -30,7 +30,7 @@ const App: FunctionComponent = () => {
     },
   ];
 
-  const initialPortfolio: PortfolioType = {
+  const initialPortfolio: PortfolioData = {
     basics: {
       name: 'Mauricio Robayo',
     },
