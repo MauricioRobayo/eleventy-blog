@@ -13,7 +13,7 @@ class Portfolio {
     this.cacheDurationInMilliseconds = cacheDurationInMinutes * 60 * 1000;
   }
 
-  getCache(): Cache | undefined {
+  private getCache(): Cache | undefined {
     const data = localStorage.getItem('portfolio');
 
     if (!data) {
@@ -29,7 +29,7 @@ class Portfolio {
     return cache;
   }
 
-  setCache(data: Cache) {
+  private setCache(data: Cache) {
     console.log(data);
     localStorage.setItem('portfolio', JSON.stringify(data));
     console.log('setCache');
