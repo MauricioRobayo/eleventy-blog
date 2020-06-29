@@ -30,9 +30,7 @@ class Portfolio {
   }
 
   private setCache(data: Cache) {
-    console.log(data);
     localStorage.setItem('portfolio', JSON.stringify(data));
-    console.log('setCache');
   }
 
   async getPortfolio(): Promise<PortfolioData> {
