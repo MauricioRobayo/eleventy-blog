@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styles from './Menu.module.css';
-import { Page } from '../types';
+import { Page } from '../../types';
 import { Link } from 'react-router-dom';
 
 interface Props {

@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from "react";
-import ProjectCard from "./ProjectCard";
-import { Project } from "../types";
+import React, { FunctionComponent } from 'react';
+import ProjectCard from '../ProjectCard';
+import { Project } from '../../types';
 
 interface Props {
   projects: Project[] | undefined;

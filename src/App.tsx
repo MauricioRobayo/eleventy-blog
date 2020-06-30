@@ -5,7 +5,7 @@ import Menu from './components/Menu';
 import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
-import Footer from './components/footer';
+import Footer from './components/Footer';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { PortfolioData, Page, PageName } from './types';
 import Portfolio from './utils/portfolio';

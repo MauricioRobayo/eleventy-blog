@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import Profile from './Profiles';
-import { Basics } from '../types';
+import Profile from '../Profiles/Profiles';
+import { Basics } from '../../types';
 import styles from './Header.module.css';
 
 interface Props extends Basics {

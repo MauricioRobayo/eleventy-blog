@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from "react";
-import styles from "./Footer.module.css";
+import React, { FunctionComponent } from 'react';
+import styles from './Footer.module.css';
 
 const Footer: FunctionComponent = () => (
   <footer className={styles.footer}>
