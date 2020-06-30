@@ -1,10 +1,10 @@
-name: Build
+name: build
 on:
   pull_request:
     branches:
       - develop
 jobs:
-  Build:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
