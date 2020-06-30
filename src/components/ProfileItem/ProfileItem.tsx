@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { Profile } from '../types';
+import { Profile } from '../../types';
 import styles from './ProfileItem.module.css';
-import { GitHub, Twitter, LinkedIn } from './icons';
+import { GitHub, Twitter, LinkedIn } from '../Icons';
 
 const icons: Record<string, any> = {
   github: <GitHub className={styles.icon} />,

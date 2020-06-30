@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { Basics } from '../types';
+import { Basics } from '../../types';
 
 const Contact: FunctionComponent<Basics> = ({ profiles, email }: Basics) => {
   if (!profiles || !email) {

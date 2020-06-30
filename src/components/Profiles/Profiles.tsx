@@ -1,13 +1,13 @@
-import React, { FunctionComponent } from "react";
-import { Profile } from "../types";
-import ProfileItem from "./ProfileItem";
-import styles from "./Profiles.module.css";
+import React, { FunctionComponent } from 'react';
+import { Profile } from '../../types';
+import ProfileItem from '../ProfileItem/ProfileItem';
+import styles from './Profiles.module.css';
 
 interface Props {
   profiles: Profile[] | undefined;
 }
 
-const displayedProfiles: string[] = ["github", "linkedin", "twitter"];
+const displayedProfiles: string[] = ['github', 'linkedin', 'twitter'];
 
 const Profiles: FunctionComponent<Props> = ({ profiles }: Props) => {
   if (!profiles) {

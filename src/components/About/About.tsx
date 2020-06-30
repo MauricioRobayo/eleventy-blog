@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from "react";
-import { Basics } from "../types";
+import React, { FunctionComponent } from 'react';
+import { Basics } from '../../types';
 
 const About: FunctionComponent<Basics> = ({ headline, summary }: Basics) => {
   if (!headline || !summary) {
@@ -7,7 +7,7 @@ const About: FunctionComponent<Basics> = ({ headline, summary }: Basics) => {
   }
   return (
     <section id="about">
-      {summary?.split("\n").map((line: string, index: number) => (
+      {summary?.split('\n').map((line: string, index: number) => (
         <p key={index}>{line}</p>
       ))}
     </section>
