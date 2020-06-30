@@ -1,13 +1,18 @@
-# Portfolio
-
-My personal portfolio site built with:
-
-- [TypeScript](https://www.typescriptlang.org/)
-- [React](https://reactjs.org/)
-- [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
-- [gitconnected](https://gitconnected.com/)
-
-Visit it at [www.mauriciorobayo.com](https://www.mauriciorobayo.com).
+<p align="center">
+  <h1 align="center">MAURICIO ROBAYO</h1>
+  <p align="center">
+    <a alt="GitHub workflows build" href="https://github.com/MauricioRobayo/mauriciorobayo.github.io/actions?query=workflow%3Abuild">
+      <img src="https://github.com/MauricioRobayo/mauriciorobayo.github.io/workflows/build/badge.svg"/>
+    </a>
+    <a alt="GitHub deployments github pages" href="https://github.com/MauricioRobayo/mauriciorobayo.github.io/deployments/activity_log?environment=github-pages">
+      <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/MauricioRobayo/mauriciorobayo.github.io/github-pages?label=deplyment">
+    </a>
+    <a href=>
+      <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/MauricioRobayo/mauriciorobayo.github.io">
+    </a>
+  </p>
+  <p align="center"><a href="https://www.mauriciorobayo.com">www.mauriciorobayo.com</a></p>
+</p>
 
 ---
 
