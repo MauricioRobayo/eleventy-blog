@@ -10,6 +10,8 @@ import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { PortfolioData, Page, PageName } from './types';
 import Portfolio from './utils/portfolio';
 
+const portfolioApiUrl = 'https://gitconnected.com/v1/portfolio/mauriciorobayo';
+
 const App: FunctionComponent = () => {
   const pages: Page[] = [
     {
@@ -40,9 +42,12 @@ const App: FunctionComponent = () => {
   const [activePage, setActivePage] = useState(pages[0]);
 
   useEffect(() => {
-    const ptf = new Portfolio(60);
-    ptf.getPortfolio().then((newPortfolio) => {
+    const portafolio = new Portfolio(portfolioApiUrl, 60);
+    portafolio.getPortfolio().then((newPortfolio) => {
       setIsLoading(false);
+      if (!newPortfolio) {
+        return;
+      }
       setPortfolio(newPortfolio);
     });
   }, []);

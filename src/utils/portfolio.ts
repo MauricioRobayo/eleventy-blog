@@ -6,10 +6,9 @@ interface Cache {
 }
 
 class Portfolio {
-  private url = 'https://gitconnected.com/v1/portfolio/mauriciorobayo';
   private cacheDurationInMilliseconds: number;
 
-  constructor(cacheDurationInMinutes: number) {
+  constructor(private url: string, cacheDurationInMinutes: number) {
     this.cacheDurationInMilliseconds = cacheDurationInMinutes * 60 * 1000;
   }
 
@@ -33,7 +32,7 @@ class Portfolio {
     localStorage.setItem('portfolio', JSON.stringify(data));
   }
 
-  async getPortfolio(): Promise<PortfolioData> {
+  async getPortfolio(): Promise<PortfolioData | null> {
     const cache = this.getCache();
 
     if (cache) {
@@ -51,7 +50,7 @@ class Portfolio {
 
       return portfolio;
     }
-    throw new Error(response.statusText);
+    return null;
   }
 }
 
