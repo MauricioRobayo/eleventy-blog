@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
+import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
 import styles from './App.module.css';
 import Header from './components/Header';
 import Menu from './components/Menu';
@@ -13,24 +13,17 @@ import Portfolio from './utils/portfolio';
 const portfolioApiUrl = 'https://gitconnected.com/v1/portfolio/mauriciorobayo';
 
 const App: FunctionComponent = () => {
-  const pages: Page[] = [
+  let pages = useRef<Page[]>([
     {
       name: 'About',
-      url: '',
     },
     {
       name: 'Projects',
-      url: '',
     },
     {
       name: 'Contact',
-      url: '',
     },
-    {
-      name: 'Blog',
-      url: 'https://blog.mauriciorobayo.com',
-    },
-  ];
+  ]);
 
   const initialPortfolio: PortfolioData = {
     basics: {
@@ -39,7 +32,7 @@ const App: FunctionComponent = () => {
   };
   const [portfolio, setPortfolio] = useState(initialPortfolio);
   const [isLoading, setIsLoading] = useState(true);
-  const [activePage, setActivePage] = useState(pages[0]);
+  const [activePage, setActivePage] = useState(pages.current[0]);
 
   useEffect(() => {
     const portafolio = new Portfolio(portfolioApiUrl, 60);
@@ -48,12 +41,15 @@ const App: FunctionComponent = () => {
       if (!newPortfolio) {
         return;
       }
+      if (newPortfolio.basics.blog) {
+        pages.current.push({ name: 'Blog', url: newPortfolio.basics.blog });
+      }
       setPortfolio(newPortfolio);
     });
   }, []);
 
   const handleClick = (pageName: PageName): void => {
-    setActivePage(pages.find(({ name }) => name === pageName) as Page);
+    setActivePage(pages.current.find(({ name }) => name === pageName) as Page);
   };
 
   const {
@@ -73,7 +69,7 @@ const App: FunctionComponent = () => {
         {!isLoading && (
           <>
             <Menu
-              pages={pages}
+              pages={pages.current}
               activePage={activePage}
               onClick={handleClick}
             ></Menu>

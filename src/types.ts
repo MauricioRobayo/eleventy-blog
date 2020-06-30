@@ -10,6 +10,7 @@ export interface Basics {
   headline?: string;
   summary?: string;
   email?: string;
+  blog?: string;
 }
 
 export interface Profile {
@@ -30,7 +31,7 @@ export interface Project {
 
 export interface Page {
   name: PageName;
-  url: string;
+  url?: string;
 }
 
 export type PageName = 'About' | 'Projects' | 'Contact' | 'Blog';
