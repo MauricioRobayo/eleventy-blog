@@ -1,6 +1,6 @@
-import { PortfolioData } from '../../types';
+import { Portfolio } from '../../types';
 
-const portfolio: PortfolioData = {
+const portfolio: Portfolio = {
   basics: {
     name: 'Mauricio Robayo',
     headline:
