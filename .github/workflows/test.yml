@@ -1,10 +1,10 @@
-name: Lint
+name: Test
 on:
   pull_request:
     branches:
       - develop
 jobs:
-  lint:
+  Test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,4 +21,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - run: npm ci
-      - run: npm run lint
+      - run: |
+          npm run build
+          npm run lint
+          npm run test
