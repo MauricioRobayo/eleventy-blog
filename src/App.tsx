@@ -7,10 +7,8 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { PortfolioData, Page, PageName } from './types';
-import Portfolio from './utils/portfolio';
-
-const portfolioApiUrl = 'https://gitconnected.com/v1/portfolio/mauriciorobayo';
+import { Portfolio, Page, PageName } from './types';
+import { Api, ApiPortfolioRepository, Cache } from './utils';
 
 const App: FunctionComponent = () => {
   let pages = useRef<Page[]>([
@@ -25,7 +23,7 @@ const App: FunctionComponent = () => {
     },
   ]);
 
-  const initialPortfolio: PortfolioData = {
+  const initialPortfolio: Portfolio = {
     basics: {
       name: 'Mauricio Robayo',
     },
@@ -35,16 +33,17 @@ const App: FunctionComponent = () => {
   const [activePage, setActivePage] = useState(pages.current[0]);
 
   useEffect(() => {
-    const portafolio = new Portfolio(portfolioApiUrl, 60);
-    portafolio.getPortfolio().then((newPortfolio) => {
+    const api = new Api('https://gitconnected.com/v1/portfolio/mauriciorobayo');
+    const cache = new Cache('portfolio', 60);
+    const apiPortafolioRepository = new ApiPortfolioRepository(cache, api);
+    apiPortafolioRepository.get().then((portfolio) => {
       setIsLoading(false);
-      if (!newPortfolio) {
+      if ('error' in portfolio) {
         return;
+      } else if (portfolio.basics.blog) {
+        pages.current.push({ name: 'Blog', url: portfolio.basics.blog });
       }
-      if (newPortfolio.basics.blog) {
-        pages.current.push({ name: 'Blog', url: newPortfolio.basics.blog });
-      }
-      setPortfolio(newPortfolio);
+      setPortfolio(portfolio);
     });
   }, []);
 
