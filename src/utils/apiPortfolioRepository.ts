@@ -1,11 +1,11 @@
 import Cache from './cache';
 import Api from './api';
-import { Portfolio, FetchError } from '../types';
+import { Portfolio } from '../types';
 
 class ApiPortfolioRepository {
   constructor(private cache: Cache, private api: Api) {}
 
-  async get(): Promise<Portfolio | FetchError> {
+  async get(): Promise<Portfolio> {
     const cache = this.cache.get();
 
     if (cache) {
@@ -13,10 +13,6 @@ class ApiPortfolioRepository {
     }
 
     const portfolio = await this.api.fetch();
-
-    if (!('error' in portfolio)) {
-      this.cache.update(portfolio);
-    }
 
     return portfolio;
   }
