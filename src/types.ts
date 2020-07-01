@@ -1,5 +1,3 @@
-import portfolio from './utils/__mocks__/gitconnectedMockData';
-
 export interface Cache {
   portfolio: Portfolio;
   expiration: number;
@@ -8,10 +6,6 @@ export interface Cache {
 export interface Portfolio {
   basics: Basics;
   projects?: Project[];
-}
-
-export interface FetchError {
-  error: string;
 }
 
 export interface Basics {
