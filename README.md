@@ -1,14 +1,17 @@
 <p align="center">
   <h1 align="center">MAURICIO ROBAYO</h1>
   <p align="center">
-    <a alt="GitHub workflows build" href="https://github.com/MauricioRobayo/mauriciorobayo.github.io/actions?query=workflow%3Abuild">
-      <img src="https://github.com/MauricioRobayo/mauriciorobayo.github.io/workflows/build/badge.svg"/>
+    <a href="https://github.com/MauricioRobayo/mauriciorobayo.github.io/actions?query=workflow%3Abuild">
+      <img src="https://github.com/MauricioRobayo/mauriciorobayo.github.io/workflows/build/badge.svg" alt="GitHub workflows build">
     </a>
-    <a alt="GitHub deployments github pages" href="https://github.com/MauricioRobayo/mauriciorobayo.github.io/deployments/activity_log?environment=github-pages">
-      <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/MauricioRobayo/mauriciorobayo.github.io/github-pages?label=deplyment">
+    <a href="https://github.com/MauricioRobayo/mauriciorobayo.github.io/deployments/activity_log?environment=github-pages">
+      <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/MauricioRobayo/mauriciorobayo.github.io/github-pages?label=deplyment" alt="GitHub deployments github pages">
     </a>
     <a href=>
-      <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/MauricioRobayo/mauriciorobayo.github.io">
+      <img src="https://img.shields.io/github/v/release/MauricioRobayo/mauriciorobayo.github.io" alt="GitHub release (latest by date)">
+    </a>
+    <a href="https://deepscan.io/dashboard#view=project&tid=5008&pid=12663&bid=198294">
+      <img src="https://deepscan.io/api/teams/5008/projects/12663/branches/198294/badge/grade.svg" alt="DeepScan grade">
     </a>
   </p>
   <p align="center"><a href="https://www.mauriciorobayo.com">www.mauriciorobayo.com</a></p>
