@@ -6,20 +6,20 @@ import styles from './Header.module.css';
 interface Props {
   title?: string;
   profiles?: Profile[];
-  isLoading?: Boolean;
+  loading?: Boolean;
 }
 
 const Header: FunctionComponent<Props> = ({
   title,
   profiles,
-  isLoading = false,
+  loading = false,
 }: Props) => (
-  <header className={`${styles.header} ${isLoading ? styles.loading : ''}`}>
-    <h1 className={`${styles.title} ${isLoading ? styles.loading : ''}`}>
+  <header className={`${styles.header} ${loading ? styles.loading : ''}`}>
+    <h1 className={`${styles.title} ${loading ? styles.loading : ''}`}>
       {title}
     </h1>
     <div
-      className={`${styles.loadingBox} ${isLoading ? styles.loading : ''}`}
+      className={`${styles.loadingBox} ${loading ? styles.loading : ''}`}
     ></div>
     <Profiles profiles={profiles}></Profiles>
   </header>

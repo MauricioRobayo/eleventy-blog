@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
+import React, { FunctionComponent, useState, useRef } from 'react';
 import styles from './App.module.css';
 import Header from './components/Header';
 import Menu from './components/Menu';
@@ -9,9 +9,7 @@ import Footer from './components/Footer';
 import Error from './components/Error';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Portfolio, Page, PageName } from './types';
-import { Api, ApiPortfolioRepository, Cache } from './utils';
-
-const API_URL = 'https://gitconnected.com/v1/portfolio/mauriciorobayo';
+import { usePorfolioApi } from './utils/usePorfolioApi';
 
 const App: FunctionComponent = () => {
   let pages = useRef<Page[]>([
@@ -32,31 +30,8 @@ const App: FunctionComponent = () => {
     },
   };
 
-  const [portfolio, setPortfolio] = useState(initialPortfolio);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
   const [activePage, setActivePage] = useState(pages.current[0]);
-
-  useEffect(() => {
-    const api = new Api(API_URL);
-    const cache = new Cache('portfolio', 60);
-    const apiPortafolioRepository = new ApiPortfolioRepository(cache, api);
-    apiPortafolioRepository
-      .get()
-      .then((portfolio) => {
-        if ('error' in portfolio) {
-          setError(portfolio.error);
-        }
-        if ('basics' in portfolio) {
-          setPortfolio(portfolio);
-          if (portfolio.basics.blog) {
-            pages.current.push({ name: 'Blog', url: portfolio.basics.blog });
-          }
-        }
-      })
-      .catch(console.log)
-      .finally(() => setIsLoading(false));
-  }, []);
+  const { portfolio, loading, error, url } = usePorfolioApi(initialPortfolio);
 
   const handleClick = (pageName: PageName): void => {
     setActivePage(pages.current.find(({ name }) => name === pageName) as Page);
@@ -68,17 +43,20 @@ const App: FunctionComponent = () => {
   } = portfolio;
 
   if (error) {
-    return <Error message={error} url={API_URL}></Error>;
+    return <Error message={error} url={url}></Error>;
   }
 
   return (
     <HashRouter>
-      <div className={`${isLoading ? styles.loading : styles.loaded}`}>
-        <Header title={name} profiles={profiles} isLoading={isLoading}></Header>
-        {!isLoading && (
+      <div className={`${loading ? styles.loading : styles.loaded}`}>
+        <Header title={name} profiles={profiles} loading={loading}></Header>
+        {!loading && (
           <>
             <Menu
-              pages={pages.current}
+              pages={[
+                ...pages.current,
+                { name: 'Blog', url: portfolio.basics.blog },
+              ]}
               activePage={activePage}
               onClick={handleClick}
             ></Menu>
