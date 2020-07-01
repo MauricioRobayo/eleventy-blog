@@ -14,6 +14,8 @@ class ApiPortfolioRepository {
 
     const portfolio = await this.api.fetch();
 
+    this.cache.update(portfolio);
+
     return portfolio;
   }
 }
