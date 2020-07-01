@@ -16,7 +16,7 @@ const Profiles: FunctionComponent<Props> = ({ profiles }: Props) => {
   return (
     <ul className={styles.profiles}>
       {profiles
-        ?.filter((profile: Profile) =>
+        .filter((profile: Profile) =>
           displayedProfiles.includes(profile.network.toLowerCase())
         )
         .map(({ network, url, username }: Profile) => (
