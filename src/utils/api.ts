@@ -1,16 +1,20 @@
-import { Portfolio } from '../types';
+import { Portfolio, FetchError } from '../types';
 
 class Api {
   constructor(private url: string) {}
 
-  async fetch(): Promise<Portfolio> {
-    const response = await fetch(this.url);
+  async fetch(): Promise<Portfolio | FetchError> {
+    try {
+      const response = await fetch(this.url);
 
-    if (response.ok) {
-      return response.json();
+      if (response.ok) {
+        return response.json();
+      }
+
+      return { error: response.statusText };
+    } catch (error) {
+      return { error: error.message };
     }
-
-    throw new Error(response.statusText);
   }
 }
 
