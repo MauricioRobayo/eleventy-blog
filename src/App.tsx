@@ -6,6 +6,7 @@ import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Error from './components/Error';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Portfolio, Page, PageName } from './types';
 import { Api, ApiPortfolioRepository, Cache } from './utils';
@@ -30,9 +31,10 @@ const App: FunctionComponent = () => {
       name: 'Mauricio Robayo',
     },
   };
+
   const [portfolio, setPortfolio] = useState(initialPortfolio);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const [activePage, setActivePage] = useState(pages.current[0]);
 
   useEffect(() => {
@@ -42,12 +44,17 @@ const App: FunctionComponent = () => {
     apiPortafolioRepository
       .get()
       .then((portfolio) => {
-        if (portfolio.basics.blog) {
-          pages.current.push({ name: 'Blog', url: portfolio.basics.blog });
+        if ('error' in portfolio) {
+          setError(portfolio.error);
         }
-        setPortfolio(portfolio);
+        if ('basics' in portfolio) {
+          setPortfolio(portfolio);
+          if (portfolio.basics.blog) {
+            pages.current.push({ name: 'Blog', url: portfolio.basics.blog });
+          }
+        }
       })
-      .catch(setError)
+      .catch(console.log)
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -60,8 +67,8 @@ const App: FunctionComponent = () => {
     projects,
   } = portfolio;
 
-  if (!isLoading && error) {
-    return <Header title={`Failed to fetch ${API_URL}`}></Header>;
+  if (error) {
+    return <Error message={error} url={API_URL}></Error>;
   }
 
   return (

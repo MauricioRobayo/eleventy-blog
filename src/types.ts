@@ -3,6 +3,10 @@ export interface Cache {
   expiration: number;
 }
 
+export interface FetchError {
+  error: string;
+}
+
 export interface Portfolio {
   basics: Basics;
   projects?: Project[];
