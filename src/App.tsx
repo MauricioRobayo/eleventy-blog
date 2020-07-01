@@ -52,19 +52,14 @@ const App: FunctionComponent = () => {
   };
 
   const {
-    basics: { name, website, email, summary, headline, profiles },
+    basics: { name, email, summary, headline, profiles },
     projects,
   } = portfolio;
 
   return (
     <HashRouter>
       <div className={`${isLoading ? styles.loading : styles.loaded}`}>
-        <Header
-          website={website}
-          name={name}
-          profiles={profiles}
-          isLoading={isLoading}
-        ></Header>
+        <Header title={name} profiles={profiles} isLoading={isLoading}></Header>
         {!isLoading && (
           <>
             <Menu

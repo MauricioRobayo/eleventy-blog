@@ -1,25 +1,27 @@
 import React, { FunctionComponent } from 'react';
-import Profile from '../Profiles/Profiles';
-import { Basics } from '../../types';
+import Profiles from '../Profiles/';
+import { Profile } from '../../types';
 import styles from './Header.module.css';
 
-interface Props extends Basics {
+interface Props {
+  title?: string;
+  profiles?: Profile[];
   isLoading?: Boolean;
 }
 
 const Header: FunctionComponent<Props> = ({
-  name,
+  title,
   profiles,
   isLoading = false,
 }: Props) => (
   <header className={`${styles.header} ${isLoading ? styles.loading : ''}`}>
     <h1 className={`${styles.title} ${isLoading ? styles.loading : ''}`}>
-      {name}
+      {title}
     </h1>
     <div
       className={`${styles.loadingBox} ${isLoading ? styles.loading : ''}`}
     ></div>
-    <Profile profiles={profiles}></Profile>
+    <Profiles profiles={profiles}></Profiles>
   </header>
 );
 
