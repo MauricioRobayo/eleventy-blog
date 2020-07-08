@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import WebFont from 'webfontloader';
 
-const API_URL = 'https://gitconnected.com/v1/portfolio/mauriciorobayo';
+const API_URL = 'https://sgitconnected.com/v1/portfolio/mauriciorobayo';
 
 WebFont.load({
   google: {
