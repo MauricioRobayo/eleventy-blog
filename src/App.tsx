@@ -40,11 +40,6 @@ const App: FunctionComponent<Props> = ({ apiUrl }: Props) => {
     apiUrl
   );
 
-  const {
-    owner: { name, email, summary, headline, profiles },
-    projects,
-  } = portfolio;
-
   const handleClick = (pageName: PageName): void => {
     setActivePage(pages.current.find(({ name }) => name === pageName) as Page);
   };
@@ -52,6 +47,11 @@ const App: FunctionComponent<Props> = ({ apiUrl }: Props) => {
   if (error) {
     return <Error message={error} url={apiUrl}></Error>;
   }
+
+  const {
+    owner: { name, email, summary, headline, profiles },
+    projects,
+  } = portfolio;
 
   return (
     <HashRouter>

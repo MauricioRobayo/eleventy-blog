@@ -3,34 +3,58 @@ import { render, screen } from '@testing-library/react';
 import App from './App';
 import '@testing-library/jest-dom';
 
-const API_URL = 'https://gitconnected.com/v1/portfolio/mauriciorobayo';
 jest.mock('./utils/api');
+jest.mock('./utils/cache');
 
-test('portfolio loads and renders', async () => {
-  render(<App apiUrl={API_URL} />);
+describe('Button', () => {
+  test('portfolio loads and renders', async () => {
+    render(
+      <App apiUrl="https://gitconnected.com/v1/portfolio/mauriciorobayo" />
+    );
 
-  const loadingHeading = screen.getByRole('heading', {
-    name: 'Mauricio Robayo',
+    const loadingHeading = screen.getByRole('heading', {
+      name: 'Mauricio Robayo',
+    });
+    expect(loadingHeading).toBeInTheDocument();
+    expect(loadingHeading).toHaveClass('loading');
+
+    const loadingNavigation = screen.queryByRole('navigation');
+    expect(loadingNavigation).toBe(null);
+
+    const loadingLists = screen.queryAllByRole('listitem');
+    expect(loadingLists.length).toBe(0);
+
+    const loadedHeading = await screen.findByRole('heading', {
+      name: 'Mauricio Robayo',
+    });
+    expect(loadedHeading).toBeInTheDocument();
+
+    const loadedLists = await screen.findAllByRole('listitem');
+    expect(loadedLists.length).toBe(3);
+
+    const loadedNavigation = await screen.findByRole('navigation');
+    expect(loadedNavigation).toBeInTheDocument();
   });
-  expect(loadingHeading).toBeInTheDocument();
-  expect(loadingHeading).toHaveClass('loading');
 
-  const loadingNavigation = screen.queryByRole('navigation');
-  expect(loadingNavigation).toBe(null);
+  test('an error is rendered if there is a problem getting course info', async () => {
+    const wrongUrl = 'https://wrong-url';
+    render(<App apiUrl={wrongUrl} />);
+    const loadingHeading = screen.getByRole('heading', {
+      name: 'Mauricio Robayo',
+    });
+    expect(loadingHeading).toBeInTheDocument();
+    expect(loadingHeading).toHaveClass('loading');
 
-  const loadingLists = screen.queryAllByRole('listitem');
-  expect(loadingLists.length).toBe(0);
+    const loadingNavigation = screen.queryByRole('navigation');
+    expect(loadingNavigation).toBe(null);
 
-  const loadedHeading = await screen.findByRole('heading', {
-    name: 'Mauricio Robayo',
+    const loadingLists = screen.queryAllByRole('listitem');
+    expect(loadingLists.length).toBe(0);
+
+    const loadedHeading = await screen.findByText('Test error');
+    expect(loadedHeading).toBeInTheDocument();
+
+    const link = await screen.findByRole('link', { name: wrongUrl });
+    expect(link).toBeInTheDocument();
   });
-  expect(loadedHeading).toBeInTheDocument();
-
-  const loadedLists = await screen.findAllByRole('listitem');
-  expect(loadedLists.length).toBe(3);
-
-  const loadedNavigation = await screen.findByRole('navigation');
-  expect(loadedNavigation).toBeInTheDocument();
 });
-
-test('an error is rendered if there is a problem getting course info', async () => {});
