@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { Basics } from '../../types';
+import { Owner } from '../../types';
 
-const About: FunctionComponent<Basics> = ({ headline, summary }: Basics) => {
+const About: FunctionComponent<Owner> = ({ headline, summary }: Owner) => {
   if (!headline || !summary) {
     return null;
   }

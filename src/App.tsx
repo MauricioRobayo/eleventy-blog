@@ -25,7 +25,7 @@ const App: FunctionComponent = () => {
   ]);
 
   const initialPortfolio: Portfolio = {
-    basics: {
+    owner: {
       name: 'Mauricio Robayo',
     },
   };
@@ -38,7 +38,7 @@ const App: FunctionComponent = () => {
   };
 
   const {
-    basics: { name, email, summary, headline, profiles },
+    owner: { name, email, summary, headline, profiles },
     projects,
   } = portfolio;
 
@@ -55,7 +55,7 @@ const App: FunctionComponent = () => {
             <Menu
               pages={[
                 ...pages.current,
-                { name: 'Blog', url: portfolio.basics.blog },
+                { name: 'Blog', url: portfolio.owner.blog },
               ]}
               activePage={activePage}
               onClick={handleClick}

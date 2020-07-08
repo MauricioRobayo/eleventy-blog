@@ -8,11 +8,11 @@ export interface FetchError {
 }
 
 export interface Portfolio {
-  basics: Basics;
+  owner: Owner;
   projects?: Project[];
 }
 
-export interface Basics {
+export interface Owner {
   name?: string;
   website?: string;
   profiles?: Profile[];

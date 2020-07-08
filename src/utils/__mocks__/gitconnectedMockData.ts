@@ -1,7 +1,7 @@
 import { Portfolio } from '../../types';
 
 const portfolio: Portfolio = {
-  basics: {
+  owner: {
     name: 'Mauricio Robayo',
     headline:
       'Building for the web is my passion. Constantly learning and getting better.',
