@@ -5,6 +5,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import WebFont from 'webfontloader';
 
+const API_URL = 'https://gitconnected.com/v1/portfolio/mauriciorobayo';
+
 WebFont.load({
   google: {
     families: ['IBM Plex Mono:700', 'IBM Plex Sans:400,700'],
@@ -13,7 +15,7 @@ WebFont.load({
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App apiUrl={API_URL} />
   </React.StrictMode>,
   document.getElementById('root')
 );

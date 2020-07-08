@@ -11,7 +11,11 @@ import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Portfolio, Page, PageName } from './types';
 import { usePorfolioApi } from './utils/usePorfolioApi';
 
-const App: FunctionComponent = () => {
+interface Props {
+  apiUrl: string;
+}
+
+const App: FunctionComponent<Props> = ({ apiUrl }: Props) => {
   let pages = useRef<Page[]>([
     {
       name: 'About',
@@ -31,19 +35,22 @@ const App: FunctionComponent = () => {
   };
 
   const [activePage, setActivePage] = useState(pages.current[0]);
-  const { portfolio, loading, error, url } = usePorfolioApi(initialPortfolio);
-
-  const handleClick = (pageName: PageName): void => {
-    setActivePage(pages.current.find(({ name }) => name === pageName) as Page);
-  };
+  const { portfolio, loading, error } = usePorfolioApi(
+    initialPortfolio,
+    apiUrl
+  );
 
   const {
     owner: { name, email, summary, headline, profiles },
     projects,
   } = portfolio;
 
+  const handleClick = (pageName: PageName): void => {
+    setActivePage(pages.current.find(({ name }) => name === pageName) as Page);
+  };
+
   if (error) {
-    return <Error message={error} url={url}></Error>;
+    return <Error message={error} url={apiUrl}></Error>;
   }
 
   return (

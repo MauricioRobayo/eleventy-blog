@@ -1,10 +1,10 @@
 import portfolio from './gitconnectedMockData';
-import { Portfolio } from '../../types';
+import { RawPortfolio } from '../../types';
 
 class Api {
   constructor(private url: string) {}
 
-  async fetch(): Promise<Portfolio> {
+  async fetch(): Promise<RawPortfolio> {
     if (this.url === 'https://gitconnected.com/v1/portfolio/mauriciorobayo') {
       return portfolio;
     }
