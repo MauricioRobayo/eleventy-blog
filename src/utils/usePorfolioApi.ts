@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Portfolio } from '../types';
 import { Api, ApiPortfolioRepository, Cache } from '.';
+import apiDataParser from './apiDataParser';
 
 const API_URL = 'https://gitconnected.com/v1/portfolio/mauriciorobayo';
 
@@ -26,7 +27,7 @@ export const usePorfolioApi: UsePortfolioApi = (initialPortfolio) => {
         if ('error' in portfolio) {
           setError(portfolio.error);
         }
-        setPortfolio(portfolio as Portfolio);
+        setPortfolio(apiDataParser(portfolio));
       })
       .catch(console.log)
       .finally(() => setloading(false));
