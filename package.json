@@ -45,6 +45,8 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
@@ -69,7 +71,9 @@
     ]
   },
   "release": {
-    "branches": ["develop"],
+    "branches": [
+      "develop"
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
