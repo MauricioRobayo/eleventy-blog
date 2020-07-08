@@ -3,22 +3,22 @@ import { Portfolio } from '../types';
 import { Api, ApiPortfolioRepository, Cache } from '.';
 import apiDataParser from './apiDataParser';
 
-const API_URL = 'https://gitconnected.com/v1/portfolio/mauriciorobayo';
-
 interface PortfolioState {
   portfolio: Portfolio;
   loading: Boolean;
   error: string;
-  url: string;
 }
-type UsePortfolioApi = (initialPortfolio: Portfolio) => PortfolioState;
+type UsePortfolioApi = (
+  initialPortfolio: Portfolio,
+  apiUrl: string
+) => PortfolioState;
 
-export const usePorfolioApi: UsePortfolioApi = (initialPortfolio) => {
+export const usePorfolioApi: UsePortfolioApi = (initialPortfolio, apiUrl) => {
   const [portfolio, setPortfolio] = useState(initialPortfolio);
   const [loading, setloading] = useState(true);
   const [error, setError] = useState('');
   useEffect(() => {
-    const api = new Api(API_URL);
+    const api = new Api(apiUrl);
     const cache = new Cache('portfolio', 60);
     const apiPortafolioRepository = new ApiPortfolioRepository(cache, api);
     apiPortafolioRepository
@@ -31,11 +31,10 @@ export const usePorfolioApi: UsePortfolioApi = (initialPortfolio) => {
       })
       .catch(console.log)
       .finally(() => setloading(false));
-  }, []);
+  }, [apiUrl]);
   return {
     portfolio,
     loading,
     error,
-    url: API_URL,
   };
 };

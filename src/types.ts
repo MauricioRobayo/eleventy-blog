@@ -1,3 +1,7 @@
+type Partial<T> = {
+  [P in keyof T]?: T[P];
+};
+
 export interface Cache {
   portfolio: Portfolio;
   expiration: number;
@@ -11,6 +15,10 @@ export interface Portfolio {
   owner: Owner;
   projects?: Project[];
 }
+
+export type PartialPortfolio = Partial<Portfolio>;
+
+export type RawPortfolio = PartialPortfolio & { basics: Portfolio['owner'] };
 
 export interface Owner {
   name?: string;

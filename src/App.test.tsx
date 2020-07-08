@@ -3,11 +3,11 @@ import { render, screen } from '@testing-library/react';
 import App from './App';
 import '@testing-library/jest-dom';
 
+const API_URL = 'https://gitconnected.com/v1/portfolio/mauriciorobayo';
 jest.mock('./utils/api');
-jest.mock('./utils/cache');
 
 test('portfolio loads and renders', async () => {
-  render(<App />);
+  render(<App apiUrl={API_URL} />);
 
   const loadingHeading = screen.getByRole('heading', {
     name: 'Mauricio Robayo',

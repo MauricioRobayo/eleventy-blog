@@ -1,7 +1,7 @@
-import { Portfolio } from '../../types';
+import { RawPortfolio } from '../../types';
 
-const portfolio: Portfolio = {
-  owner: {
+const portfolio: RawPortfolio = {
+  basics: {
     name: 'Mauricio Robayo',
     headline:
       'Building for the web is my passion. Constantly learning and getting better.',
