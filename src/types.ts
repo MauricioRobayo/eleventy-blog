@@ -2,7 +2,7 @@ type Partial<T> = {
   [P in keyof T]?: T[P];
 };
 
-export interface Cache {
+export interface CacheItem {
   portfolio: Portfolio;
   expiration: number;
 }

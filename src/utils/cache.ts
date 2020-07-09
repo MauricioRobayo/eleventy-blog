@@ -1,9 +1,9 @@
-import { Cache as CacheObject, Portfolio } from '../types';
+import { CacheItem, Portfolio } from '../types';
 
 class Cache {
   constructor(private key: string, private durationInMinutes: number) {}
 
-  get(): CacheObject | null {
+  get(): CacheItem | null {
     const cache = localStorage.getItem(this.key);
     if (!cache) {
       return null;
