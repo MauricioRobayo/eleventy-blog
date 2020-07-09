@@ -1,9 +1,9 @@
-import { Portfolio, FetchError } from '../types';
+import { FetchError } from '../types';
 
-class Api {
+class Api<T> {
   constructor(private url: string) {}
 
-  async fetch(): Promise<Portfolio | FetchError> {
+  async fetch(): Promise<T | FetchError> {
     try {
       const response = await fetch(this.url);
 

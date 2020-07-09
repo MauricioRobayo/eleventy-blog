@@ -3,7 +3,7 @@ import Api from './api';
 import { Portfolio, FetchError } from '../types';
 
 class ApiPortfolioRepository {
-  constructor(private cache: Cache<Portfolio>, private api: Api) {}
+  constructor(private cache: Cache<Portfolio>, private api: Api<Portfolio>) {}
 
   async get(): Promise<Portfolio | FetchError> {
     const cache = this.cache.get();
