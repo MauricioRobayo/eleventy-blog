@@ -1,6 +1,7 @@
 import Cache from './cache';
 import rawPortfolio from './__mocks__/gitconnectedMockData';
 import apiDataParser from './apiDataParser';
+import { Portfolio } from '../types';
 
 const portfolio = apiDataParser(rawPortfolio);
 const getItemSpy = jest.spyOn(Storage.prototype, 'getItem');
@@ -9,6 +10,7 @@ const localStorageKey = 'test';
 
 const storeMock = (function () {
   const store = {};
+
   return {
     getItem(key: string) {
       return store[key];
@@ -28,25 +30,25 @@ afterEach(() => {
 });
 
 describe('Cache', () => {
-  it('should return null not updated', () => {
-    const cache = new Cache(localStorageKey, 15);
+  it("should return null when it haven't been not updated", () => {
+    const cache = new Cache<Portfolio>(localStorageKey, 15);
     expect(cache.get()).toBe(null);
     expect(getItemSpy).toBeCalledTimes(1);
     expect(getItemSpy).toBeCalledWith(localStorageKey);
   });
 
   it('should update the cache', () => {
-    const cache = new Cache('test', 15);
+    const cache = new Cache<Portfolio>('test', 15);
     cache.update(portfolio);
     expect(setItemSpy).toBeCalledTimes(1);
-    const { portfolio: cachedPortfolio, expiration } = cache.get();
+    const { data: cachedPortfolio, expiration } = cache.get();
     expect(cachedPortfolio).toEqual(portfolio);
     expect(expiration).toBeGreaterThan(Date.now());
     expect(getItemSpy).toBeCalledTimes(1);
   });
 
-  it('should return null not updated', () => {
-    const cache = new Cache('test', -15);
+  it('should return null if negative expiration time is set', () => {
+    const cache = new Cache<Portfolio>('test', -15);
     cache.update(portfolio);
     expect(setItemSpy).toBeCalledTimes(1);
     expect(cache.get()).toBe(null);

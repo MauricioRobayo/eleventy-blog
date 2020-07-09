@@ -19,7 +19,7 @@ export const usePorfolioApi: UsePortfolioApi = (initialPortfolio, apiUrl) => {
   const [error, setError] = useState('');
   useEffect(() => {
     const api = new Api(apiUrl);
-    const cache = new Cache('portfolio', 60);
+    const cache = new Cache<Portfolio>('portfolio', 60);
     const apiPortafolioRepository = new ApiPortfolioRepository(cache, api);
     apiPortafolioRepository
       .get()
