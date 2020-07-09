@@ -13,8 +13,8 @@
     <a href="https://codecov.io/gh/MauricioRobayo/mauriciorobayo.github.io">
       <img src="https://codecov.io/gh/MauricioRobayo/mauriciorobayo.github.io/branch/develop/graph/badge.svg" />
     </a>
-    <a href="https://deepscan.io/dashboard#view=project&tid=5008&pid=12663&bid=198294">
-      <img src="https://deepscan.io/api/teams/5008/projects/12663/branches/198294/badge/grade.svg" alt="DeepScan grade">
+    <a href="https://www.codefactor.io/repository/github/mauriciorobayo/mauriciorobayo.github.io">
+      <img src="https://www.codefactor.io/repository/github/mauriciorobayo/mauriciorobayo.github.io/badge" alt="CodeFactor" />
     </a>
   </p>
   <p align="center"><a href="https://www.mauriciorobayo.com">www.mauriciorobayo.com</a></p>
