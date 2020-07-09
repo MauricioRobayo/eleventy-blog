@@ -1,32 +1,35 @@
-.loaded {
+.app {
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: 1;
   min-height: 100vh;
 }
 
+.loaded {
+  animation: appear 1s linear;
+}
+
 .loading {
-  composes: loaded;
-  animation: appear 1s linear, loading 2s linear infinite 1s;
+  animation: loading 2s linear infinite;
 }
 
 @keyframes appear {
   0% {
-    opacity: 0;
+    opacity: 0.65;
   }
   100% {
-    opacity: 0.85;
+    opacity: 1;
   }
 }
+
 @keyframes loading {
   0%,
   100% {
-    opacity: 0.85;
+    opacity: 0.45;
   }
   50% {
-    opacity: 0.45;
+    opacity: 0.85;
   }
 }
