@@ -11,7 +11,7 @@ class Cache {
 
     const parsedCache = JSON.parse(cache);
 
-    if (Date.now > parsedCache.expiration) {
+    if (Date.now() > parsedCache.expiration) {
       return null;
     }
 
