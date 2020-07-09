@@ -5,7 +5,7 @@
       <img src="https://github.com/MauricioRobayo/mauriciorobayo.github.io/workflows/build/badge.svg" alt="GitHub workflows build">
     </a>
     <a href="https://github.com/MauricioRobayo/mauriciorobayo.github.io/deployments/activity_log?environment=github-pages">
-      <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/MauricioRobayo/mauriciorobayo.github.io/github-pages?label=deplyment" alt="GitHub deployments github pages">
+      <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/MauricioRobayo/mauriciorobayo.github.io/github-pages?label=deployment" alt="GitHub deployments github pages">
     </a>
     <a href=>
       <img src="https://img.shields.io/github/v/release/MauricioRobayo/mauriciorobayo.github.io" alt="GitHub release (latest by date)">
