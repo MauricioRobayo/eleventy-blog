@@ -12,13 +12,13 @@ class ApiPortfolioRepository {
       return cache.data;
     }
 
-    const portfolio = await this.api.fetch();
+    const data = await this.api.fetch();
 
-    if (!('error' in portfolio)) {
-      this.cache.update(portfolio);
+    if (!('error' in data)) {
+      this.cache.update(data);
     }
 
-    return portfolio;
+    return data;
   }
 }
 
