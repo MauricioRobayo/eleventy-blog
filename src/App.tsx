@@ -8,7 +8,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Error from './components/Error';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { Portfolio, Page, PageName } from './types';
+import { Page, PageName } from './types';
 import { usePorfolioApi } from './utils/usePorfolioApi';
 
 interface Props {
@@ -28,17 +28,8 @@ const App: FunctionComponent<Props> = ({ apiUrl }: Props) => {
     },
   ]);
 
-  const initialPortfolio: Portfolio = {
-    owner: {
-      name: 'Mauricio Robayo',
-    },
-  };
-
   const [activePage, setActivePage] = useState(pages.current[0]);
-  const { portfolio, loading, error } = usePorfolioApi(
-    initialPortfolio,
-    apiUrl
-  );
+  const { portfolio, error } = usePorfolioApi(apiUrl);
 
   const handleClick = (pageName: PageName): void => {
     setActivePage(pages.current.find(({ name }) => name === pageName) as Page);
@@ -48,17 +39,17 @@ const App: FunctionComponent<Props> = ({ apiUrl }: Props) => {
     return <Error message={error} url={apiUrl}></Error>;
   }
 
-  const {
-    owner: { name, email, summary, headline, profiles },
-    projects,
-  } = portfolio;
-
   return (
     <HashRouter>
-      <div className={`${loading ? styles.loading : styles.loaded}`}>
-        <Header title={name} profiles={profiles} loading={loading}></Header>
-        {!loading && (
+      <div className={`${styles.app} ${portfolio ? '' : styles.loading}`}>
+        {!portfolio ? (
+          <Header title="Mauricio Robayo" loading={true}></Header>
+        ) : (
           <>
+            <Header
+              title={portfolio.owner.name}
+              profiles={portfolio.owner.profiles}
+            ></Header>
             <Menu
               pages={[
                 ...pages.current,
@@ -69,13 +60,19 @@ const App: FunctionComponent<Props> = ({ apiUrl }: Props) => {
             ></Menu>
             <Switch>
               <Route path="/about">
-                <About summary={summary} headline={headline}></About>
+                <About
+                  summary={portfolio.owner.summary}
+                  headline={portfolio.owner.headline}
+                ></About>
               </Route>
               <Route path="/projects">
-                <Projects projects={projects}></Projects>
+                <Projects projects={portfolio.projects}></Projects>
               </Route>
               <Route path="/contact">
-                <Contact email={email} profiles={profiles}></Contact>
+                <Contact
+                  email={portfolio.owner.email}
+                  profiles={portfolio.owner.profiles}
+                ></Contact>
               </Route>
               <Route path="/">
                 <Redirect to="/about" />

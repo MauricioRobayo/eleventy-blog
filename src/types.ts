@@ -13,7 +13,7 @@ export interface FetchError {
 
 export interface Portfolio {
   owner: Owner;
-  projects?: Project[];
+  projects: Project[];
 }
 
 export type PartialPortfolio = Partial<Portfolio>;
@@ -21,13 +21,13 @@ export type PartialPortfolio = Partial<Portfolio>;
 export type RawPortfolio = PartialPortfolio & { basics: Portfolio['owner'] };
 
 export interface Owner {
-  name?: string;
-  website?: string;
-  profiles?: Profile[];
-  headline?: string;
-  summary?: string;
-  email?: string;
-  blog?: string;
+  name: string;
+  website: string;
+  profiles: Profile[];
+  headline: string;
+  summary: string;
+  email: string;
+  blog: string;
 }
 
 export interface Profile {

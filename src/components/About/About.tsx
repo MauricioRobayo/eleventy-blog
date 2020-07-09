@@ -1,10 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { Owner } from '../../types';
 
-const About: FunctionComponent<Owner> = ({ headline, summary }: Owner) => {
-  if (!headline || !summary) {
-    return null;
-  }
+interface Props {
+  headline: Owner['headline'];
+  summary: Owner['summary'];
+}
+
+const About: FunctionComponent<Props> = ({ headline, summary }: Props) => {
   return (
     <section id="about">
       {summary.split('\n').map((line: string, index: number) => (

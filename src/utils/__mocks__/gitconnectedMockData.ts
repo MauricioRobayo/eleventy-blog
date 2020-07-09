@@ -8,6 +8,7 @@ const portfolio: RawPortfolio = {
     summary:
       'I enjoy refactoring code and value simplicity.\nWriting clean and maintainable code and automating workflows are my main goals every day.\nI am an active open source contributor and work every day to improve my programming skills.',
     website: 'https://www.mauriciorobayo.com',
+    blog: 'https://blog.mauriciorobayo.com',
     email: 'hi@mauriciorobayo.com',
     profiles: [
       {

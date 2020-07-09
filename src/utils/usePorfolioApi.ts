@@ -4,18 +4,13 @@ import { Api, ApiPortfolioRepository, Cache } from '.';
 import apiDataParser from './apiDataParser';
 
 interface PortfolioState {
-  portfolio: Portfolio;
-  loading: Boolean;
+  portfolio: Portfolio | null;
   error: string;
 }
-type UsePortfolioApi = (
-  initialPortfolio: Portfolio,
-  apiUrl: string
-) => PortfolioState;
+type UsePortfolioApi = (apiUrl: string) => PortfolioState;
 
-export const usePorfolioApi: UsePortfolioApi = (initialPortfolio, apiUrl) => {
-  const [portfolio, setPortfolio] = useState(initialPortfolio);
-  const [loading, setloading] = useState(true);
+export const usePorfolioApi: UsePortfolioApi = (apiUrl) => {
+  const [portfolio, setPortfolio] = useState<Portfolio | null>(null);
   const [error, setError] = useState('');
   useEffect(() => {
     const api = new Api<Portfolio>(apiUrl);
@@ -26,15 +21,14 @@ export const usePorfolioApi: UsePortfolioApi = (initialPortfolio, apiUrl) => {
       .then((portfolio) => {
         if ('error' in portfolio) {
           setError(portfolio.error);
+          return;
         }
         setPortfolio(apiDataParser(portfolio));
       })
-      .catch(console.log)
-      .finally(() => setloading(false));
+      .catch(console.log);
   }, [apiUrl]);
   return {
     portfolio,
-    loading,
     error,
   };
 };

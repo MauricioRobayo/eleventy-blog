@@ -1,6 +1,3 @@
-.header.loading {
-  min-height: 100vh;
-}
 .header {
   text-transform: uppercase;
   margin-bottom: 2rem;
@@ -8,8 +5,14 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  min-height: calc(2rem + 5vh);
-  transition: min-height 2s;
+}
+
+.header.loading {
+  min-height: 100vh;
+}
+
+.header.loaded {
+  animation: slide-up 2s ease-in-out;
 }
 
 .title.loading {
@@ -30,8 +33,17 @@
 
 .loadingBox {
   border-bottom: 0.15rem solid white;
-  animation: grow 2s ease-in-out;
   margin-bottom: 1rem;
+  animation: grow 2s ease-in-out;
+}
+
+@keyframes slide-up {
+  0% {
+    min-height: 100vh;
+  }
+  100% {
+    min-height: calc(2rem + 5vh);
+  }
 }
 
 @keyframes grow {
