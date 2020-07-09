@@ -24,6 +24,9 @@ describe('Button', () => {
     const loadingProfiles = screen.queryByRole('list', { name: 'profiles' });
     expect(loadingProfiles).toBe(null);
 
+    const loadingFooter = screen.queryByRole('contentinfo');
+    expect(loadingFooter).toBe(null);
+
     // Include all elements that should not be loaded
 
     const loadedHeading = await screen.findByRole('heading', {
@@ -60,6 +63,9 @@ describe('Button', () => {
 
     expect(aboutMenuItem).not.toHaveClass('selected');
     expect(projectsMenuItem).toHaveClass('selected');
+
+    const loadedFooter = await screen.findByRole('contentinfo');
+    expect(loadedFooter).toBeInTheDocument();
   });
 
   test('an error is rendered if there is a problem getting course info', async () => {
