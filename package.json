@@ -50,6 +50,7 @@
     "cross-env": "^7.0.2",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^4.2.5",
+    "jest-fetch-mock": "^3.0.3",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5"
   },
@@ -100,7 +101,7 @@
     "build"
   ],
   "jest": {
-    "coveragePathIgnorePatterns" : [
+    "coveragePathIgnorePatterns": [
       "src/index.ts",
       "src/serviceWorker.ts"
     ]
