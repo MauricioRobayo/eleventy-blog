@@ -35,7 +35,7 @@ describe('Button', () => {
       name: 'Mauricio Robayo',
     });
     expect(loadedHeading).toBeInTheDocument();
-    expect(loadingHeading).not.toHaveClass('loading');
+    expect(loadedHeading).not.toHaveClass('loading');
 
     const loadedProfiles = await screen.findByRole('list', {
       name: 'profiles',
@@ -49,7 +49,7 @@ describe('Button', () => {
       expect(profileItem).toHaveClass('profileItem');
     });
 
-    const loadedNavigation = await screen.getByRole('navigation');
+    const loadedNavigation = await screen.findByRole('navigation');
     expect(loadedNavigation).toBeInTheDocument();
 
     const aboutMenuItem = await screen.findByRole('link', {

@@ -1,10 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { Owner } from '../../types';
 
-const Contact: FunctionComponent<Owner> = ({ profiles, email }: Owner) => {
-  if (!profiles || !email) {
-    return null;
-  }
+interface Props {
+  profiles: Owner['profiles'];
+  email: Owner['email'];
+}
+
+const Contact: FunctionComponent<Props> = ({ profiles, email }: Props) => {
   return (
     <section id="contact">
       <p>Looking forward to hearing from you!</p>

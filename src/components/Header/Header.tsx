@@ -14,12 +14,18 @@ const Header: FunctionComponent<Props> = ({
   profiles,
   loading = false,
 }: Props) => (
-  <header className={`${styles.header} ${loading ? styles.loading : ''}`}>
-    <h1 className={`${styles.title} ${loading ? styles.loading : ''}`}>
+  <header
+    className={`${styles.header} ${loading ? styles.loading : styles.loaded}`}
+  >
+    <h1
+      className={`${styles.title} ${loading ? styles.loading : styles.loaded}`}
+    >
       {title}
     </h1>
     <div
-      className={`${styles.loadingBox} ${loading ? styles.loading : ''}`}
+      className={`${styles.loadingBox} ${
+        loading ? styles.loading : styles.loaded
+      }`}
     ></div>
     <Profiles profiles={profiles}></Profiles>
   </header>
