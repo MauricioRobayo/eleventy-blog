@@ -41,7 +41,11 @@ const App: FunctionComponent<Props> = ({ apiUrl }: Props) => {
 
   return (
     <HashRouter>
-      <div className={`${styles.app} ${portfolio ? '' : styles.loading}`}>
+      <div
+        className={`${styles.app} ${
+          portfolio ? styles.loaded : styles.loading
+        }`}
+      >
         {!portfolio ? (
           <Header title="Mauricio Robayo" loading={true}></Header>
         ) : (
