@@ -2,7 +2,7 @@
   <h1 align="center">MAURICIO ROBAYO</h1>
   <p align="center">
     <a href="https://github.com/MauricioRobayo/mauriciorobayo.github.io/actions?query=workflow%3Abuild">
-      <img src="https://github.com/MauricioRobayo/mauriciorobayo.github.io/workflows/build/badge.svg" alt="GitHub workflows build">
+      <img src="https://github.com/MauricioRobayo/mauriciorobayo.github.io/workflows/build%20and%20deploy/badge.svg" alt="GitHub workflows build">
     </a>
     <a href="https://github.com/MauricioRobayo/mauriciorobayo.github.io/deployments/activity_log?environment=github-pages">
       <img alt="GitHub deployments" src="https://img.shields.io/github/deployments/MauricioRobayo/mauriciorobayo.github.io/github-pages?label=deployment" alt="GitHub deployments github pages">
