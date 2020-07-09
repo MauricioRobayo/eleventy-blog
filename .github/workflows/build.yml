@@ -1,10 +1,10 @@
-name: build
+name: build and test
 on:
   pull_request:
     branches:
       - develop
 jobs:
-  build:
+  build_and_test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,4 +28,4 @@ jobs:
       - name: Test
         run: |
           npm run test --coverage
-          npx codecov
+          npx codecov --token ${{ secrets.CODECOV_TOKEN }}
