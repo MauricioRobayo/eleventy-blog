@@ -14,7 +14,7 @@ const Profiles: FunctionComponent<Props> = ({ profiles }: Props) => {
     return null;
   }
   return (
-    <ul className={styles.profiles}>
+    <ul className={styles.profiles} aria-label="profiles">
       {profiles
         .filter((profile: Profile) =>
           displayedProfiles.includes(profile.network.toLowerCase())

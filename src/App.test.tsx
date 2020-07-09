@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 import '@testing-library/jest-dom';
 
@@ -21,19 +21,45 @@ describe('Button', () => {
     const loadingNavigation = screen.queryByRole('navigation');
     expect(loadingNavigation).toBe(null);
 
-    const loadingLists = screen.queryAllByRole('listitem');
-    expect(loadingLists.length).toBe(0);
+    const loadingProfiles = screen.queryByRole('list', { name: 'profiles' });
+    expect(loadingProfiles).toBe(null);
+
+    // Include all elements that should not be loaded
 
     const loadedHeading = await screen.findByRole('heading', {
       name: 'Mauricio Robayo',
     });
     expect(loadedHeading).toBeInTheDocument();
+    expect(loadingHeading).not.toHaveClass('loading');
 
-    const loadedLists = await screen.findAllByRole('listitem');
-    expect(loadedLists.length).toBe(3);
+    const profiles = await screen.findByRole('list', { name: 'profiles' });
+    expect(profiles).toBeInTheDocument();
+
+    const profileItems = await screen.findAllByRole('listitem');
+    expect(profileItems.length).toBe(3);
+    profileItems.forEach((profile) => {
+      expect(profile.classList.contains('profileItem')).toBe(true);
+    });
 
     const loadedNavigation = await screen.findByRole('navigation');
     expect(loadedNavigation).toBeInTheDocument();
+
+    const aboutMenuItem = await screen.findByRole('link', {
+      name: 'About',
+    });
+    const projectsMenuItem = await screen.findByRole('link', {
+      name: 'Projects',
+    });
+
+    expect(aboutMenuItem).toBeInTheDocument();
+    expect(projectsMenuItem).toBeInTheDocument();
+    expect(aboutMenuItem).toHaveClass('selected');
+    expect(projectsMenuItem).not.toHaveClass('selected');
+
+    fireEvent.click(projectsMenuItem);
+
+    expect(aboutMenuItem).not.toHaveClass('selected');
+    expect(projectsMenuItem).toHaveClass('selected');
   });
 
   test('an error is rendered if there is a problem getting course info', async () => {
