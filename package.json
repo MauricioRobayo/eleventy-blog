@@ -98,5 +98,11 @@
   },
   "files": [
     "build"
-  ]
+  ],
+  "jest": {
+    "coveragePathIgnorePatterns" : [
+      "src/index.ts",
+      "src/serviceWorker.ts"
+    ]
+  }
 }
