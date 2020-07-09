@@ -1,9 +1,9 @@
-import { CacheItem, Portfolio } from '../types';
+import { CacheItem } from '../types';
 
-class Cache {
+class Cache<T> {
   constructor(private key: string, private durationInMinutes: number) {}
 
-  get(): CacheItem | null {
+  get(): CacheItem<T> | null {
     const cache = localStorage.getItem(this.key);
     if (!cache) {
       return null;
@@ -18,12 +18,12 @@ class Cache {
     return parsedCache;
   }
 
-  update(portfolio: Portfolio): void {
+  update(data: T): void {
     const durationInMilliseconds = this.durationInMinutes * 60 * 1000;
     localStorage.setItem(
       this.key,
       JSON.stringify({
-        portfolio,
+        data,
         expiration: Date.now() + durationInMilliseconds,
       })
     );
