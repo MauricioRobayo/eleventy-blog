@@ -1,11 +1,13 @@
-name: Deploy
+name: build and deploy
 on:
+  pull_request:
+    branches: [ develop ]
   push:
-    branches:
-      - develop
+    branches: [ develop ]
 jobs:
   build:
     runs-on: ubuntu-latest
+    name: build and test
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -18,18 +20,20 @@ jobs:
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          restore-keys: ${{ runner.os }}-node-
       - run: npm ci
-      - run: npm run build
-      - name: Upload build
-        uses: actions/upload-artifact@v1
-        with:
-          name: build
-          path: build/
+      - name: Build
+        run: npm run build
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm run test -- --coverage
+      - name: Codecov report
+        uses: codecov/codecov-action@v1
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
     steps:
       - name: Checkout
         uses: actions/checkout@master
