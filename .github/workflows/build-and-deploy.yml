@@ -6,8 +6,8 @@ on:
     branches: [ develop ]
 jobs:
   build:
-    runs-on: ubuntu-latest
     name: build and test
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -24,6 +24,11 @@ jobs:
       - run: npm ci
       - name: Build
         run: npm run build
+      - name: Upload build
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build/
       - name: Lint
         run: npm run lint
       - name: Test
@@ -31,6 +36,7 @@ jobs:
       - name: Codecov report
         uses: codecov/codecov-action@v1
   deploy:
+    name: deploy
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop'
