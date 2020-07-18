@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import styles from './Menu.module.css';
-import { Page } from '../../types';
+import { Page, PageName } from '../../types';
 import { Link } from 'react-router-dom';
 
 interface Props {
   pages: Page[];
   activePage: Page;
-  onClick: Function;
+  onClick: (name: PageName) => void;
 }
 
 const Menu: FC<Props> = ({ pages, onClick, activePage }) => (
