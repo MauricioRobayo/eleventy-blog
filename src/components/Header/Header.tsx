@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import Profiles from '../Profiles/';
 import { Profile } from '../../types';
 import styles from './Header.module.css';
@@ -9,11 +9,7 @@ interface Props {
   loading?: Boolean;
 }
 
-const Header: FunctionComponent<Props> = ({
-  title,
-  profiles,
-  loading = false,
-}) => (
+const Header: FC<Props> = ({ title, profiles, loading = false }) => (
   <header
     className={`${styles.header} ${loading ? styles.loading : styles.loaded}`}
   >

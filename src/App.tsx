@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useRef } from 'react';
+import React, { FC, useState, useRef } from 'react';
 import styles from './App.module.css';
 import Header from './components/Header';
 import Menu from './components/Menu';
@@ -15,7 +15,7 @@ interface Props {
   apiUrl: string;
 }
 
-const App: FunctionComponent<Props> = ({ apiUrl }: Props) => {
+const App: FC<Props> = ({ apiUrl }: Props) => {
   let pages = useRef<Page[]>([
     {
       name: 'About',

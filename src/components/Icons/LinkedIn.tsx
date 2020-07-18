@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 
 interface Props {
   className: string;
 }
 
-const LinkedIn: FunctionComponent<Props> = ({ className }) => (
+const LinkedIn: FC<Props> = ({ className }) => (
   <svg
     id="LinkedIn"
     xmlns="http://www.w3.org/2000/svg"

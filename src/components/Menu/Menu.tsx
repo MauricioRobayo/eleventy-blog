@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import styles from './Menu.module.css';
 import { Page } from '../../types';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ interface Props {
   onClick: Function;
 }
 
-const Menu: FunctionComponent<Props> = ({ pages, onClick, activePage }) => (
+const Menu: FC<Props> = ({ pages, onClick, activePage }) => (
   <nav className={styles.menu}>
     {pages.map((page) => {
       const { url, name } = page;

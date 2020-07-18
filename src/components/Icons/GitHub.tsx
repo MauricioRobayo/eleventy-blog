@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 
 interface Props {
   className: string;
 }
 
-const GitHub: FunctionComponent<Props> = ({ className }) => (
+const GitHub: FC<Props> = ({ className }) => (
   <svg
     id="GitHub"
     xmlns="http://www.w3.org/2000/svg"

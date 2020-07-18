@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import { Profile } from '../../types';
 import ProfileItem from '../ProfileItem/ProfileItem';
 import styles from './Profiles.module.css';
@@ -9,7 +9,7 @@ interface Props {
 
 const displayedProfiles: string[] = ['github', 'linkedin', 'twitter'];
 
-const Profiles: FunctionComponent<Props> = ({ profiles }) => {
+const Profiles: FC<Props> = ({ profiles }) => {
   if (!profiles) {
     return null;
   }

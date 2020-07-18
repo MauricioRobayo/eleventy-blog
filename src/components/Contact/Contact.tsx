@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import { Owner } from '../../types';
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   email: Owner['email'];
 }
 
-const Contact: FunctionComponent<Props> = ({ profiles, email }) => {
+const Contact: FC<Props> = ({ profiles, email }) => {
   return (
     <section id="contact">
       <p>Looking forward to hearing from you!</p>

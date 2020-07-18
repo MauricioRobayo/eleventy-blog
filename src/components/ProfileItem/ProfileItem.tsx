@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import { Profile } from '../../types';
 import styles from './ProfileItem.module.css';
 import { GitHub, Twitter, LinkedIn } from '../Icons';
@@ -9,7 +9,7 @@ const icons: Record<string, any> = {
   linkedin: <LinkedIn className={styles.icon} />,
 };
 
-const ProfileItem: FunctionComponent<Profile> = ({ network, url }) => {
+const ProfileItem: FC<Profile> = ({ network, url }) => {
   return (
     <li className={styles.profileItem}>
       <a href={url} aria-label={`Contact ${network}`}>

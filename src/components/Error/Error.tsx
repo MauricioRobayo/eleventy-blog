@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import styles from './Error.module.css';
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   url: string;
 }
 
-const Error: FunctionComponent<Props> = ({ message, url }) => (
+const Error: FC<Props> = ({ message, url }) => (
   <div className={styles.header}>
     <p>{message}</p>
     <div>

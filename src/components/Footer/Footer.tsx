@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import styles from './Footer.module.css';
 
-const Footer: FunctionComponent = () => (
+const Footer: FC = () => (
   <footer className={styles.footer}>
     <p>©{new Date().getFullYear()} Mauricio Robayo</p>
     <p>

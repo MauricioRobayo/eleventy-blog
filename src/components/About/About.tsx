@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import { Owner } from '../../types';
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   summary: Owner['summary'];
 }
 
-const About: FunctionComponent<Props> = ({ headline, summary }) => {
+const About: FC<Props> = ({ headline, summary }) => {
   return (
     <section id="about">
       {summary.split('\n').map((line: string, index: number) => (
