@@ -4,7 +4,7 @@ interface Props {
   className: string;
 }
 
-const Twitter: FunctionComponent<Props> = ({ className }: Props) => (
+const Twitter: FunctionComponent<Props> = ({ className }) => (
   <svg
     id="Twitter"
     xmlns="http://www.w3.org/2000/svg"

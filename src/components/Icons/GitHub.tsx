@@ -4,7 +4,7 @@ interface Props {
   className: string;
 }
 
-const GitHub: FunctionComponent<Props> = ({ className }: Props) => (
+const GitHub: FunctionComponent<Props> = ({ className }) => (
   <svg
     id="GitHub"
     xmlns="http://www.w3.org/2000/svg"

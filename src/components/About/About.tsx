@@ -6,7 +6,7 @@ interface Props {
   summary: Owner['summary'];
 }
 
-const About: FunctionComponent<Props> = ({ headline, summary }: Props) => {
+const About: FunctionComponent<Props> = ({ headline, summary }) => {
   return (
     <section id="about">
       {summary.split('\n').map((line: string, index: number) => (

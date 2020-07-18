@@ -13,7 +13,7 @@ const Header: FunctionComponent<Props> = ({
   title,
   profiles,
   loading = false,
-}: Props) => (
+}) => (
   <header
     className={`${styles.header} ${loading ? styles.loading : styles.loaded}`}
   >

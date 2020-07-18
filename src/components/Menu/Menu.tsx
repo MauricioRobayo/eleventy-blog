@@ -9,11 +9,7 @@ interface Props {
   onClick: Function;
 }
 
-const Menu: FunctionComponent<Props> = ({
-  pages,
-  onClick,
-  activePage,
-}: Props) => (
+const Menu: FunctionComponent<Props> = ({ pages, onClick, activePage }) => (
   <nav className={styles.menu}>
     {pages.map((page) => {
       const { url, name } = page;

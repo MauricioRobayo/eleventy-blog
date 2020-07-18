@@ -6,7 +6,7 @@ interface Props {
   projects: Portfolio['projects'];
 }
 
-const Projects: FunctionComponent<Props> = ({ projects }: Props) => {
+const Projects: FunctionComponent<Props> = ({ projects }) => {
   return (
     <section id="projects">
       {projects.map((project: Project) => (

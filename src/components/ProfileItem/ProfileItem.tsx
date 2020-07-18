@@ -9,7 +9,7 @@ const icons: Record<string, any> = {
   linkedin: <LinkedIn className={styles.icon} />,
 };
 
-const ProfileItem: FunctionComponent<Profile> = ({ network, url }: Profile) => {
+const ProfileItem: FunctionComponent<Profile> = ({ network, url }) => {
   return (
     <li className={styles.profileItem}>
       <a href={url} aria-label={`Contact ${network}`}>

@@ -9,7 +9,7 @@ interface Props {
 
 const displayedProfiles: string[] = ['github', 'linkedin', 'twitter'];
 
-const Profiles: FunctionComponent<Props> = ({ profiles }: Props) => {
+const Profiles: FunctionComponent<Props> = ({ profiles }) => {
   if (!profiles) {
     return null;
   }

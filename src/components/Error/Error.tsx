@@ -6,7 +6,7 @@ interface Props {
   url: string;
 }
 
-const Error: FunctionComponent<Props> = ({ message, url }: Props) => (
+const Error: FunctionComponent<Props> = ({ message, url }) => (
   <div className={styles.header}>
     <p>{message}</p>
     <div>

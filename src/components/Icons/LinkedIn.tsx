@@ -4,7 +4,7 @@ interface Props {
   className: string;
 }
 
-const LinkedIn: FunctionComponent<Props> = ({ className }: Props) => (
+const LinkedIn: FunctionComponent<Props> = ({ className }) => (
   <svg
     id="LinkedIn"
     xmlns="http://www.w3.org/2000/svg"

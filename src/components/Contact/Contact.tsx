@@ -6,7 +6,7 @@ interface Props {
   email: Owner['email'];
 }
 
-const Contact: FunctionComponent<Props> = ({ profiles, email }: Props) => {
+const Contact: FunctionComponent<Props> = ({ profiles, email }) => {
   return (
     <section id="contact">
       <p>Looking forward to hearing from you!</p>
