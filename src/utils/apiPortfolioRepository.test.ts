@@ -9,7 +9,7 @@ jest.mock('./api');
 describe('ApiPortfolioRepository', () => {
   it('should return a fetch error', async () => {
     const cache = new Cache<Portfolio>('portfolio', 15);
-    const api = new Api('https://wrong-url');
+    const api = new Api<Portfolio>('https://wrong-url');
 
     const apiPortfolioRepository = new ApiPortfolioRepository(cache, api);
 
@@ -20,7 +20,9 @@ describe('ApiPortfolioRepository', () => {
 
   it('should return the portfolio', async () => {
     const cache = new Cache<Portfolio>('portfolio', 15);
-    const api = new Api('https://gitconnected.com/v1/portfolio/mauriciorobayo');
+    const api = new Api<Portfolio>(
+      'https://gitconnected.com/v1/portfolio/mauriciorobayo'
+    );
 
     const apiPortfolioRepository = new ApiPortfolioRepository(cache, api);
 
