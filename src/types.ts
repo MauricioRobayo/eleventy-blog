@@ -2,11 +2,6 @@ type Partial<T> = {
   [P in keyof T]?: T[P];
 };
 
-export interface CacheItem<T> {
-  data: T;
-  expiration: number;
-}
-
 export interface FetchError {
   error: string;
 }

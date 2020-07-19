@@ -1,5 +1,5 @@
 import ApiPortfolioRepository from './apiPortfolioRepository';
-import Cache from './cache';
+import Cache from 'simple-localstorage-cache';
 import Api from './api';
 import rawPortfolio from './__mocks__/gitconnectedMockData';
 import { Portfolio } from '../types';
