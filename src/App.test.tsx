@@ -3,8 +3,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 import '@testing-library/jest-dom';
 
+jest.mock('simple-localstorage-cache');
 jest.mock('./utils/api');
-jest.mock('./utils/cache');
 
 describe('Button', () => {
   test('portfolio loads and renders', async () => {

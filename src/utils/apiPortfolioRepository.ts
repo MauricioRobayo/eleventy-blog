@@ -1,20 +1,20 @@
-import Cache from './cache';
+import SLSC from 'simple-localstorage-cache';
 import Api from './api';
 import { Portfolio, FetchError } from '../types';
 
 class ApiPortfolioRepository {
-  constructor(private cache: Cache<Portfolio>, private api: Api<Portfolio>) {}
+  constructor(private cache: SLSC<Portfolio>, private api: Api<Portfolio>) {}
 
   async get(): Promise<Portfolio | FetchError> {
-    const cache = this.cache.get();
+    const cached = this.cache.get();
 
-    if (cache) {
-      return cache.data;
+    if (cached) {
+      return cached.data;
     }
 
     const data = await this.api.fetch();
 
-    if (!('error' in data)) {
+    if ('owner' in data) {
       this.cache.update(data);
     }
 
