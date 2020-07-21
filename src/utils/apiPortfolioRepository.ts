@@ -14,7 +14,7 @@ class ApiPortfolioRepository {
 
     const data = await this.api.fetch();
 
-    if (!('error' in data)) {
+    if ('owner' in data) {
       this.cache.update(data);
     }
 
