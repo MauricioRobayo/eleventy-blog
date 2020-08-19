@@ -1,10 +1,13 @@
 import ApiPortfolioRepository from './apiPortfolioRepository';
-import Cache from 'simple-localstorage-cache';
+import Cache from 'simple-storage-cache';
 import Api from './api';
 import rawPortfolio from './__mocks__/gitconnectedMockData';
+import apiDataParser from './apiDataParser';
 import { Portfolio } from '../types';
 
 jest.mock('./api');
+
+const expectedPortfolio = apiDataParser(rawPortfolio);
 
 describe('ApiPortfolioRepository', () => {
   it('should return a fetch error', async () => {
@@ -27,9 +30,9 @@ describe('ApiPortfolioRepository', () => {
     const apiPortfolioRepository = new ApiPortfolioRepository(cache, api);
 
     const portfolio = await apiPortfolioRepository.get();
-    expect(portfolio).toEqual(rawPortfolio);
+    expect(portfolio).toEqual(expectedPortfolio);
 
     const cachedPortfolio = await apiPortfolioRepository.get();
-    expect(cachedPortfolio).toEqual(rawPortfolio);
+    expect(cachedPortfolio).toEqual(expectedPortfolio);
   });
 });
