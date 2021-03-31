@@ -47,7 +47,7 @@
   "devDependencies": {
     "@commitlint/cli": "^9.0.1",
     "@commitlint/config-conventional": "^9.0.1",
-    "cross-env": "^7.0.2",
+    "cross-env": "^7.0.3",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^4.2.5",
     "jest-fetch-mock": "^3.0.3",
