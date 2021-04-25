@@ -7,38 +7,62 @@
     <title>Mauricio Robayo</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
     <style>
+      :root {
+        font-size: clamp(1.25rem, 4vw, 2rem);
+      }
       body {
-        font-family: "IBM Plex Mono", monospace;
+        font-family: "Ubuntu Mono", monospace;
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: papayawhip;
-        color: dimgray;
+        background-color: #fdf6e3;
+        color: #839496;
         justify-content: center;
         height: 100vh;
         margin: 0;
       }
       h1 {
-        font-size: 1.5rem;
+        font-size: 1.75rem;
       }
       a {
-        color: dimgray;
+        color: #2aa198;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
       }
       h1,
       p {
         margin: 0.5rem;
       }
+      ul {
+        list-style: none;
+        display: flex;
+        padding: 0;
+      }
+      li:not(:last-child) {
+        margin-right: 1rem;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #002b36;
+        }
+      }
     </style>
   </head>
   <body>
     <h1>Mauricio Robayo</h1>
-    <p>
-      <a href="https://github.com/mauriciorobayo/">GitHub</a>
-      <a href="https://www.linkedin.com/in/mauriciorobayo//">LinkedIn</a>
-    </p>
+    <ul>
+      <li>
+        <a href="https://github.com/mauriciorobayo">GitHub</a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/mauriciorobayo">LinkedIn</a>
+      </li>
+    </ul>
   </body>
 </html>
