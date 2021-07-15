@@ -28,6 +28,7 @@ export const repos = functions.https.onRequest(async (_req, res) => {
   const { data } = await octokit.rest.search.repos({
     q: "user:MauricioRobayo",
     sort: "stars",
+    per_page: 5,
   });
 
   const repos = data.items.map((repo) => ({

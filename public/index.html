@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="The successful warrior is the average man, with laser-like focus."
+    />
+    <title>Mauricio Robayo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @keyframes rotate {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      :root {
+        font-size: 14px;
+      }
+      @media screen and (min-width: 768px) {
+        :root {
+          font-size: 16px;
+        }
+      }
+      body {
+        font-family: "IBM Plex Mono", monospace;
+        background-color: steelblue;
+        color: gainsboro;
+        margin: 0 1rem;
+      }
+      h1,h2,h4 {
+        font-size: 1rem;
+      }
+      h2 {
+        font-weight: 400;
+        margin: 0;
+      }
+      h4 {
+        margin: 1rem 0 0 0;
+      }
+      a {
+        color: gainsboro;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      ul {
+        list-style-type: "-";
+        list-style-position: inside;
+        padding-left: 0rem;
+        margin: 0;
+      }
+      li {
+        word-break: break-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0.25rem 0;
+      }
+      .error {
+        color: darkred;
+      }
+      #projects {
+        margin-top: 2rem;
+      }
+      .projects-body {
+        padding-left: 1rem;
+      }
+      .repo-loader {
+        margin-right: 0.5rem;
+      }
+      .repo-header {
+        display: flex;
+        align-items: flex-end;
+      }
+      .repo-body p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <h1>Mauricio Robayo</h1>
+  <p>♫ I'm a racing car passing by like Lady Godiva ♫</p>
+  </blockquote>
+    <ul>
+      <li>
+        <a href="https://github.com/mauriciorobayo"
+          >https://github.com/mauriciorobayo</a
+        >
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/mauriciorobayo"
+          >https://www.linkedin.com/in/mauriciorobayo</a
+        >
+      </li>
+      <li>
+        <a href="https://blog.mauriciorobayo.com"
+          >https://blog.mauriciorobayo.com</a
+        >
+      </li>
+      <li>
+        <a
+          href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#109;&#97;&#106;&#111;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;"
+          >&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#109;&#97;&#106;&#111;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a
+        >
+      </li>
+    </ul>
+    <div id="projects"></div>
+    <script>
+      const projectsContainer = document.getElementById('projects');
+      const projectsTitle = document.createElement('h2');
+      const projectsBody = document.createElement('div');
+      projectsBody.classList.add('projects-body');
+      const loader = document.createElement('span');
+      loader.classList.add('repo-loader');
+      const queryString = '{ user: \"MauricioRobayo\", sort: \"stars\", limit: 5 }'
+
+      const loaderSymbols = ["\\", "/", "—"];
+      let i = 0;
+      loader.textContent = loaderSymbols[i % loaderSymbols.length];
+      const interval = setInterval(() => {
+        i++;
+        loader.textContent = loaderSymbols[i % loaderSymbols.length];
+      }, 500)
+
+      projectsTitle.append(loader, `Fetching GitHub ${queryString}`);
+      projectsContainer.append(projectsTitle, projectsBody);
+
+      fetch('/repos').then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch repos!')
+        }
+        return response.json();
+      })
+      .then((repos) => {
+        const reposContainers = repos.slice(0, 5).map(({name, description, html_url, language, stargazers_count}) => {
+          const repoContainer = document.createElement('div');
+          repoContainer.innerHTML = `
+          <div class="repo-header">
+            <h4>${name}</h4>
+            <span class="language">${language}</span>
+            <span class="stars">${stargazers_count} ${stargazers_count === 1 ? 'star' : 'stars'}</span>
+            </div>
+            <div class="repo-body">
+              <p>${description}</p>
+              <p>> <a href="${html_url}">${html_url}</a></p>
+            </div>
+          `
+          return repoContainer;
+        })
+        loader.textContent = "✔";
+        projectsBody.append(...reposContainers);
+      })
+      .catch((err) => {
+        projectsTitle.textContent = 'Failed to fetch projects!'
+        projectsTitle.classList.add('error')
+      })
+      .finally(() => {
+        clearInterval(interval);
+      });
+    </script>
+  </body>
+</html>
