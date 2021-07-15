@@ -30,8 +30,6 @@ export const repos = functions.https.onRequest(async (_req, res) => {
     sort: "stars",
   });
 
-  // functions.logger.log(headers);
-
   const repos = data.items.map((repo) => ({
     name: repo.name,
     html_url: repo.html_url,
@@ -41,8 +39,7 @@ export const repos = functions.https.onRequest(async (_req, res) => {
   }));
 
   await docRef.set({ repos });
-  functions.logger.log("Cache miss!");
-  functions.logger.log((await docRef.get()).updateTime?.toDate());
 
+  functions.logger.log("Cache miss!");
   res.json(repos);
 });
