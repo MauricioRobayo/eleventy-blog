@@ -5,7 +5,9 @@ import * as admin from "firebase-admin";
 admin.initializeApp();
 
 const db = admin.firestore();
-const octokit = new Octokit();
+const octokit = new Octokit({
+  auth: functions.config().github.public_repos_token,
+});
 const CACHE_EXPIRATION_PERIOD = 24 * 60 * 60 * 1000;
 
 export const repos = functions.https.onRequest(async (_req, res) => {
