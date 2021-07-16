@@ -13,7 +13,7 @@ const sortTypes = ["stars", "forks", "help-wanted-issues", "updated"] as const;
 type SortType = typeof sortTypes[number];
 
 export const repos = functions.https.onRequest(async (req, res) => {
-  const { sort = "updated" } = req.query;
+  const { sort = "updated", limit = 5 } = req.query;
 
   if (!isSortType(sort)) {
     throw new functions.https.HttpsError(
@@ -21,6 +21,7 @@ export const repos = functions.https.onRequest(async (req, res) => {
       `sort must be one of type ${sortTypes}.`
     );
   }
+
   const docRef = db.collection("cache").doc("repos");
   const cached = await docRef.get();
 
@@ -38,7 +39,7 @@ export const repos = functions.https.onRequest(async (req, res) => {
   const { data } = await octokit.rest.search.repos({
     q: "user:MauricioRobayo",
     sort,
-    per_page: 5,
+    per_page: Number(limit),
   });
 
   const repos = data.items.map((repo) => ({
