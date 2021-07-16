@@ -9,8 +9,18 @@ const octokit = new Octokit({
   auth: functions.config().github.public_repos_token,
 });
 const CACHE_EXPIRATION_PERIOD = 24 * 60 * 60 * 1000;
+const sortTypes = ["stars", "forks", "help-wanted-issues", "updated"] as const;
+type SortType = typeof sortTypes[number];
 
-export const repos = functions.https.onRequest(async (_req, res) => {
+export const repos = functions.https.onRequest(async (req, res) => {
+  const { sort = "updated" } = req.query;
+
+  if (!isSortType(sort)) {
+    throw new functions.https.HttpsError(
+      "invalid-argument",
+      `sort must be one of type ${sortTypes}.`
+    );
+  }
   const docRef = db.collection("cache").doc("repos");
   const cached = await docRef.get();
 
@@ -27,7 +37,7 @@ export const repos = functions.https.onRequest(async (_req, res) => {
 
   const { data } = await octokit.rest.search.repos({
     q: "user:MauricioRobayo",
-    sort: "stars",
+    sort,
     per_page: 5,
   });
 
@@ -44,3 +54,8 @@ export const repos = functions.https.onRequest(async (_req, res) => {
   functions.logger.log("Cache miss!");
   res.json(repos);
 });
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isSortType(sortType: any): sortType is SortType {
+  return sortTypes.includes(sortType);
+}
