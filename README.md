@@ -1,3 +1,3 @@
 # Mauricio Robayo
 
-https://mauriciorobayo.github.io
+https://www.mauriciorobayo.com
