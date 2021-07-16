@@ -31,7 +31,7 @@
       }
       body {
         font-family: "IBM Plex Mono", monospace;
-        background-color: steelblue;
+        background-color: darkblue;
         color: gainsboro;
         margin: 0 1rem;
       }
@@ -53,7 +53,7 @@
         text-decoration: underline;
       }
       ul {
-        list-style-type: "-";
+        list-style: none;
         list-style-position: inside;
         padding-left: 0rem;
         margin: 0;
@@ -65,11 +65,12 @@
         text-overflow: ellipsis;
         margin: 0.25rem 0;
       }
-      .error {
-        color: darkred;
+      .error,
+      .error a{
+        color: red;
       }
       #projects {
-        margin-top: 2rem;
+        margin: 1rem 0;
       }
       .projects-body {
         padding-left: 1rem;
@@ -87,14 +88,9 @@
     </style>
   </head>
   <h1>Mauricio Robayo</h1>
-  <p>♫ I'm a racing car passing by like Lady Godiva ♫</p>
+  <div id="projects"></div>
   </blockquote>
     <ul>
-      <li>
-        <a href="https://github.com/mauriciorobayo"
-          >https://github.com/mauriciorobayo</a
-        >
-      </li>
       <li>
         <a href="https://www.linkedin.com/in/mauriciorobayo"
           >https://www.linkedin.com/in/mauriciorobayo</a
@@ -112,15 +108,17 @@
         >
       </li>
     </ul>
-    <div id="projects"></div>
     <script>
+      const url = 'https://api.github.com/search/repositories?q=user:MauricioRobayo&sort=stars&per_page=5';
       const projectsContainer = document.getElementById('projects');
       const projectsTitle = document.createElement('h2');
       const projectsBody = document.createElement('div');
       projectsBody.classList.add('projects-body');
       const loader = document.createElement('span');
       loader.classList.add('repo-loader');
-      const queryString = '{ user: \"MauricioRobayo\", sort: \"stars\", limit: 5 }'
+      const link = document.createElement('a')
+      link.href = url;
+      link.textContent = url;
 
       const loaderSymbols = ["\\", "/", "—"];
       let i = 0;
@@ -130,17 +128,17 @@
         loader.textContent = loaderSymbols[i % loaderSymbols.length];
       }, 500)
 
-      projectsTitle.append(loader, `Fetching GitHub ${queryString}`);
+      projectsTitle.append(loader, 'Fetching ', link);
       projectsContainer.append(projectsTitle, projectsBody);
 
       fetch('/repos').then((response) => {
         if (!response.ok) {
-          throw new Error('Failed to fetch repos!')
+          throw new Error(`${response.status} ${response.statusText ? response.statusText : ''}`)
         }
         return response.json();
       })
       .then((repos) => {
-        const reposContainers = repos.slice(0, 5).map(({name, description, html_url, language, stargazers_count}) => {
+        const reposContainers = repos.map(({name, description, html_url, language, stargazers_count}) => {
           const repoContainer = document.createElement('div');
           repoContainer.innerHTML = `
           <div class="repo-header">
@@ -150,7 +148,7 @@
             </div>
             <div class="repo-body">
               <p>${description}</p>
-              <p>> <a href="${html_url}">${html_url}</a></p>
+              <p><a href="${html_url}">${html_url}</a></p>
             </div>
           `
           return repoContainer;
@@ -159,8 +157,9 @@
         projectsBody.append(...reposContainers);
       })
       .catch((err) => {
-        projectsTitle.textContent = 'Failed to fetch projects!'
-        projectsTitle.classList.add('error')
+        loader.textContent = '✗'
+        projectsContainer.append(err)
+        projectsContainer.classList.add('error')
       })
       .finally(() => {
         clearInterval(interval);
