@@ -145,14 +145,27 @@
         loadContent({repos: cache.repos, cacheHit: true, projectsBody,loader, meta});
         clearInterval(interval);
       } else {
-        fetch(url).then((response) => {
+        fetch(url, {
+          headers: {
+            accept: 'application/vnd.github.v3+json',
+          }
+        }).then((response) => {
           if (!response.ok) {
             throw new Error(`${response.status ? response.status : ''} ${response.statusText ? response.statusText : ''}`)
           }
+
+          const rateLimitElements = Array.from(response.headers)
+            .filter(([key]) => key.toLowerCase().startsWith('x-ratelimit'))
+            .map((header) => {
+              const headerElement = document.createElement('p');
+              headerElement.textContent = header.join(': ');
+              return headerElement;
+            })
+          projectsBody.append(...rateLimitElements);
+
           return response.json();
         })
-        .then(({headers, items: repos}) => {
-          console.log({headers});
+        .then(({items: repos }) => {
           localStorage.setItem(cacheKey, JSON.stringify({repos, expirationTime: Date.now() + 60 * 60 * 1000}))
           loadContent({repos, cacheHit: false, projectsBody,loader, meta});
         })
