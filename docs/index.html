@@ -144,7 +144,7 @@
         loadContent(cache.repos, true);
         clearInterval(interval);
       } else {
-        fetch('/repos').then((response) => {
+        fetch('https://api.mauriciorobayo.com/repos').then((response) => {
           if (!response.ok) {
             throw new Error(`${response.status} ${response.statusText ? response.statusText : ''}`)
           }
