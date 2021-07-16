@@ -24,11 +24,6 @@
       :root {
         font-size: 14px;
       }
-      @media screen and (min-width: 768px) {
-        :root {
-          font-size: 16px;
-        }
-      }
       body {
         font-family: "IBM Plex Mono", monospace;
         background-color: darkblue;
@@ -72,18 +67,26 @@
       #projects {
         margin: 1rem 0;
       }
-      .projects-body {
-        padding-left: 1rem;
-      }
       .repo-loader {
         margin-right: 0.5rem;
       }
-      .repo-header {
-        display: flex;
-        align-items: flex-end;
+      .language, .stars {
+        color: gray
       }
       #projects p {
         margin: 0;
+      }
+      @media screen and (min-width: 768px) {
+        :root {
+          font-size: 16px;
+        }
+        .repo-header {
+          display: flex;
+          align-items: flex-end;
+        }
+        .repo-header > *:not(:last-child) {
+          margin-right: 1rem;
+        }
       }
     </style>
   </head>
@@ -130,10 +133,9 @@
         loader.textContent = loaderSymbols[i % loaderSymbols.length];
       }, 500)
 
-
       const cache = JSON.parse(localStorage.getItem('repos'));
 
-      cacheStatus.textContent = `localStorage cache ${cache ? 'hit' : 'miss'}.`;
+      cacheStatus.textContent = `localStorage cache ${cache ? 'hit' : 'miss'}`;
 
       projectsTitle.append(loader, 'Fetching ', link, cacheStatus);
       projectsContainer.append(projectsTitle, projectsBody);
