@@ -82,7 +82,7 @@
         display: flex;
         align-items: flex-end;
       }
-      .repo-body p {
+      #projects p {
         margin: 0;
       }
     </style>
@@ -113,10 +113,12 @@
       const projectsContainer = document.getElementById('projects');
       const projectsTitle = document.createElement('h2');
       const projectsBody = document.createElement('div');
-      projectsBody.classList.add('projects-body');
       const loader = document.createElement('span');
-      loader.classList.add('repo-loader');
       const link = document.createElement('a')
+      const cacheStatus = document.createElement('p');
+
+      projectsBody.classList.add('projects-body');
+      loader.classList.add('repo-loader');
       link.href = url;
       link.textContent = url;
 
@@ -128,16 +130,39 @@
         loader.textContent = loaderSymbols[i % loaderSymbols.length];
       }, 500)
 
-      projectsTitle.append(loader, 'Fetching ', link);
+
+      const cache = JSON.parse(localStorage.getItem('repos'));
+
+      cacheStatus.textContent = `localStorage cache ${cache ? 'hit' : 'miss'}.`;
+
+      projectsTitle.append(loader, 'Fetching ', link, cacheStatus);
       projectsContainer.append(projectsTitle, projectsBody);
 
-      fetch('/repos').then((response) => {
-        if (!response.ok) {
-          throw new Error(`${response.status} ${response.statusText ? response.statusText : ''}`)
-        }
-        return response.json();
-      })
-      .then((repos) => {
+      if (cache?.expirationTime > Date.now()) {
+        loadContent(cache.repos, true);
+        clearInterval(interval);
+      } else {
+        fetch('/repos').then((response) => {
+          if (!response.ok) {
+            throw new Error(`${response.status} ${response.statusText ? response.statusText : ''}`)
+          }
+          return response.json();
+        })
+        .then((repos) => {
+          localStorage.setItem('repos', JSON.stringify({repos, expirationTime: Date.now() + 60 * 60 * 1000}))
+          loadContent(repos, false);
+        })
+        .catch((err) => {
+          loader.textContent = '✗'
+          projectsContainer.append(err)
+          projectsContainer.classList.add('error')
+        })
+        .finally(() => {
+          clearInterval(interval);
+        });
+      }
+
+      function loadContent(repos, cacheHit) {
         const reposContainers = repos.map(({name, description, html_url, language, stargazers_count}) => {
           const repoContainer = document.createElement('div');
           repoContainer.innerHTML = `
@@ -155,15 +180,7 @@
         })
         loader.textContent = "✔";
         projectsBody.append(...reposContainers);
-      })
-      .catch((err) => {
-        loader.textContent = '✗'
-        projectsContainer.append(err)
-        projectsContainer.classList.add('error')
-      })
-      .finally(() => {
-        clearInterval(interval);
-      });
+      }
     </script>
   </body>
 </html>
