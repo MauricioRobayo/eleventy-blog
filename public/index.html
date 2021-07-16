@@ -54,10 +54,6 @@
         margin: 0;
       }
       li {
-        word-break: break-all;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         margin: 0.25rem 0;
       }
       .error,
@@ -76,6 +72,9 @@
       .meta {
         color: gray
       }
+      .repo-header > *:not(:last-child) {
+        margin-right: 1rem;
+      }
       @media screen and (min-width: 768px) {
         :root {
           font-size: 16px;
@@ -83,9 +82,6 @@
         .repo-header {
           display: flex;
           align-items: flex-end;
-        }
-        .repo-header > *:not(:last-child) {
-          margin-right: 1rem;
         }
       }
     </style>
@@ -113,10 +109,10 @@
       </li>
     </ul>
     <script>
-      loadProjects(document.getElementById('starred-projects'), 'stars', 3);
-      loadProjects(document.getElementById('recent-projects'), 'updated', 3);
+      loadProjects(document.getElementById('recent-projects'), 'updated', 3, ['language', 'updated_at']);
+      loadProjects(document.getElementById('starred-projects'), 'stars', 3, ['language', 'stargazers_count']);
 
-      function loadProjects(projectsContainer, sort, limit) {
+      function loadProjects(projectsContainer, sort, limit, meta) {
         projectsContainer.classList.add('projects')
         const url = `https://api.github.com/search/repositories?q=user:MauricioRobayo&sort=${sort}&per_page=${limit}`;
         const projectsTitle = document.createElement('h2');
@@ -147,7 +143,7 @@
         projectsContainer.append(projectsTitle, projectsBody);
 
         if (cache?.expirationTime > Date.now()) {
-          loadContent({repos: cache.repos, cacheHit: true, projectsBody,loader});
+          loadContent({repos: cache.repos, cacheHit: true, projectsBody,loader, meta});
           clearInterval(interval);
         } else {
           fetch(`/repos?sort=${sort}&limit=${limit}`).then((response) => {
@@ -158,7 +154,7 @@
           })
           .then((repos) => {
             localStorage.setItem(cacheKey, JSON.stringify({repos, expirationTime: Date.now() + 60 * 60 * 1000}))
-            loadContent({repos, cacheHit: false, projectsBody,loader});
+            loadContent({repos, cacheHit: false, projectsBody,loader, meta});
           })
           .catch((err) => {
             loader.textContent = '✗'
@@ -171,14 +167,14 @@
         }
       }
 
-      function loadContent({repos, cacheHit, projectsBody, loader}) {
+      function loadContent({repos, cacheHit, projectsBody, loader, meta}) {
         const reposContainers = repos.map(({name, description, html_url, language, stargazers_count, updated_at}) => {
           const repoContainer = document.createElement('div');
-          const meta = buildMeta({language, stargazers_count, updated_at});
+          const metaFields = {language, stargazers_count, updated_at};
           repoContainer.innerHTML = `
           <div class="repo-header">
             <h4>${name}</h4>
-            ${meta}
+            ${buildMeta(Object.fromEntries(Object.entries(metaFields).filter(([key]) => meta.includes(key))))}
             </div>
             <div class="repo-body">
               <p>${description ? description : ''}</p>
