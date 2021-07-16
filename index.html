@@ -151,7 +151,8 @@
           }
           return response.json();
         })
-        .then((repos) => {
+        .then(({headers, items: repos}) => {
+          console.log({headers});
           localStorage.setItem(cacheKey, JSON.stringify({repos, expirationTime: Date.now() + 60 * 60 * 1000}))
           loadContent({repos, cacheHit: false, projectsBody,loader, meta});
         })
