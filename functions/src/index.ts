@@ -22,7 +22,7 @@ export const repos = functions.https.onRequest(async (req, res) => {
     );
   }
 
-  const docRef = db.collection("cache").doc("repos");
+  const docRef = db.collection("repos").doc(JSON.stringify({ sort, limit }));
   const cached = await docRef.get();
 
   if (
@@ -48,6 +48,7 @@ export const repos = functions.https.onRequest(async (req, res) => {
     description: repo.description,
     stargazers_count: repo.stargazers_count,
     language: repo.language,
+    updated_at: repo.updated_at,
   }));
 
   await docRef.set({ repos });
