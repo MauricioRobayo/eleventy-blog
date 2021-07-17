@@ -117,6 +117,7 @@
       const loader = document.createElement('span');
       const link = document.createElement('a')
       const cacheStatus = document.createElement('p');
+      const cacheExpirationTime = document.createElement('p');
       const cacheKey = `projects-${sort}`;
 
       projectsBody.classList.add('projects-body');
@@ -134,15 +135,16 @@
 
       const cache = JSON.parse(localStorage.getItem(cacheKey));
 
-      cacheStatus.textContent = `localStorage cache ${cache ? 'hit' : 'miss'}`;
-
-      projectsTitle.append(loader, 'Fetching ', link, cacheStatus);
+      projectsTitle.append(loader, 'Fetching ', link, cacheStatus, cacheExpirationTime);
       projectsContainer.append(projectsTitle, projectsBody);
 
       if (cache?.expirationTime > Date.now()) {
-        loadContent({repos: cache.repos, cacheHit: true, projectsBody,loader, meta});
+        cacheStatus.textContent = 'localStorage cache hit';
+        cacheExpirationTime.textContent = `Expires: ${cache.expirationTime}`;
+        loadContent({repos: cache.repos, projectsBody,loader, meta});
         clearInterval(interval);
       } else {
+        cacheStatus.textContent = 'localStorage cache miss';
         fetch(url, {
           headers: {
             accept: 'application/vnd.github.v3+json',
@@ -165,7 +167,7 @@
         })
         .then(({items: repos }) => {
           localStorage.setItem(cacheKey, JSON.stringify({repos, expirationTime: Date.now() + 60 * 60 * 1000}))
-          loadContent({repos, cacheHit: false, projectsBody,loader, meta});
+          loadContent({repos, projectsBody,loader, meta});
         })
         .catch((err) => {
           loader.textContent = '✗'
@@ -178,7 +180,7 @@
       }
     }
 
-    function loadContent({repos, cacheHit, projectsBody, loader, meta}) {
+    function loadContent({repos, projectsBody, loader, meta}) {
       const reposContainers = repos.map(({name, description, html_url, language, stargazers_count, updated_at}) => {
         const repoContainer = document.createElement('div');
         const metaFields = {language, stargazers_count, updated_at};
