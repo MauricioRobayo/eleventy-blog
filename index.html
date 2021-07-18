@@ -26,7 +26,9 @@
         margin: 0 1rem;
         white-space: nowrap;
       }
-      h1,h2,h4 {
+      h1,
+      h2,
+      h4 {
         font-size: 1rem;
       }
       h2 {
@@ -53,7 +55,7 @@
         margin: 0.25rem 0;
       }
       .error,
-      .error a{
+      .error a {
         color: red;
       }
       .projects {
@@ -66,7 +68,7 @@
         margin-right: 0.5rem;
       }
       .meta {
-        color: gray
+        color: gray;
       }
       .repo-header > *:not(:last-child) {
         margin-right: 1rem;
@@ -82,139 +84,180 @@
       }
     </style>
   </head>
-  <h1>Mauricio Robayo</h1>
-  <ul>
-    <li>
-      <a href="https://www.linkedin.com/in/mauriciorobayo"
-        >https://www.linkedin.com/in/mauriciorobayo</a
-      >
-    </li>
-    <li>
-      <a href="https://blog.mauriciorobayo.com"
-        >https://blog.mauriciorobayo.com</a
-      >
-    </li>
-    <li>
-      <a
-        href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#109;&#97;&#106;&#111;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;"
-        >&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#109;&#97;&#106;&#111;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a
-      >
-    </li>
-  </ul>
-  <div id="recent-projects"></div>
-  <div id="starred-projects"></div>
-  <script>
-    loadProjects(document.getElementById('recent-projects'), 'updated', 3, ['language', 'updated_at']);
-    loadProjects(document.getElementById('starred-projects'), 'stars', 3, ['language', 'stargazers_count']);
+  <body>
+    <h1>Mauricio Robayo</h1>
+    <ul>
+      <li>
+        <a href="https://www.linkedin.com/in/mauriciorobayo"
+          >https://www.linkedin.com/in/mauriciorobayo</a
+        >
+      </li>
+      <li>
+        <a href="https://blog.mauriciorobayo.com"
+          >https://blog.mauriciorobayo.com</a
+        >
+      </li>
+      <li>
+        <a
+          href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#109;&#97;&#106;&#111;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;"
+          >&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#102;&#109;&#97;&#106;&#111;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a
+        >
+      </li>
+    </ul>
+    <div id="recent-projects"></div>
+    <div id="starred-projects"></div>
+    <script>
+      loadProjects(document.getElementById("recent-projects"), "updated", 3, [
+        "language",
+        "updated_at",
+      ]);
+      loadProjects(document.getElementById("starred-projects"), "stars", 3, [
+        "language",
+        "stargazers_count",
+      ]);
 
-    function loadProjects(projectsContainer, sort, limit, meta) {
-      projectsContainer.classList.add('projects')
-      const url = `https://api.github.com/search/repositories?q=user:MauricioRobayo&sort=${sort}&per_page=${limit}`;
-      const projectsTitle = document.createElement('h2');
-      const projectsBody = document.createElement('div');
-      const loader = document.createElement('span');
-      const link = document.createElement('a')
-      const cacheStatus = document.createElement('p');
-      const cacheExpirationTime = document.createElement('p');
-      const cacheKey = `projects-${sort}`;
+      function loadProjects(projectsContainer, sort, limit, meta) {
+        projectsContainer.classList.add("projects");
+        const url = `https://api.github.com/search/repositories?q=user:MauricioRobayo&sort=${sort}&per_page=${limit}`;
+        const projectsTitle = document.createElement("h2");
+        const projectsBody = document.createElement("div");
+        const loader = document.createElement("span");
+        const link = document.createElement("a");
+        const cacheStatus = document.createElement("p");
+        const cacheExpirationTime = document.createElement("p");
+        const cacheKey = `projects-${sort}`;
 
-      projectsBody.classList.add('projects-body');
-      loader.classList.add('repo-loader');
-      link.href = url;
-      link.textContent = url;
+        projectsBody.classList.add("projects-body");
+        loader.classList.add("repo-loader");
+        link.href = url;
+        link.textContent = url;
 
-      const loaderSymbols = ["\\", "/", "—"];
-      let i = 0;
-      loader.textContent = loaderSymbols[i % loaderSymbols.length];
-      const interval = setInterval(() => {
-        i++;
+        const loaderSymbols = ["\\", "/", "—"];
+        let i = 0;
         loader.textContent = loaderSymbols[i % loaderSymbols.length];
-      }, 500)
+        const interval = setInterval(() => {
+          i++;
+          loader.textContent = loaderSymbols[i % loaderSymbols.length];
+        }, 500);
 
-      const cache = JSON.parse(localStorage.getItem(cacheKey));
+        const cache = JSON.parse(localStorage.getItem(cacheKey));
 
-      projectsTitle.append(loader, 'Fetching ', link, cacheStatus, cacheExpirationTime);
-      projectsContainer.append(projectsTitle, projectsBody);
+        projectsTitle.append(
+          loader,
+          "Fetching ",
+          link,
+          cacheStatus,
+          cacheExpirationTime
+        );
+        projectsContainer.append(projectsTitle, projectsBody);
 
-      if (cache?.expirationTime > Date.now()) {
-        cacheStatus.textContent = 'localStorage cache hit';
-        cacheExpirationTime.textContent = `Expires: ${cache.expirationTime}`;
-        loadContent({repos: cache.repos, projectsBody,loader, meta});
-        clearInterval(interval);
-      } else {
-        cacheStatus.textContent = 'localStorage cache miss';
-        fetch(url, {
-          headers: {
-            accept: 'application/vnd.github.v3+json',
-          }
-        }).then((response) => {
-          if (!response.ok) {
-            throw new Error(`${response.status ? response.status : ''} ${response.statusText ? response.statusText : ''}`)
-          }
-
-          const rateLimitElements = Array.from(response.headers)
-            .filter(([key]) => key.toLowerCase().startsWith('x-ratelimit'))
-            .map((header) => {
-              const headerElement = document.createElement('p');
-              headerElement.textContent = header.join(': ');
-              return headerElement;
-            })
-          projectsBody.append(...rateLimitElements);
-
-          return response.json();
-        })
-        .then(({items: repos }) => {
-          localStorage.setItem(cacheKey, JSON.stringify({repos, expirationTime: Date.now() + 60 * 60 * 1000}))
-          loadContent({repos, projectsBody,loader, meta});
-        })
-        .catch((err) => {
-          loader.textContent = '✗'
-          projectsContainer.append(err)
-          projectsContainer.classList.add('error')
-        })
-        .finally(() => {
+        if (cache?.expirationTime > Date.now()) {
+          cacheStatus.textContent = "localStorage cache hit";
+          cacheExpirationTime.textContent = `Expires: ${cache.expirationTime}`;
+          loadContent({ repos: cache.repos, projectsBody, loader, meta });
           clearInterval(interval);
-        });
-      }
-    }
+        } else {
+          cacheStatus.textContent = "localStorage cache miss";
+          fetch(url, {
+            headers: {
+              accept: "application/vnd.github.v3+json",
+            },
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(
+                  `${response.status ? response.status : ""} ${
+                    response.statusText ? response.statusText : ""
+                  }`
+                );
+              }
 
-    function loadContent({repos, projectsBody, loader, meta}) {
-      const reposContainers = repos.map(({name, description, html_url, language, stargazers_count, updated_at}) => {
-        const repoContainer = document.createElement('div');
-        const metaFields = {language, stargazers_count, updated_at};
-        repoContainer.innerHTML = `
+              const rateLimitElements = Array.from(response.headers)
+                .filter(([key]) => key.toLowerCase().startsWith("x-ratelimit"))
+                .map((header) => {
+                  const headerElement = document.createElement("p");
+                  headerElement.textContent = header.join(": ");
+                  return headerElement;
+                });
+              projectsBody.append(...rateLimitElements);
+
+              return response.json();
+            })
+            .then(({ items: repos }) => {
+              localStorage.setItem(
+                cacheKey,
+                JSON.stringify({
+                  repos,
+                  expirationTime: Date.now() + 60 * 60 * 1000,
+                })
+              );
+              loadContent({ repos, projectsBody, loader, meta });
+            })
+            .catch((err) => {
+              loader.textContent = "✗";
+              projectsContainer.append(err);
+              projectsContainer.classList.add("error");
+            })
+            .finally(() => {
+              clearInterval(interval);
+            });
+        }
+      }
+
+      function loadContent({ repos, projectsBody, loader, meta }) {
+        const reposContainers = repos.map(
+          ({
+            name,
+            description,
+            html_url,
+            language,
+            stargazers_count,
+            updated_at,
+          }) => {
+            const repoContainer = document.createElement("div");
+            const metaFields = { language, stargazers_count, updated_at };
+            repoContainer.innerHTML = `
         <div class="repo-header">
           <h4>${name}</h4>
-          ${buildMeta(Object.fromEntries(Object.entries(metaFields).filter(([key]) => meta.includes(key))))}
+          ${buildMeta(
+            Object.fromEntries(
+              Object.entries(metaFields).filter(([key]) => meta.includes(key))
+            )
+          )}
           </div>
           <div class="repo-body">
-            <p>${description ? description : ''}</p>
+            <p>${description ? description : ""}</p>
             <p><a href="${html_url}">${html_url}</a></p>
           </div>
-        `
-        return repoContainer;
-      })
-      loader.textContent = "✔";
-      projectsBody.append(...reposContainers);
-    }
+        `;
+            return repoContainer;
+          }
+        );
+        loader.textContent = "✔";
+        projectsBody.append(...reposContainers);
+      }
 
-    function buildMeta(meta) {
-      const rtf1 = new Intl.RelativeTimeFormat('en', { style: 'narrow' });
+      function buildMeta(meta) {
+        const rtf1 = new Intl.RelativeTimeFormat("en", { style: "narrow" });
 
-      return Object.entries(meta).map(([key, value]) => {
-        if (key === 'updated_at') {
-            const updatedDate = new Date(value);
-            const millisecondsDiff = updatedDate.getTime() - Date.now();
-            const daysDiff = Math.floor(millisecondsDiff / 1000 / 60 / 60 / 24);
-            const relativeTime = rtf1.format(daysDiff, 'day');
-            return `<span class="meta">updated ${relativeTime}</span>`
-        }
-        if (key === 'stargazers_count') {
-          return `<span class="meta">${value} stars</span>`
-        }
-        return `<span class="meta">${value}</span>`
-      }).join('')
-    }
-  </script>
+        return Object.entries(meta)
+          .map(([key, value]) => {
+            if (key === "updated_at") {
+              const updatedDate = new Date(value);
+              const millisecondsDiff = updatedDate.getTime() - Date.now();
+              const daysDiff = Math.floor(
+                millisecondsDiff / 1000 / 60 / 60 / 24
+              );
+              const relativeTime = rtf1.format(daysDiff, "day");
+              return `<span class="meta">updated ${relativeTime}</span>`;
+            }
+            if (key === "stargazers_count") {
+              return `<span class="meta">${value} stars</span>`;
+            }
+            return `<span class="meta">${value}</span>`;
+          })
+          .join("");
+      }
+    </script>
   </body>
 </html>
