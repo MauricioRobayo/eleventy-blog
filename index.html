@@ -19,11 +19,14 @@
       :root {
         font-size: 14px;
       }
+      * {
+        margin: 0;
+      }
       body {
         font-family: "IBM Plex Mono", monospace;
         background-color: darkblue;
         color: gainsboro;
-        margin: 0 1rem;
+        padding: 1rem;
         white-space: nowrap;
       }
       h1,
@@ -33,10 +36,9 @@
       }
       h2 {
         font-weight: 400;
-        margin: 0;
       }
       h4 {
-        margin: 1rem 0 0 0;
+        margin-top: 1rem;
       }
       a {
         color: gainsboro;
@@ -49,10 +51,6 @@
         list-style: none;
         list-style-position: inside;
         padding-left: 0rem;
-        margin: 0;
-      }
-      li {
-        margin: 0;
       }
       .error,
       .error a {
@@ -60,9 +58,6 @@
       }
       .projects {
         margin: 1rem 0;
-      }
-      .projects p {
-        margin: 0;
       }
       .repo-loader {
         margin-right: 0.5rem;
