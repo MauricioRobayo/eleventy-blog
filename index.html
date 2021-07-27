@@ -215,7 +215,7 @@
             const metaFields = { language, stargazers_count, updated_at };
             repoContainer.innerHTML = `
         <div class="repo-header">
-          <h4>${name}</h4>
+          <h4><a href="${html_url}">${name}</a></h4>
           ${buildMeta(
             Object.fromEntries(
               Object.entries(metaFields).filter(([key]) => meta.includes(key))
@@ -224,7 +224,6 @@
           </div>
           <div class="repo-body">
             <p>${description ? description : ""}</p>
-            <p><a href="${html_url}">${html_url}</a></p>
           </div>
         `;
             return repoContainer;
