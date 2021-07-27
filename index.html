@@ -128,7 +128,7 @@
         link.href = url;
         link.textContent = url;
 
-        const loaderSymbols = ["\\", "/", "—"];
+        const loaderSymbols = ["\\", "|", "/", "—"];
         let i = 0;
         loader.textContent = loaderSymbols[i % loaderSymbols.length];
         const interval = setInterval(() => {
