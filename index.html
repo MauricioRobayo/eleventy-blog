@@ -49,7 +49,7 @@
       }
       .error,
       .error a {
-        color: red;
+        color: darkred;
       }
       section {
         margin: 2rem 0;
@@ -112,32 +112,46 @@
         "stargazers_count",
       ]);
 
+      function createLoader() {
+        let interval = null;
+        const element = document.createElement("span");
+        element.classList.add("repo-loader");
+
+        return {
+          element,
+          start: () => {
+            const loaderSymbols = ["\\", "|", "/", "—"];
+            let i = 0;
+            element.textContent = loaderSymbols[i % loaderSymbols.length];
+            interval = setInterval(() => {
+              element.textContent = loaderSymbols[++i % loaderSymbols.length];
+            }, 500);
+          },
+          stop: (textContent = "") => {
+            clearInterval(interval);
+            element.textContent = textContent;
+          },
+        };
+      }
+
       async function loadProjects(projectsContainer, sort, limit, meta) {
         const url = `https://api.github.com/search/repositories?q=user:MauricioRobayo&sort=${sort}&per_page=${limit}`;
         const projectsTitle = document.createElement("h2");
         const projectsBody = document.createElement("div");
-        const loader = document.createElement("span");
         const link = document.createElement("a");
         const cacheStatus = document.createElement("p");
         const cacheExpirationTime = document.createElement("p");
         const cacheKey = `projects-${sort}`;
 
         projectsBody.classList.add("projects-body");
-        loader.classList.add("repo-loader");
         link.href = url;
         link.textContent = url;
 
-        const loaderSymbols = ["\\", "|", "/", "—"];
-        let i = 0;
-        loader.textContent = loaderSymbols[i % loaderSymbols.length];
-        const interval = setInterval(() => {
-          loader.textContent = loaderSymbols[++i % loaderSymbols.length];
-        }, 500);
-
-        const cache = JSON.parse(localStorage.getItem(cacheKey));
+        const loader = createLoader();
+        loader.start();
 
         projectsTitle.append(
-          loader,
+          loader.element,
           "Fetching ",
           link,
           cacheStatus,
@@ -145,11 +159,12 @@
         );
         projectsContainer.append(projectsTitle, projectsBody);
 
+        const cache = JSON.parse(localStorage.getItem(cacheKey));
         if (cache?.expirationTime > Date.now()) {
           cacheStatus.textContent = "localStorage cache hit";
           cacheExpirationTime.textContent = `Expires: ${cache.expirationTime}`;
           loadContent({ repos: cache.repos, projectsBody, loader, meta });
-          clearInterval(interval);
+          loader.stop("✔");
         } else {
           cacheStatus.textContent = "localStorage cache miss";
 
@@ -160,12 +175,6 @@
               },
             });
 
-            if (!response.ok) {
-              throw new Error(
-                `${response.status || ""} ${response.statusText || ""}`.trim()
-              );
-            }
-
             const rateLimitElements = [...response.headers]
               .filter(([key]) => key.toLowerCase().startsWith("x-ratelimit"))
               .map((header) => {
@@ -174,6 +183,12 @@
                 return headerElement;
               });
             projectsBody.append(...rateLimitElements);
+
+            if (!response.ok) {
+              throw new Error(
+                `${response.status || ""} ${response.statusText || ""}`.trim()
+              );
+            }
 
             const { items: repos } = await response.json();
             localStorage.setItem(
@@ -184,13 +199,12 @@
               })
             );
             loadContent({ repos, projectsBody, loader, meta });
+            loader.stop("✔");
           } catch (err) {
-            loader.textContent = "✗";
+            loader.stop("✗");
             projectsContainer.append(err);
             projectsContainer.classList.add("error");
           }
-
-          clearInterval(interval);
         }
       }
 
@@ -222,7 +236,6 @@
             return repoContainer;
           }
         );
-        loader.textContent = "✔";
         projectsBody.append(...reposContainers);
       }
 
