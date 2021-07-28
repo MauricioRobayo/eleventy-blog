@@ -164,7 +164,7 @@
         const link = document.createElement("a");
         link.href = url;
         link.textContent = url;
-        title.append(loader.element, "Fetching ", link);
+        title.append(loader.ref, "Fetching ", link);
         header.append(title);
 
         return header;
@@ -192,7 +192,7 @@
         element.classList.add("repo-loader");
 
         return {
-          element,
+          ref: element,
           start: () => {
             const loaderSymbols = ["\\", "|", "/", "—"];
             let i = 0;
