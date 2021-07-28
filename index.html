@@ -261,20 +261,21 @@
             const repoContainer = document.createElement("div");
             const allMetaFields = { language, stargazers_count, updated_at };
             repoContainer.innerHTML = `
-        <div class="repo-header">
-          <h4><a href="${html_url}">${name}</a></h4>
-          ${createMeta(
-            Object.fromEntries(
-              Object.entries(allMetaFields).filter(([key]) =>
-                metaFields.includes(key)
-              )
-            )
-          )}
-          </div>
-          <div class="repo-body">
-            <p>${description || ""}</p>
-          </div>
-        `;
+              <div class="repo-header">
+                <h4>${name}</h4>
+                ${createMeta(
+                  Object.fromEntries(
+                    Object.entries(allMetaFields).filter(([key]) =>
+                      metaFields.includes(key)
+                    )
+                  )
+                )}
+              </div>
+              <div class="repo-body">
+                <p>${description || ""}</p>
+                <p><a href="${html_url}">${html_url}</p>
+              </div>
+            `;
             return repoContainer;
           }
         );
