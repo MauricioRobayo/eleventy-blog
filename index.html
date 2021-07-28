@@ -48,7 +48,7 @@
         padding-left: 0rem;
       }
       .error,
-      .error a {
+      .error * {
         color: darkred;
       }
       section {
@@ -103,14 +103,88 @@
       </p>
     </footer>
     <script>
-      loadProjects(document.getElementById("recent-projects"), "updated", 3, [
-        "language",
-        "updated_at",
-      ]);
-      loadProjects(document.getElementById("starred-projects"), "stars", 3, [
-        "language",
-        "stargazers_count",
-      ]);
+      loadProjects({
+        container: document.getElementById("recent-projects"),
+        sort: "updated",
+        metaFields: ["language", "updated_at"],
+        loader: createLoader(),
+      });
+      loadProjects({
+        container: document.getElementById("starred-projects"),
+        sort: "stars",
+        metaFields: ["language", "stargazers_count"],
+        loader: createLoader(),
+      });
+
+      async function loadProjects({
+        container,
+        sort,
+        limit = 3,
+        metaFields,
+        loader,
+      }) {
+        const url = `https://api.github.com/search/repositories?q=user:MauricioRobayo&sort=${sort}&per_page=${limit}`;
+        const header = createHeader(url, loader);
+        container.append(header);
+
+        loader.start();
+
+        const data = await fetchRepos({
+          url,
+          cache: createCache(`${sort}-${limit}`),
+        });
+
+        if (data.error) {
+          loader.stop("✗");
+          container.classList.add("error");
+          container.append(data.message);
+          return;
+        }
+
+        loader.stop("✔");
+
+        if (data.cacheHit) {
+          const cacheStatus = createCacheStatus(data.expirationTime);
+          header.append(cacheStatus);
+        }
+
+        const body = createBody();
+        const repos = createRepos({
+          container: body,
+          repos: data.repos,
+          metaFields,
+        });
+        body.append(...repos);
+        container.append(body);
+      }
+
+      function createHeader(url, loader) {
+        const header = document.createElement("header");
+        const title = document.createElement("h2");
+        const link = document.createElement("a");
+        link.href = url;
+        link.textContent = url;
+        title.append(loader.element, "Fetching ", link);
+        header.append(title);
+
+        return header;
+      }
+
+      function createBody() {
+        const projectsBody = document.createElement("div");
+        projectsBody.classList.add("projects-body");
+
+        return projectsBody;
+      }
+
+      function createCacheStatus(expirationTime) {
+        const container = document.createElement("div");
+        container.innerHTML = `
+          <p>Cache hit!</p>
+          <p>Expires ${expirationTime}</p>
+        `;
+        return container;
+      }
 
       function createLoader() {
         let interval = null;
@@ -124,6 +198,7 @@
             let i = 0;
             element.textContent = loaderSymbols[i % loaderSymbols.length];
             interval = setInterval(() => {
+              console.log("ticking");
               element.textContent = loaderSymbols[++i % loaderSymbols.length];
             }, 500);
           },
@@ -134,133 +209,30 @@
         };
       }
 
-      async function fetchProjects({ sort, limit = 3, skipCache = false }) {
-        const cacheKey = `projects-${sort}`;
-        const cache = JSON.parse(localStorage.getItem(cacheKey));
-        if (!skipCache && cache?.expirationTime > Date.now()) {
-          return {
-            cacheHit: true,
-            expirationTime: cache.expirationTime,
-          };
-        }
-
-        const baseUrl = "https://api.github.com/search/repositories";
-        const searchParams = new URLSearchParams({
-          q: "user:MauricioRobayo",
-          sort,
-          per_page: limit,
-        });
-
-        try {
-          const response = await fetch(`${baseUrl}?${searchParams}`, {
-            headers: {
-              accept: "application/vnd.github.v3+json",
-            },
-          });
-
-          if (!response.ok) {
-            const { message } = await response.json();
-            return {
-              error: response.status,
-              message,
-            };
-          }
-
-          const { items: repos } = await response.json();
-          localStorage.setItem(
-            cacheKey,
-            JSON.stringify({
-              repos,
-              expirationTime: Date.now() + 60 * 60 * 1000,
-            })
-          );
-          return {
-            cacheHit: false,
-            repos,
-          };
-        } catch (err) {
-          loader.stop("✗");
-          projectsContainer.append(err);
-          projectsContainer.classList.add("error");
-        }
-      }
-
-      async function loadProjects(projectsContainer, sort, limit, meta) {
-        const url = `https://api.github.com/search/repositories?q=user:MauricioRobayo&sort=${sort}&per_page=${limit}`;
-        const projectsTitle = document.createElement("h2");
-        const projectsBody = document.createElement("div");
-        const link = document.createElement("a");
-        const cacheStatus = document.createElement("p");
-        const cacheExpirationTime = document.createElement("p");
-        const cacheKey = `projects-${sort}`;
-
-        projectsBody.classList.add("projects-body");
-        link.href = url;
-        link.textContent = url;
-
-        const loader = createLoader();
-        loader.start();
-
-        projectsTitle.append(
-          loader.element,
-          "Fetching ",
-          link,
-          cacheStatus,
-          cacheExpirationTime
-        );
-        projectsContainer.append(projectsTitle, projectsBody);
-
-        const cache = JSON.parse(localStorage.getItem(cacheKey));
-        if (cache?.expirationTime > Date.now()) {
-          cacheStatus.textContent = "localStorage cache hit";
-          cacheExpirationTime.textContent = `Expires: ${cache.expirationTime}`;
-          loadContent({ repos: cache.repos, projectsBody, loader, meta });
-          loader.stop("✔");
-        } else {
-          cacheStatus.textContent = "localStorage cache miss";
-
-          try {
-            const response = await fetch(url, {
-              headers: {
-                accept: "application/vnd.github.v3+json",
-              },
-            });
-
-            const rateLimitElements = [...response.headers]
-              .filter(([key]) => key.toLowerCase().startsWith("x-ratelimit"))
-              .map((header) => {
-                const headerElement = document.createElement("p");
-                headerElement.textContent = header.join(": ");
-                return headerElement;
-              });
-            projectsBody.append(...rateLimitElements);
-
-            if (!response.ok) {
-              throw new Error(
-                `${response.status || ""} ${response.statusText || ""}`.trim()
-              );
+      function createCache(key) {
+        return {
+          get() {
+            const cache = JSON.parse(localStorage.getItem(key));
+            if (cache?.expirationTime > Date.now()) {
+              return cache;
             }
 
-            const { items: repos } = await response.json();
+            return null;
+          },
+          set(data, expiration = 60 * 60 * 1000) {
             localStorage.setItem(
-              cacheKey,
+              key,
               JSON.stringify({
-                repos,
-                expirationTime: Date.now() + 60 * 60 * 1000,
+                data,
+                expirationTime: Date.now() + expiration,
               })
             );
-            loadContent({ repos, projectsBody, loader, meta });
-            loader.stop("✔");
-          } catch (err) {
-            loader.stop("✗");
-            projectsContainer.append(err);
-            projectsContainer.classList.add("error");
-          }
-        }
+          },
+        };
       }
 
-      function loadContent({ repos, projectsBody, loader, meta }) {
-        const reposContainers = repos.map(
+      function createRepos({ container, repos, metaFields }) {
+        return repos.map(
           ({
             name,
             description,
@@ -270,13 +242,15 @@
             updated_at,
           }) => {
             const repoContainer = document.createElement("div");
-            const metaFields = { language, stargazers_count, updated_at };
+            const allMetaFields = { language, stargazers_count, updated_at };
             repoContainer.innerHTML = `
         <div class="repo-header">
           <h4><a href="${html_url}">${name}</a></h4>
-          ${buildMeta(
+          ${createMeta(
             Object.fromEntries(
-              Object.entries(metaFields).filter(([key]) => meta.includes(key))
+              Object.entries(allMetaFields).filter(([key]) =>
+                metaFields.includes(key)
+              )
             )
           )}
           </div>
@@ -287,11 +261,10 @@
             return repoContainer;
           }
         );
-        projectsBody.append(...reposContainers);
       }
 
-      function buildMeta(meta) {
-        const rtf1 = new Intl.RelativeTimeFormat("en", { style: "narrow" });
+      function createMeta(meta) {
+        const rtf = new Intl.RelativeTimeFormat("en", { style: "narrow" });
 
         return Object.entries(meta)
           .map(([key, value]) => {
@@ -301,7 +274,7 @@
               const daysDiff = Math.floor(
                 millisecondsDiff / 1000 / 60 / 60 / 24
               );
-              const relativeTime = rtf1.format(daysDiff, "day");
+              const relativeTime = rtf.format(daysDiff, "day");
               return `<span class="meta">updated ${relativeTime}</span>`;
             }
             if (key === "stargazers_count") {
@@ -310,6 +283,40 @@
             return `<span class="meta">${value}</span>`;
           })
           .join("");
+      }
+
+      async function fetchRepos({ url, cache }) {
+        const cachedData = cache.get();
+        if (cachedData) {
+          return {
+            cacheHit: true,
+            expirationTime: cachedData.expirationTime,
+            repos: cachedData.data,
+          };
+        }
+
+        const response = await fetch(url, {
+          headers: {
+            accept: "application/vnd.github.v3+json",
+          },
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          return {
+            error: response.status,
+            message: data.message || response.statusText || "",
+          };
+        }
+
+        const repos = data.items;
+
+        cache.set(repos);
+
+        return {
+          cacheHit: false,
+          repos,
+        };
       }
     </script>
   </body>
