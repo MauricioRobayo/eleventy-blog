@@ -136,26 +136,26 @@
 
         if (data.error) {
           loader.stop("✗");
+
           container.classList.add("error");
           container.append(data.message);
-          return;
+        } else {
+          loader.stop("✔");
+
+          if (data.cacheHit) {
+            const cacheStatus = createCacheStatus(data.expirationTime);
+            header.append(cacheStatus);
+          }
+
+          const body = createBody();
+          const repos = createRepos({
+            container: body,
+            repos: data.repos,
+            metaFields,
+          });
+          body.append(...repos);
+          container.append(body);
         }
-
-        loader.stop("✔");
-
-        if (data.cacheHit) {
-          const cacheStatus = createCacheStatus(data.expirationTime);
-          header.append(cacheStatus);
-        }
-
-        const body = createBody();
-        const repos = createRepos({
-          container: body,
-          repos: data.repos,
-          metaFields,
-        });
-        body.append(...repos);
-        container.append(body);
       }
 
       function createHeader(url, loader) {
