@@ -131,8 +131,7 @@
         let i = 0;
         loader.textContent = loaderSymbols[i % loaderSymbols.length];
         const interval = setInterval(() => {
-          i++;
-          loader.textContent = loaderSymbols[i % loaderSymbols.length];
+          loader.textContent = loaderSymbols[++i % loaderSymbols.length];
         }, 500);
 
         const cache = JSON.parse(localStorage.getItem(cacheKey));
