@@ -145,6 +145,9 @@
           if (data.cacheHit) {
             const cacheStatus = createCacheStatus(data.expirationTime);
             header.append(cacheStatus);
+          } else {
+            const rateLimit = createRateLimit(data.rateLimit);
+            header.append(...rateLimit);
           }
 
           const body = createBody();
@@ -156,6 +159,14 @@
           body.append(...repos);
           container.append(body);
         }
+      }
+
+      function createRateLimit(rateLimit) {
+        return rateLimit.map((info) => {
+          const p = document.createElement("p");
+          p.textContent = info.join(": ");
+          return p;
+        });
       }
 
       function createHeader(url, loader) {
@@ -315,6 +326,9 @@
 
         return {
           cacheHit: false,
+          rateLimit: [...response.headers].filter(([key]) =>
+            key.startsWith("x-ratelimit")
+          ),
           repos,
         };
       }
