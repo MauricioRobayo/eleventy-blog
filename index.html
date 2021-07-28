@@ -112,7 +112,7 @@
         "stargazers_count",
       ]);
 
-      function loadProjects(projectsContainer, sort, limit, meta) {
+      async function loadProjects(projectsContainer, sort, limit, meta) {
         const url = `https://api.github.com/search/repositories?q=user:MauricioRobayo&sort=${sort}&per_page=${limit}`;
         const projectsTitle = document.createElement("h2");
         const projectsBody = document.createElement("div");
@@ -152,49 +152,45 @@
           clearInterval(interval);
         } else {
           cacheStatus.textContent = "localStorage cache miss";
-          fetch(url, {
-            headers: {
-              accept: "application/vnd.github.v3+json",
-            },
-          })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error(
-                  `${response.status ? response.status : ""} ${
-                    response.statusText ? response.statusText : ""
-                  }`
-                );
-              }
 
-              const rateLimitElements = [...response.headers]
-                .filter(([key]) => key.toLowerCase().startsWith("x-ratelimit"))
-                .map((header) => {
-                  const headerElement = document.createElement("p");
-                  headerElement.textContent = header.join(": ");
-                  return headerElement;
-                });
-              projectsBody.append(...rateLimitElements);
-
-              return response.json();
-            })
-            .then(({ items: repos }) => {
-              localStorage.setItem(
-                cacheKey,
-                JSON.stringify({
-                  repos,
-                  expirationTime: Date.now() + 60 * 60 * 1000,
-                })
-              );
-              loadContent({ repos, projectsBody, loader, meta });
-            })
-            .catch((err) => {
-              loader.textContent = "✗";
-              projectsContainer.append(err);
-              projectsContainer.classList.add("error");
-            })
-            .finally(() => {
-              clearInterval(interval);
+          try {
+            const response = await fetch(url, {
+              headers: {
+                accept: "application/vnd.github.v3+json",
+              },
             });
+
+            if (!response.ok) {
+              throw new Error(
+                `${response.status || ""} ${response.statusText || ""}`.trim()
+              );
+            }
+
+            const rateLimitElements = [...response.headers]
+              .filter(([key]) => key.toLowerCase().startsWith("x-ratelimit"))
+              .map((header) => {
+                const headerElement = document.createElement("p");
+                headerElement.textContent = header.join(": ");
+                return headerElement;
+              });
+            projectsBody.append(...rateLimitElements);
+
+            const { items: repos } = await response.json();
+            localStorage.setItem(
+              cacheKey,
+              JSON.stringify({
+                repos,
+                expirationTime: Date.now() + 60 * 60 * 1000,
+              })
+            );
+            loadContent({ repos, projectsBody, loader, meta });
+          } catch (err) {
+            loader.textContent = "✗";
+            projectsContainer.append(err);
+            projectsContainer.classList.add("error");
+          }
+
+          clearInterval(interval);
         }
       }
 
