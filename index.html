@@ -134,6 +134,57 @@
         };
       }
 
+      async function fetchProjects({ sort, limit = 3, skipCache = false }) {
+        const cacheKey = `projects-${sort}`;
+        const cache = JSON.parse(localStorage.getItem(cacheKey));
+        if (!skipCache && cache?.expirationTime > Date.now()) {
+          return {
+            cacheHit: true,
+            expirationTime: cache.expirationTime,
+          };
+        }
+
+        const baseUrl = "https://api.github.com/search/repositories";
+        const searchParams = new URLSearchParams({
+          q: "user:MauricioRobayo",
+          sort,
+          per_page: limit,
+        });
+
+        try {
+          const response = await fetch(`${baseUrl}?${searchParams}`, {
+            headers: {
+              accept: "application/vnd.github.v3+json",
+            },
+          });
+
+          if (!response.ok) {
+            const { message } = await response.json();
+            return {
+              error: response.status,
+              message,
+            };
+          }
+
+          const { items: repos } = await response.json();
+          localStorage.setItem(
+            cacheKey,
+            JSON.stringify({
+              repos,
+              expirationTime: Date.now() + 60 * 60 * 1000,
+            })
+          );
+          return {
+            cacheHit: false,
+            repos,
+          };
+        } catch (err) {
+          loader.stop("✗");
+          projectsContainer.append(err);
+          projectsContainer.classList.add("error");
+        }
+      }
+
       async function loadProjects(projectsContainer, sort, limit, meta) {
         const url = `https://api.github.com/search/repositories?q=user:MauricioRobayo&sort=${sort}&per_page=${limit}`;
         const projectsTitle = document.createElement("h2");
