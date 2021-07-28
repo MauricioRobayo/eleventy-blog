@@ -167,7 +167,7 @@
                 );
               }
 
-              const rateLimitElements = Array.from(response.headers)
+              const rateLimitElements = [...response.headers]
                 .filter(([key]) => key.toLowerCase().startsWith("x-ratelimit"))
                 .map((header) => {
                   const headerElement = document.createElement("p");
