@@ -231,7 +231,7 @@
         return {
           get() {
             const cache = JSON.parse(localStorage.getItem(key));
-            if (cache?.expirationTime > Date.now()) {
+            if (cache.expirationTime > Date.now()) {
               return cache;
             }
 
