@@ -138,26 +138,28 @@
         }
       }
 
-      function createCache(key) {
-        return {
-          get() {
-            const cache = JSON.parse(localStorage.getItem(key));
-            if (cache.expirationTime > Date.now()) {
-              return cache;
-            }
+      class Cache {
+        constructor(key) {
+          this.key = key;
+        }
+        get() {
+          const cache = JSON.parse(localStorage.getItem(this.key));
+          if (cache?.expirationTime > Date.now()) {
+            return cache;
+          }
 
-            return null;
-          },
-          set(data, expiration = 60 * 60 * 1000) {
-            localStorage.setItem(
-              key,
-              JSON.stringify({
-                data,
-                expirationTime: Date.now() + expiration,
-              })
-            );
-          },
-        };
+          return null;
+        }
+
+        set(data, expiration = 60 * 60 * 1000) {
+          localStorage.setItem(
+            this.key,
+            JSON.stringify({
+              data,
+              expirationTime: Date.now() + expiration,
+            })
+          );
+        }
       }
 
       loadProjects({
@@ -188,7 +190,7 @@
 
         const data = await fetchRepos({
           url,
-          cache: createCache(`${sort}-${limit}`),
+          cache: new Cache(`${sort}-${limit}`),
         });
 
         if (data.error) {
