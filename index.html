@@ -109,6 +109,57 @@
       </p>
     </footer>
     <script>
+      class Loader {
+        #interval;
+        #element;
+        constructor() {
+          this.#element = document.createElement("span");
+          this.#element.classList.add("repo-loader");
+        }
+
+        start() {
+          const loaderSymbols = ["\\", "|", "/", "—"];
+          let i = 0;
+          this.#element.textContent = loaderSymbols[i % loaderSymbols.length];
+          this.#interval = setInterval(() => {
+            console.log("ticking");
+            i += 1;
+            this.#element.textContent = loaderSymbols[i % loaderSymbols.length];
+          }, 500);
+        }
+
+        stop(textContent = "") {
+          clearInterval(this.#interval);
+          this.#element.textContent = textContent;
+        }
+
+        get ref() {
+          return this.#element;
+        }
+      }
+
+      function createCache(key) {
+        return {
+          get() {
+            const cache = JSON.parse(localStorage.getItem(key));
+            if (cache.expirationTime > Date.now()) {
+              return cache;
+            }
+
+            return null;
+          },
+          set(data, expiration = 60 * 60 * 1000) {
+            localStorage.setItem(
+              key,
+              JSON.stringify({
+                data,
+                expirationTime: Date.now() + expiration,
+              })
+            );
+          },
+        };
+      }
+
       loadProjects({
         container: document.getElementById("recent-projects"),
         sort: "updated",
@@ -119,7 +170,7 @@
         container: document.getElementById("starred-projects"),
         sort: "stars",
         metaFields: ["language", "stargazers_count"],
-        loader: createLoader(),
+        loader: new Loader(),
       });
 
       async function loadProjects({
@@ -201,52 +252,6 @@
           <p>Expires: ${expirationTime}</p>
         `;
         return container;
-      }
-
-      function createLoader() {
-        let interval = null;
-        const element = document.createElement("span");
-        element.classList.add("repo-loader");
-
-        return {
-          ref: element,
-          start: () => {
-            const loaderSymbols = ["\\", "|", "/", "—"];
-            let i = 0;
-            element.textContent = loaderSymbols[i % loaderSymbols.length];
-            interval = setInterval(() => {
-              console.log("ticking");
-              i += 1;
-              element.textContent = loaderSymbols[i % loaderSymbols.length];
-            }, 500);
-          },
-          stop: (textContent = "") => {
-            clearInterval(interval);
-            element.textContent = textContent;
-          },
-        };
-      }
-
-      function createCache(key) {
-        return {
-          get() {
-            const cache = JSON.parse(localStorage.getItem(key));
-            if (cache.expirationTime > Date.now()) {
-              return cache;
-            }
-
-            return null;
-          },
-          set(data, expiration = 60 * 60 * 1000) {
-            localStorage.setItem(
-              key,
-              JSON.stringify({
-                data,
-                expirationTime: Date.now() + expiration,
-              })
-            );
-          },
-        };
       }
 
       function createRepos({ container, repos, metaFields }) {
