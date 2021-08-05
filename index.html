@@ -216,7 +216,8 @@
             element.textContent = loaderSymbols[i % loaderSymbols.length];
             interval = setInterval(() => {
               console.log("ticking");
-              element.textContent = loaderSymbols[++i % loaderSymbols.length];
+              i += 1;
+              element.textContent = loaderSymbols[i % loaderSymbols.length];
             }, 500);
           },
           stop: (textContent = "") => {
