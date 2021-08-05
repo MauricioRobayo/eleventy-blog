@@ -162,19 +162,6 @@
         }
       }
 
-      loadProjects({
-        container: document.getElementById("recent-projects"),
-        sort: "updated",
-        metaFields: ["language", "updated_at"],
-        loader: new Loader(),
-      });
-      loadProjects({
-        container: document.getElementById("starred-projects"),
-        sort: "stars",
-        metaFields: ["language", "stargazers_count"],
-        loader: new Loader(),
-      });
-
       async function loadProjects({
         container,
         sort,
@@ -347,6 +334,20 @@
           repos,
         };
       }
+
+      loadProjects({
+        container: document.getElementById("recent-projects"),
+        sort: "updated",
+        metaFields: ["language", "updated_at"],
+        loader: new Loader(),
+      });
+
+      loadProjects({
+        container: document.getElementById("starred-projects"),
+        sort: "stars",
+        metaFields: ["language", "stargazers_count"],
+        loader: new Loader(),
+      });
     </script>
   </body>
 </html>
