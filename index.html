@@ -111,30 +111,25 @@
     <script>
       class Loader {
         #interval;
-        #element;
         constructor() {
-          this.#element = document.createElement("span");
-          this.#element.classList.add("repo-loader");
+          this.ref = document.createElement("span");
+          this.ref.classList.add("repo-loader");
         }
 
         start() {
           const loaderSymbols = ["\\", "|", "/", "—"];
           let i = 0;
-          this.#element.textContent = loaderSymbols[i % loaderSymbols.length];
+          this.ref.textContent = loaderSymbols[i % loaderSymbols.length];
           this.#interval = setInterval(() => {
             console.log("ticking");
             i += 1;
-            this.#element.textContent = loaderSymbols[i % loaderSymbols.length];
+            this.ref.textContent = loaderSymbols[i % loaderSymbols.length];
           }, 500);
         }
 
         stop(textContent = "") {
           clearInterval(this.#interval);
-          this.#element.textContent = textContent;
-        }
-
-        get ref() {
-          return this.#element;
+          this.ref.textContent = textContent;
         }
       }
 
@@ -142,6 +137,7 @@
         constructor(key) {
           this.key = key;
         }
+
         get() {
           const cache = JSON.parse(localStorage.getItem(this.key));
           if (cache?.expirationTime > Date.now()) {
