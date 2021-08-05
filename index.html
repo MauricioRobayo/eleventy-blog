@@ -113,7 +113,7 @@
         container: document.getElementById("recent-projects"),
         sort: "updated",
         metaFields: ["language", "updated_at"],
-        loader: createLoader(),
+        loader: new Loader(),
       });
       loadProjects({
         container: document.getElementById("starred-projects"),
