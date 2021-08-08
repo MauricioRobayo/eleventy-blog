@@ -1,0 +1,77 @@
+:root {
+  font-size: 14px;
+}
+
+* {
+  margin: 0;
+  color: gainsboro;
+}
+
+body {
+  font-family: "IBM Plex Mono", monospace;
+  background-color: darkblue;
+  padding: 0.5rem;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h4 {
+  font-size: 1rem;
+}
+
+h1 {
+  margin-bottom: 2rem;
+}
+
+h2 {
+  font-weight: 400;
+}
+
+h4 {
+  margin-top: 1rem;
+}
+
+ul {
+  list-style: none;
+  list-style-position: inside;
+  padding-left: 0rem;
+}
+
+.error, .error * {
+  color: darkred;
+}
+
+section {
+  margin: 2rem 0;
+}
+
+.repo-loader {
+  margin-right: 0.5rem;
+}
+
+.meta {
+  color: darkgray;
+}
+
+.repo-header>*:not(:last-child) {
+  margin-right: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    font-size: 16px;
+  }
+  body {
+    padding: 1rem;
+  }
+  .repo-header {
+    display: flex;
+    align-items: flex-end;
+  }
+}
