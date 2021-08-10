@@ -1,33 +1,22 @@
-import Cache from "./Cache.js";
-import fetchRepos from "./ReposApi.js";
-
 export default class Projects {
+  #api;
   #container;
-  #sort;
-  #limit;
-  #metaFields;
   #loader;
-  constructor({ container, sort, limit = 3, metaFields, loader }) {
+  #metaFields;
+  constructor({ api, container, loader, metaFields }) {
+    this.#api = api;
     this.#container = container;
-    this.#sort = sort;
-    this.#limit = limit;
-    this.#metaFields = metaFields;
     this.#loader = loader;
+    this.#metaFields = metaFields;
   }
 
   async load() {
-    const url = `https://api.github.com/search/repositories?q=user:MauricioRobayo&sort=${
-      this.#sort
-    }&per_page=${this.#limit}`;
-    const header = Projects.createHeader(url, this.#loader);
+    const header = Projects.createHeader(this.#api.url, this.#loader);
 
     this.#container.append(header);
     this.#loader.start();
 
-    const data = await fetchRepos({
-      url,
-      cache: new Cache(`${this.#sort}-${this.#limit}`),
-    });
+    const data = await this.#api.fetch();
 
     if (data.error) {
       this.#loader.stop("✗");
