@@ -121,7 +121,6 @@
           let i = 0;
           this.ref.textContent = loaderSymbols[i % loaderSymbols.length];
           this.#interval = setInterval(() => {
-            console.log("ticking");
             i += 1;
             this.ref.textContent = loaderSymbols[i % loaderSymbols.length];
           }, 500);
@@ -158,48 +157,59 @@
         }
       }
 
-      async function loadProjects({
-        container,
-        sort,
-        limit = 3,
-        metaFields,
-        loader,
-      }) {
-        const url = `https://api.github.com/search/repositories?q=user:MauricioRobayo&sort=${sort}&per_page=${limit}`;
-        const header = createHeader(url, loader);
-        container.append(header);
+      class Projects {
+        #container;
+        #sort;
+        #limit;
+        #metaFields;
+        #loader;
+        constructor({ container, sort, limit = 3, metaFields, loader }) {
+          this.#container = container;
+          this.#sort = sort;
+          this.#limit = limit;
+          this.#metaFields = metaFields;
+          this.#loader = loader;
+        }
 
-        loader.start();
+        async load() {
+          const url = `https://api.github.com/search/repositories?q=user:MauricioRobayo&sort=${
+            this.#sort
+          }&per_page=${this.#limit}`;
+          const header = createHeader(url, this.#loader);
 
-        const data = await fetchRepos({
-          url,
-          cache: new Cache(`${sort}-${limit}`),
-        });
+          this.#container.append(header);
+          this.#loader.start();
 
-        if (data.error) {
-          loader.stop("✗");
-
-          container.classList.add("error");
-          container.append(data.message);
-        } else {
-          loader.stop("✔");
-
-          if (data.cacheHit) {
-            const cacheStatus = createCacheStatus(data.expirationTime);
-            header.append(cacheStatus);
-          } else {
-            const rateLimit = createRateLimit(data.rateLimit);
-            header.append(...rateLimit);
-          }
-
-          const body = createBody();
-          const repos = createRepos({
-            container: body,
-            repos: data.repos,
-            metaFields,
+          const data = await fetchRepos({
+            url,
+            cache: new Cache(`${this.#sort}-${this.#limit}`),
           });
-          body.append(...repos);
-          container.append(body);
+
+          if (data.error) {
+            this.#loader.stop("✗");
+
+            this.#container.classList.add("error");
+            this.#container.append(data.message);
+          } else {
+            this.#loader.stop("✔");
+
+            if (data.cacheHit) {
+              const cacheStatus = createCacheStatus(data.expirationTime);
+              header.append(cacheStatus);
+            } else {
+              const rateLimit = createRateLimit(data.rateLimit);
+              header.append(...rateLimit);
+            }
+
+            const body = createBody();
+            const repos = createRepos({
+              container: body,
+              repos: data.repos,
+              metaFields: this.#metaFields,
+            });
+            body.append(...repos);
+            this.#container.append(body);
+          }
         }
       }
 
@@ -331,19 +341,21 @@
         };
       }
 
-      loadProjects({
+      const recentProjects = new Projects({
         container: document.getElementById("recent-projects"),
         sort: "updated",
         metaFields: ["language", "updated_at"],
         loader: new Loader(),
       });
-
-      loadProjects({
+      const popularProjects = new Projects({
         container: document.getElementById("starred-projects"),
         sort: "stars",
         metaFields: ["language", "stargazers_count"],
         loader: new Loader(),
       });
+
+      recentProjects.load();
+      popularProjects.load();
     </script>
   </body>
 </html>
