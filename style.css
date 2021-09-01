@@ -3,11 +3,12 @@
 }
 * {
   margin: 0;
-  color: gainsboro;
+  color: lightgray;
+  line-height: 1.5rem;
 }
 body {
   font-family: "IBM Plex Mono", monospace;
-  background-color: darkblue;
+  background-color: navy;
   padding: 0.5rem;
 }
 a {
@@ -22,7 +23,7 @@ h4 {
   font-size: 1rem;
 }
 h1 {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 h2 {
   margin: 0;
@@ -57,7 +58,7 @@ main {
   margin-right: 0.5rem;
 }
 .meta {
-  color: darkgray;
+  color: gray;
 }
 .repo-header > *:not(:last-child) {
   margin-right: 1rem;
