@@ -11,10 +11,15 @@ export default class Projects {
   }
 
   async load() {
+    this.#loader.start();
+
+    this.#container.innerHTML = "";
+    this.#container.style.marginTop = "1rem";
+    this.#container.style.marginBottom = "2rem";
+
     const header = Projects.createHeader(this.#api.url, this.#loader);
 
     this.#container.append(header);
-    this.#loader.start();
 
     const data = await this.#api.fetch();
 

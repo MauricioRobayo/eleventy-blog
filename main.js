@@ -24,11 +24,20 @@ const recentProjects = new Projects({
   loader: new Loader(),
 });
 const popularProjects = new Projects({
-  container: document.getElementById("starred-projects"),
+  container: document.getElementById("popular-projects"),
   api: popularProjectsApi,
   metaFields: ["language", "stargazers_count"],
   loader: new Loader(),
 });
 
-recentProjects.load();
-popularProjects.load();
+document
+  .querySelector("#load-recent-projects")
+  .addEventListener("click", () => {
+    recentProjects.load();
+  });
+
+document
+  .querySelector("#load-popular-projects")
+  .addEventListener("click", () => {
+    popularProjects.load();
+  });
