@@ -40,9 +40,6 @@ export default class ReposApi {
 
     return {
       cacheHit: false,
-      rateLimit: [...response.headers].filter(([key]) =>
-        key.startsWith("x-ratelimit")
-      ),
       repos,
     };
   }

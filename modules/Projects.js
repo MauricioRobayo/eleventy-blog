@@ -34,9 +34,6 @@ export default class Projects {
       if (data.cacheHit) {
         const cacheStatus = Projects.createCacheStatus(data.expirationTime);
         header.append(cacheStatus);
-      } else {
-        const rateLimit = Projects.createRateLimit(data.rateLimit);
-        header.append(...rateLimit);
       }
 
       const body = Projects.createBody();
@@ -48,14 +45,6 @@ export default class Projects {
       body.append(...repos);
       this.#container.append(body);
     }
-  }
-
-  static createRateLimit(rateLimit) {
-    return rateLimit.map((info) => {
-      const p = document.createElement("p");
-      p.textContent = info.join(": ");
-      return p;
-    });
   }
 
   static createHeader(url, loader) {
