@@ -44,6 +44,9 @@ button:hover {
 main {
   margin: 1rem 0;
 }
+footer {
+  margin-bottom: 1rem;
+}
 .error,
 .error * {
   color: darkred;
