@@ -100,7 +100,7 @@ export default class Projects {
         const allMetaFields = { language, stargazers_count, updated_at };
         repoContainer.innerHTML = `
           <div class="repo-header">
-            <h4>${name}</h4>
+            <h4><a href="${html_url}">${name}</a></h4>
             ${Projects.createMeta(
               Object.fromEntries(
                 Object.entries(allMetaFields).filter(([key]) =>
@@ -111,7 +111,6 @@ export default class Projects {
           </div>
           <div class="repo-body">
             <p>${description || ""}</p>
-            <p><a href="${html_url}">${html_url}</p>
           </div>
         `;
         return repoContainer;
