@@ -1,0 +1,21 @@
+{
+  "title": "Mauricio Robayo's blog",
+  "url": "https://blog.mauriciorobayo.com/",
+  "language": "en",
+  "description": "A Simple blog",
+  "feed": {
+    "subtitle": "A Simple blog",
+    "filename": "feed.xml",
+    "path": "/feed/feed.xml",
+    "id": "https://blog.mauriciorobayo.com/"
+  },
+  "jsonfeed": {
+    "path": "/feed/feed.json",
+    "url": "https://blog.mauriciorobayo.com/feed/feed.json"
+  },
+  "author": {
+    "name": "Mauricio Robayo",
+    "email": "rfmajo@gmail.com",
+    "url": "https://blog.mauriciorobayo.com/about-me/"
+  }
+}
