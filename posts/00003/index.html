@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to hide your front-end API keys</title>
+    <meta name="description" content="A Simple blog">
+    <link rel="stylesheet" href="/eleventy-base-blog/css/index.css">
+    <link rel="stylesheet" href="/eleventy-base-blog/css/prism-base16-monokai.dark.css">
+    <link rel="alternate" href="/eleventy-base-blog/feed/feed.xml" type="application/atom+xml" title="Mauricio Robayo&#39;s blog">
+    <link rel="alternate" href="/eleventy-base-blog/feed/feed.json" type="application/json" title="Mauricio Robayo&#39;s blog">
+  </head>
+  <body>
+    <header>
+      <h1 class="home"><a href="/eleventy-base-blog/">Mauricio Robayo&#39;s blog</a></h1>
+      <ul class="nav">
+        <li class="nav-item"><a href="/eleventy-base-blog/">Home</a></li>
+        <li class="nav-item"><a href="/eleventy-base-blog/posts/">Archive</a></li>
+        <li class="nav-item"><a href="/eleventy-base-blog/about/">About Me</a></li>
+      </ul>
+    </header>
+
+    <main  class="tmpl-post">
+
+      <!-- Delete this message -->
+      <div class="warning">
+        <ol>
+          <li>Edit the <code>_data/metadata.json</code> with your blog’s information.</li>
+          <li>(Optional) Edit <code>.eleventy.js</code> with your <a href="https://www.11ty.dev/docs/config/">configuration preferences</a>.</li>
+          <li>Delete this message from <code>_includes/layouts/base.njk</code>.</li>
+        </ol>
+        <p><em>This is an <a href="https://www.11ty.dev/">Eleventy project</a> created from the <a href="https://github.com/11ty/eleventy-base-blog"><code>eleventy-base-blog</code> repo</a>.</em></p>
+      </div>
+      <!-- Stop deleting -->
+
+      <h1>How to hide your front-end API keys</h1>
+
+<time datetime="2020-02-12">12 Feb 2020</time><a href="/eleventy-base-blog/tags/front-end/" class="post-tag">front-end</a>
+
+<p>Most of web API services require the use of an API key or an access token to get authorization. The problem with this setup is that when you include your credentials with your front-end code, any user who understands the basics of HTTP and knows how to open developer tools can access them and use it for their own benefit.</p>
+<p><img src="/img/dev-tools-exposing-API-key.png" alt="dev tools exposing API key"></p>
+<h2 id="api-authorization" tabindex="-1">API Authorization <a class="direct-link" href="#api-authorization" aria-hidden="true">#</a></h2>
+<p>When you make the request to the API service you need to include your credentials to let the service know that you are an authorized user. To do this you will be asked to include them on the query string or as a header when you make the request.</p>
+<p>If you fail to include them in the request you will not be associated with an authorized user and the API service will return an error indicating that your app isn't authorized to request the data.</p>
+<p>If you successfully included the credentials and if you are still below any quota or limit on your account, the service sends an OK response with the requested data.</p>
+<h2 id="the-problem" tabindex="-1">The Problem <a class="direct-link" href="#the-problem" aria-hidden="true">#</a></h2>
+<p>Leaking your credentials becomes a major issue because anyone with your API key or authorization token will be able to make requests to the API service on your behalf, and those requests will count as yours. This means that if you are on a paid plan for the service, you will end up paying requests someone else is making on your behalf.</p>
+<p>Additionally, if someone else uses your credentials outside the terms of service of the API provider or includes them in an app that is used for non-legal activities, you will be held responsible because the API provider will think you are the one making those requests. In the best-case scenario, your credentials will be revoked.</p>
+<h2 id="the-solution" tabindex="-1">The Solution <a class="direct-link" href="#the-solution" aria-hidden="true">#</a></h2>
+<p>Since you need to include your authorization token on every request made to the API service and there is no way around this, we need to find a way to make the request to the API service including your credentials but at the same time removing them from your web app so they are not exposed on the front-end.</p>
+<p>This is where a proxy comes into place.</p>
+<p>Think of a proxy as a middleman. You will send the request to that middleman who will make some changes to the request and forward it to the API service. When the API service responds, the middleman will forward that response back to you.</p>
+<p>That way you can remove your credentials from the front-end code by sending the request to the proxy, which will add your authorization method and forward it to the API service and back to you once it gets a response.</p>
+<p>You will also tell the middleman to only respond to you. The middleman will be able to filter the requests by the domain they come from, using the origin header which is set by the browser once the request is made.</p>
+<p>So basically, you are going to tell the middleman to only allow some domains to interact with it. If the request comes from your domain, it's going to be allowed by the middleman and proxied to the API service with the appropriate credentials, and then forward the response back to you. If the domain making the request is not allowed, then the middleman is just going to block that request.</p>
+<p>During this process, your web app is completely unaware of your credentials, hence nobody is going to be able to get them.</p>
+<p>Note that some API services require you to associate your credentials with one or more domains. The service will check your API key and the domain the request comes from and will authorize the request only when the origin was allowed by the user holding the credentials.</p>
+<p>In those cases, there is no need for a proxy server because even if the credentials are visible, nobody is going to be able to make a request with those credentials from a domain that was not authorized by the user.</p>
+<p>In some other cases, other API services enforce restrictions that don't allow them to be called directly from the client, so a proxy server is required to be able to handle the requests on behalf of the client.</p>
+<h2 id="setting-your-proxy-server" tabindex="-1">Setting your proxy server <a class="direct-link" href="#setting-your-proxy-server" aria-hidden="true">#</a></h2>
+<p>Since the proxy is nothing more than a server that is forwarding requests, you can very easily deploy your own proxy server using any cloud provider.</p>
+<p>You can set up a simple Node.js server using Express.js and the <a href="https://github.com/chimurai/http-proxy-middleware">http-proxy-middleware</a> package, and deploy it to Heroku or any other cloud provider.</p>
+<p>If you decide to use Heroku you can store your credentials as config vars. That way, they will be safely hidden and the proxy will add them on each request it forwards to the API service. Your front-end app won't know anything about your credentials, that's the job of the middleman.</p>
+<p>Once your proxy server is up and running, you can then redirect the requests on your front-end code to target it. It will safely add your credentials and forward the request to the API service, and once it gets the response from the API service it will forward it back to your app.</p>
+<h2 id="ok-show-me-the-code" tabindex="-1">OK, show me the code <a class="direct-link" href="#ok-show-me-the-code" aria-hidden="true">#</a></h2>
+<p>To get your proxy server up and running on Heroku you can use the <a href="https://github.com/MauricioRobayo/api-key-proxy-server">api-key-proxy-server</a> repository that has everything setup.</p>
+<h3 id="1.-clone-the-repository" tabindex="-1">1. Clone the repository <a class="direct-link" href="#1.-clone-the-repository" aria-hidden="true">#</a></h3>
+<pre><code>git clone https://github.com/MauricioRobayo/api-key-proxy-heroku.git
+</code></pre>
+<h3 id="2.-move-into-the-repository-and-create-a-new-heroku-app" tabindex="-1">2. Move into the repository and create a new Heroku app <a class="direct-link" href="#2.-move-into-the-repository-and-create-a-new-heroku-app" aria-hidden="true">#</a></h3>
+<pre><code>cd api-key-proxy-heroku
+heroku create
+</code></pre>
+<h3 id="3.-include-your-api-keys" tabindex="-1">3. Include your API keys <a class="direct-link" href="#3.-include-your-api-keys" aria-hidden="true">#</a></h3>
+<p>Include your API keys on the Heroku app. On the dashboard go to Settings and lookup for the Config Vars section. Copy and paste your API keys there using the same variable name you are using to retrieve it as an environment variable on each proxy service on the <a href="https://github.com/MauricioRobayo/api-key-proxy-server/blob/master/src/config.js">config file</a>. For example, in the case of the <a href="https://github.com/MauricioRobayo/api-key-proxy-server/blob/502806c8b5af5c95a135d88e9a5193ebdd6532b8/src/config.js#L12">Open Weather API proxy configuration</a> that is included with the code, the variable name is <code>WEATHER_API_KEY</code>.</p>
+<h3 id="4.-set-up-your-api-proxies" tabindex="-1">4. Set up your API proxies <a class="direct-link" href="#4.-set-up-your-api-proxies" aria-hidden="true">#</a></h3>
+<p>You can include all the API services you want using the <a href="https://github.com/MauricioRobayo/api-key-proxy-server/blob/master/src/config.js">config file</a> which exports an object with two options: <strong>allowedDomains</strong> and <strong>proxies</strong>.</p>
+<pre class="language-js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span><br>  allowedDomains<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'https://www.example.com'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>  proxies<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token comment">// We will handle this in a second ],</span><br><span class="token punctuation">}</span></code></pre>
+<p><strong>allowedDomains</strong>: An array of domains you want to allow to make calls to the proxy server. All the domains not listed here will be rejected with a CORS error.</p>
+<p>Do not include pathnames:</p>
+<ul>
+<li>Wrong: <code>https://example.com/some-path</code> ❌</li>
+<li>Right: <code>https://example.com</code> ✔</li>
+</ul>
+<p>Do not include trailing slash:</p>
+<ul>
+<li>Wrong: <code>https://example.com/</code> ❌</li>
+<li>Right: <code>https://example.com</code> ✔</li>
+</ul>
+<p><strong>proxies</strong>: An array with the configuration options for each API service. The <a href="https://github.com/MauricioRobayo/api-key-proxy-server/blob/master/src/config.js">config file</a> included provides configurations for the <a href="https://openweathermap.org/api">Open Weather API</a>, the <a href="https://ipinfo.io/">ipinfo API</a>, and the <a href="https://developer.github.com/v3/">GitHub API</a>. You can remove or add as many as you need:</p>
+<pre class="language-js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span><br>  allowedDomains<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"https://www.example.com"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>  proxies<span class="token operator">:</span> <span class="token punctuation">[</span><br>    <span class="token punctuation">{</span><br>      route<span class="token operator">:</span> <span class="token string">"/weather"</span><span class="token punctuation">,</span><br>      allowedMethods<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"GET"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>      target<span class="token operator">:</span> <span class="token string">"https://api.openweathermap.org/data/2.5/weather"</span><span class="token punctuation">,</span><br>      queryparams<span class="token operator">:</span> <span class="token punctuation">{</span><br>        appid<span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">WEATHER_API_KEY</span><span class="token punctuation">,</span><br>      <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">{</span><br>      route<span class="token operator">:</span> <span class="token string">"/ipinfo"</span><span class="token punctuation">,</span><br>      allowedMethods<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"GET"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>      target<span class="token operator">:</span> <span class="token string">"https://ipinfo.io/"</span><span class="token punctuation">,</span><br>      queryparams<span class="token operator">:</span> <span class="token punctuation">{</span><br>        token<span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">IPINFO_TOKEN</span><span class="token punctuation">,</span><br>      <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">{</span><br>      route<span class="token operator">:</span> <span class="token string">"/github"</span><span class="token punctuation">,</span><br>      allowedMethods<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"GET"</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>      target<span class="token operator">:</span> <span class="token string">"https://api.github.com"</span><span class="token punctuation">,</span><br>      headers<span class="token operator">:</span> <span class="token punctuation">{</span><br>        Accept<span class="token operator">:</span> <span class="token string">"application/vnd.github.v3+json"</span><span class="token punctuation">,</span><br>        Authorization<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Token </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">GITHUB_TOKEN</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span><br>      <span class="token punctuation">}</span><span class="token punctuation">,</span><br>    <span class="token punctuation">}</span><span class="token punctuation">,</span><br>  <span class="token punctuation">]</span><span class="token punctuation">,</span><br><span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<p>Let's take a look at a proxy configuration from the above, it's an object that looks like this:</p>
+<pre class="language-js"><code class="language-js"><span class="token punctuation">{</span><br>  route<span class="token operator">:</span> <span class="token string">'/weather'</span><span class="token punctuation">,</span><br>  allowedMethods<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'GET'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>  target<span class="token operator">:</span> <span class="token string">'https://api.openweathermap.org/data/2.5/weather'</span><span class="token punctuation">,</span><br>  queryparams<span class="token operator">:</span> <span class="token punctuation">{</span><br>    appid<span class="token operator">:</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">WEATHER_API_KEY</span><span class="token punctuation">,</span><br>  <span class="token punctuation">}</span><span class="token punctuation">,</span><br><span class="token punctuation">}</span></code></pre>
+<p>The <strong>route</strong> is the path where your API proxy is going to listen for your requests. If you are using Heroku, you could reach your weather API proxy using the <code>weather</code> path on your Heroku app:</p>
+<pre class="language-http"><code class="language-http"><span class="token header-name keyword">https:</span>//your-proxy-server.heroku.app/weather</code></pre>
+<p>The <strong>allowedMethods</strong> is an array of HTTP methods the server will proxy to the API service. It defaults to <code>GET</code> if omitted. For this example, we are explicitly setting it to <code>GET</code> as that's the only type of request we are going to do to the API.</p>
+<p>The <strong>target</strong> is the API endpoint that the proxy server is going to forward requests to. All requests made to the <code>route</code> on the proxy server will be proxied to the <code>target</code> endpoint.</p>
+<p>The <strong>queryparams</strong> is an object with additional query params to be added to the request that the proxy makes to the <code>target</code> endpoint. Since the <a href="https://openweathermap.org/appid#use">authorization by the Open Weather API</a> is done by means of a query parameter, we include it here. Notice that the API key is going to be read from the environment variables that you set on the <code>Config Vars</code> section on Heroku and it's called <code>WEATHER_API_KEY</code>:</p>
+<p><img src="/img/heroku-env-vars.png" alt="Heroku env vars"></p>
+<p>For the Open Weather API, that's all you need. But there are some other options supported if you need more:</p>
+<ul>
+<li><strong>allowedDomains</strong>: You can include specific allowed domains for a single proxy.</li>
+<li><strong>headers</strong>: An object with the headers that will be added to the request made to the proxy server.</li>
+<li><strong>auth</strong>: Basic authentication, for example: <code>user:password</code> to compute an Authorization header.</li>
+</ul>
+<h3 id="5.-commit-your-changes-and-deploy-to-heroku" tabindex="-1">5. Commit your changes and deploy to Heroku <a class="direct-link" href="#5.-commit-your-changes-and-deploy-to-heroku" aria-hidden="true">#</a></h3>
+<pre><code>git commit -am&quot;Update proxy settings&quot;
+git push heroku
+</code></pre>
+<p>Finally, you can use your Proxy server to redirect the requests from your front-end code. Notice that you do not need to include any authorization key or token on the request to the proxy.</p>
+<p>Request including authorization key 😢:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> apiService <span class="token operator">=</span> <span class="token string">"https://api.openweathermap.org/data/2.5/weather"</span><span class="token punctuation">;</span><br><br><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>apiService<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">?q=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>city<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&amp;units=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>units<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&amp;appid=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>apiKey<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><br>  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">response</span><span class="token punctuation">)</span> <span class="token operator">=></span> response<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br>  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">json</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">handleData</span><span class="token punctuation">(</span>json<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Request to the proxy without authorization key 😊:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> apiProxy <span class="token operator">=</span> <span class="token string">'https://your-proxy-server.herokuapp.com/weather'</span><br><br><span class="token function">fetch</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>apiProxy<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">?q=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>city<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&amp;units=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>units<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><br>  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">response</span> <span class="token operator">=></span> response<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br>  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">json</span> <span class="token operator">=></span> <span class="token function">handleData</span><span class="token punctuation">(</span>json<span class="token punctuation">)</span></code></pre>
+<p>If you want to test drive the proxy server without deploying to Heroku or any other cloud provider, you can check the section <a href="https://github.com/MauricioRobayo/api-key-proxy-server#test-it-on-development">test it on development</a> of the documentation.</p>
+<p>You can also check this weather app and its code which is using the proxy server.</p>
+<h2 id="conclusion" tabindex="-1">Conclusion <a class="direct-link" href="#conclusion" aria-hidden="true">#</a></h2>
+<p>Your credentials should be private and it is a bad practice to let them out there on the wild where anybody can pick them up and use them for their own purposes.</p>
+<p>When deploying a front-end app using a third-party API service that is not verifying the origin of the requests, make sure that you are using a proxy server to protect your identity from being stolen.</p>
+<p>If you have any app that you deployed including your private credentials, go ahead and deploy your proxy server using the one suggested here or by configuring your own. Once you do that, remove the credentials from your front-end code and don't forget to revoke them as they were already exposed.</p>
+<h2 id="acknowledgments" tabindex="-1">Acknowledgments <a class="direct-link" href="#acknowledgments" aria-hidden="true">#</a></h2>
+<p>Huge thanks to <a href="https://github.com/matheus-fls">@matheus-fls</a> for the invaluable feedback provided to improve the code, and to <a href="https://github.com/majovanilla">@majovanilla</a> for her massive contribution to make this article more readable.</p>
+
+<hr>
+<ul><li>Next: <a href="/eleventy-base-blog/posts/00004/">CSS Grid IS a grid framework</a></li>
+</ul>
+
+    </main>
+
+    <footer></footer>
+
+    <!-- Current page: /eleventy-base-blog/posts/00003/ -->
+  </body>
+</html>
