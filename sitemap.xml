@@ -2,62 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.mauriciorobayo.com/eleventy-base-blog/posts/00003/</loc>
+    <loc>https://blog.mauriciorobayo.com/posts/00003/</loc>
     <lastmod>2020-02-12</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.mauriciorobayo.com/eleventy-base-blog/posts/00004/</loc>
+    <loc>https://blog.mauriciorobayo.com/posts/00004/</loc>
     <lastmod>2020-02-12</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.mauriciorobayo.com/eleventy-base-blog/posts/00002/</loc>
+    <loc>https://blog.mauriciorobayo.com/posts/00002/</loc>
     <lastmod>2020-02-18</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.mauriciorobayo.com/eleventy-base-blog/posts/00001/</loc>
+    <loc>https://blog.mauriciorobayo.com/posts/00001/</loc>
     <lastmod>2020-07-04</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.mauriciorobayo.com/eleventy-base-blog/about/</loc>
-    <lastmod>2021-10-27</lastmod>
+    <loc>https://blog.mauriciorobayo.com/about/</loc>
+    <lastmod>2021-10-28</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.mauriciorobayo.com/eleventy-base-blog/posts/</loc>
-    <lastmod>2021-10-27</lastmod>
+    <loc>https://blog.mauriciorobayo.com/posts/</loc>
+    <lastmod>2021-10-28</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.mauriciorobayo.com/eleventy-base-blog/</loc>
-    <lastmod>2021-10-27</lastmod>
+    <loc>https://blog.mauriciorobayo.com/</loc>
+    <lastmod>2021-10-28</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.mauriciorobayo.com/eleventy-base-blog/page-list/</loc>
-    <lastmod>2021-10-27</lastmod>
+    <loc>https://blog.mauriciorobayo.com/page-list/</loc>
+    <lastmod>2021-10-28</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.mauriciorobayo.com/eleventy-base-blog/tags/</loc>
-    <lastmod>2021-10-27</lastmod>
+    <loc>https://blog.mauriciorobayo.com/tags/</loc>
+    <lastmod>2021-10-28</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.mauriciorobayo.com/eleventy-base-blog/tags/refactoring/</loc>
-    <lastmod>2021-10-27</lastmod>
+    <loc>https://blog.mauriciorobayo.com/tags/refactoring/</loc>
+    <lastmod>2021-10-28</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.mauriciorobayo.com/eleventy-base-blog/tags/front-end/</loc>
-    <lastmod>2021-10-27</lastmod>
+    <loc>https://blog.mauriciorobayo.com/tags/front-end/</loc>
+    <lastmod>2021-10-28</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.mauriciorobayo.com/eleventy-base-blog/tags/css/</loc>
-    <lastmod>2021-10-27</lastmod>
+    <loc>https://blog.mauriciorobayo.com/tags/css/</loc>
+    <lastmod>2021-10-28</lastmod>
   </url>
 </urlset>
