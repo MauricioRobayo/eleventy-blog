@@ -1,6 +1,6 @@
 ---
 title: CSS Grid IS a grid framework
-date: 2020-02-12
+date: 2019-11-11
 tags:
   - front-end
   - CSS
