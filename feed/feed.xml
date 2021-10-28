@@ -177,7 +177,7 @@ git push heroku
 	<entry>
 		<title>CSS Grid IS a grid framework</title>
 		<link href="https://blog.mauriciorobayo.com/posts/css-grid-is-a-grid-framework/"/>
-		<updated>2020-02-12T00:00:00Z</updated>
+		<updated>2019-11-11T00:00:00Z</updated>
 		<id>https://blog.mauriciorobayo.com/posts/css-grid-is-a-grid-framework/</id>
 		<content type="html">&lt;p&gt;On October 10, 1994, &lt;a href=&quot;https://www.w3.org/People/howcome/p/cascade.html&quot;&gt;Cascading Style Sheets (CSS) were proposed to style online documents&lt;/a&gt;. But then the Internet exploded with web apps and devices, and CSS fell behind. It was not designed to layout complex user interfaces on multiple screen sizes.&lt;/p&gt;
 &lt;p&gt;So, CSS frameworks came alive. And with a huge success, they did. A quick &lt;a href=&quot;https://github.com/search?q=css+grid+framework&quot;&gt;search on Github for CSS grid frameworks&lt;/a&gt; gives more than 500 repositories as a result.&lt;/p&gt;
